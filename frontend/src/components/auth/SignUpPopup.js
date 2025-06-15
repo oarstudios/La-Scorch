@@ -23,6 +23,11 @@ const SignUpPopup = ({ onClose, onSwitch }) => {
 
         <div className="separator">or sign in with email</div>
 
+         <div className="input-wrapper">
+          <img src={emailIcon} alt="Email" className="input-icon" />
+          <input type="name" placeholder="Enter Your UserName" className="input-field" />
+        </div>
+
         <div className="input-wrapper">
           <img src={emailIcon} alt="Email" className="input-icon" />
           <input type="email" placeholder="Enter Your Email ID" className="input-field" />
@@ -33,6 +38,21 @@ const SignUpPopup = ({ onClose, onSwitch }) => {
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Enter New Password"
+            className="input-field"
+          />
+          <img
+            src={showPassword ? eyeOffIcon : eyeIcon}
+            alt="Toggle Password"
+            className="eye-icon"
+            onClick={togglePassword}
+          />
+        </div>
+
+        <div className="input-wrapper password-wrapper">
+          <img src={passwordIcon} alt="Password" className="input-icon" />
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Confirm New Password"
             className="input-field"
           />
           <img

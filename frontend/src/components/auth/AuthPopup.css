@@ -177,12 +177,7 @@
 
 
 
-/* Ensure popup width is fluid and adjusts with screen size */
-.popup-box {
-  width: 90%;
-  max-width: 340px;
-  box-sizing: border-box;
-}
+
 
 /* Adjust title font size on smaller screens */
 @media (max-width: 480px) {
