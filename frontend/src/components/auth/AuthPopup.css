@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
+    animation: fadeInOverlay 0.3s ease-out;
 }
 
 .popup-box {
@@ -18,6 +19,7 @@
   border-radius: 16px;
   width: 340px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+ animation: slideUpPopup 0.4s ease-out;
 
 }
 
@@ -171,4 +173,93 @@
   height: 20px;
   cursor: pointer;
   margin-left: 10px;
+}
+
+
+
+/* Ensure popup width is fluid and adjusts with screen size */
+.popup-box {
+  width: 90%;
+  max-width: 340px;
+  box-sizing: border-box;
+}
+
+/* Adjust title font size on smaller screens */
+@media (max-width: 480px) {
+  .popup-title {
+    font-size: 24px;
+  }
+
+  .google-btn,
+  .email-btn,
+  .login-btn {
+    font-size: 14px;
+    height: 44px;
+  }
+
+  .input-field {
+    font-size: 13px;
+  }
+
+  .toggle-text {
+    font-size: 14px;
+  }
+
+  .separator {
+    font-size: 13px;
+  }
+
+  .popup-box {
+    padding: 16px;
+  }
+
+  .reset-password {
+    font-size: 11px;
+  }
+}
+
+/* Adjust layout slightly for tablets and small laptops */
+@media (min-width: 481px) and (max-width: 768px) {
+  .popup-box {
+    width: 380px;
+    padding: 20px;
+  }
+
+  .popup-title {
+    font-size: 28px;
+  }
+
+  .login-btn,
+  .email-btn {
+    font-size: 15px;
+  }
+}
+
+/* Large laptops/desktops */
+@media (min-width: 1200px) {
+  .popup-box {
+    width: 400px;
+    padding: 24px;
+  }
+}
+/* Fade-in for overlay */
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide-up and fade-in for popup */
+@keyframes slideUpPopup {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
