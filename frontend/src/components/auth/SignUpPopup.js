@@ -43,9 +43,9 @@ const SignUpPopup = ({ onClose, onSwitch }) => {
           />
         </div>
 
-        <div className="reset-row">
+        {/* <div className="reset-row">
           <span className="reset-password">Reset Password?</span>
-        </div>
+        </div> */}
 
         <button className="login-btn">Log In</button>
 
