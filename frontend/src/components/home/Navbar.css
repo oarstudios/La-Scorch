@@ -1,0 +1,103 @@
+.top-bar {
+  background-color: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  padding: 5px 2px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Gilroy-SemiBold;
+}
+
+.main-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color:rgba(255, 252, 246, 1);
+  padding: 0px 24px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #4a2f1c;
+}
+
+.location-icon {
+
+  background-color: rgba(118, 87, 70, 0.15);
+  border-radius: 12px;
+  padding: 8px;
+  width: 24px;
+  height: 24px;
+}
+
+.pin-code {
+  font-weight: 400;
+  font-family: Gilroy-Bold;
+  font-size: 18px;
+  color: rgba(118, 87, 70, 1);
+}
+
+.pin-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* space between pin and arrow */
+}
+
+.down-arrow {
+  width: 20px;   /* adjust size as needed */
+  height: 20px;
+  object-fit: contain;
+}
+
+
+.location-text {
+  font-size: 14px;
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  color: rgba(149, 108, 86, 1);
+}
+
+.logo-img{
+    width: 12rem;
+   
+}
+
+
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  background-color: rgba(118, 87, 70, 1);
+  border: none;
+  padding: 8px;
+  border-radius: 12px;
+  cursor: pointer;
+
+
+}
+
+.nav-login-btn {
+  background-color: transparent;
+  border: 2px solid rgba(118, 87, 70, 1);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 400;
+  font-family: Gilroy-Bold;
+  font-size: 14px;
+  cursor: pointer;
+  color: rgba(118, 87, 70, 1);
+}
+.location {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.location:hover {
+  opacity: 0.85;
+}

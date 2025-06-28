@@ -25,7 +25,7 @@ const SignUpPopup = ({ onClose, onSwitch }) => {
 
          <div className="input-wrapper">
           <img src={emailIcon} alt="Email" className="input-icon" />
-          <input type="name" placeholder="Enter Your UserName" className="input-field" />
+          <input type="name" placeholder="Enter Your User Name" className="input-field" />
         </div>
 
         <div className="input-wrapper">
