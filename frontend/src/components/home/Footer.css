@@ -1,0 +1,78 @@
+
+
+.footer-content {
+  padding: 40px 5%;
+  background: rgba(255, 252, 246, 1);
+}
+
+.footer-columns {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-column h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: rgba(120, 88, 71, 1);
+  font-family: Gilroy-SemiBold;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: rgba(149, 108, 86, 1);
+  font-family: Gilroy-Medium;
+}
+
+.footer-map {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.map-label {
+  font-size: 14px;
+  font-weight: 400;
+  background-color: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  font-family: Gilroy-SemiBold;
+  text-align: center;
+  padding: 6px;
+  margin-top: 6px;
+  border-radius: 5px;
+}
+
+.footer-bottom {
+  background: #08432b;
+  padding: 0px 5%;
+  color: rgba(216, 177, 108, 1);
+  font-family: Gilroy-SemiBold;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  height: 4rem;
+}
+
+.social-icons img {
+  height: 24px;
+  width: 24px;
+  margin-right: 12px;
+  cursor: pointer;
+}

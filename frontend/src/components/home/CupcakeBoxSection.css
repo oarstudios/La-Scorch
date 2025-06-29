@@ -1,0 +1,87 @@
+.cupcake-box-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 5%;
+
+  background: 
+    linear-gradient(
+      90deg,
+      rgba(246, 213, 221, 1) 0%,
+      rgba(237, 221, 190, 1) 50%,
+      rgba(255, 249, 240, 1) 100%
+    ),
+    url('../../Images/d13f29d87fd25b6a33577653cc0e67b0e027be63.png');
+
+
+  background-size: cover, 100px;        /* 🎨 Gradient covers all; pattern tiles at 100px */
+  background-position: center, top left; /* 📍 Pattern starts from top left */
+
+  font-family: 'Gilroy-Medium', sans-serif;
+}
+
+
+.cupcake-box-left {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.cupcake-box-right {
+  flex: 1;
+  text-align: right;
+}
+
+.cupcake-box-img {
+  max-width: 100%;
+  height: auto;
+}
+
+.title {
+  font-size: 38px;
+  font-weight: 700;
+  color: rgba(118, 87, 70, 1);
+  font-family: 'Ethereal Demo', serif;
+  margin-bottom: 20px;
+}
+
+.description {
+  color: rgba(149, 108, 86, 1);
+  font-size: 20px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-weight: 400;
+  font-family: Gilroy-SemiBold;
+}
+
+.add-to-cart-btn {
+  background: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  padding: 12px 32px;
+  font-weight: 400;
+  font-size: 20px;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Gilroy-SemiBold', sans-serif;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background: #093c28;
+}
+
+@media (max-width: 768px) {
+  .cupcake-box-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cupcake-box-left,
+  .cupcake-box-right {
+    padding: 0;
+  }
+
+  .cupcake-box-img {
+    margin-top: 20px;
+  }
+}

@@ -4,7 +4,7 @@ import PincodePopup from '../../components/home/PincodePopup';
 import SignInPopup from '../auth/SignInPopup';
 import SignUpPopup from '../auth/SignUpPopup';
 import downArrow from "../../Images/angle-down.png"
-import pinIcon from '../../Images/Vector (5).png';         // 📍 replace with your pincode vector
+import pinIcon from '../../Images/Vector (10).png';         // 📍 replace with your pincode vector
 import cartIcon from '../../Images/shopping-bag-02-stroke-rounded 1.png';       // 🛒 replace with your cart vector
 import menuIcon from '../../Images/Menu-Icon.png';       // 🎂 replace with your cake/user vector
 import logoImage from '../../Images/WhatsApp Image 2024-11-27 at 18.39.53_5f47cead 1.png';           // 🖼️ actual logo image of "La Scorch"

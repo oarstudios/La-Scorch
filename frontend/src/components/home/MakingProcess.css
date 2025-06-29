@@ -1,0 +1,55 @@
+.making-process-section {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Gilroy-Medium', sans-serif;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(118, 87, 70, 0.1),
+    rgba(118, 87, 70, 1)
+  );
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  max-width: 90%;
+}
+
+.content h2 {
+  font-size: 38px;
+  font-weight: 500;
+  font-family: 'Ethereal Demo', serif;
+  margin-bottom: 24px;
+  color: rgba(255, 249, 240, 1);
+}
+
+.read-more-btn {
+  background: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
+  padding: 10px 24px;
+  font-size: 20px;
+  font-weight: 400;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Gilroy-SemiBold', sans-serif;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.read-more-btn:hover {
+  background: #f5f5f5;
+}

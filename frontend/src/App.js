@@ -1,12 +1,16 @@
 import React from 'react';
-import Home from './components/home/Home'; // adjust path if needed
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/home/Home';
+import FullCategoryPage from './components/fullCategory/FullCategoryPage'; // create this if not already
 
 function App() {
   return (
-    <>
-      <Home />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/category" element={<FullCategoryPage />} />
+      </Routes>
+    </Router>
   );
 }
 

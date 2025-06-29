@@ -1,0 +1,65 @@
+.feedback-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 5%;
+  background: rgba(255, 246, 228, 1); /* Same light cream base */
+  font-family: 'Gilroy-Medium', sans-serif;
+}
+
+.feedback-left {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.feedback-left h2 {
+  font-size: 38px;
+  font-weight: 800;
+  font-family: 'Ethereal Demo', serif;
+  color: rgba(115, 80, 12, 1);
+  margin-bottom: 32px;
+}
+
+.feedback-btn {
+  background: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  padding: 12px 52px;
+  font-size: 20px;
+  font-weight: 400;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Gilroy-SemiBold', sans-serif;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.feedback-btn:hover {
+  background: #093c28;
+}
+
+.feedback-right {
+  flex: 1;
+  text-align: right;
+}
+
+.feedback-img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .feedback-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feedback-left,
+  .feedback-right {
+    padding: 0;
+  }
+
+  .feedback-img {
+    margin-top: 20px;
+  }
+}
