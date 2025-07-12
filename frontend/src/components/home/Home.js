@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../../components/home/Navbar';
+
 import SliderComponent from './SliderComponent';
 import CategorySection from './CategorySection';
 import AboutUs from './AboutUs';
@@ -8,12 +8,12 @@ import CupcakeBoxSection from './CupcakeBoxSection';
 import MakingProcess from './MakingProcess';
 import MenuSection from './MenuSection';
 import FeedbackSection from './FeedbackSection';
-import Footer from './Footer';
+
 
 const Home = () => {
   return (
     <>
-      <Navbar />
+
       <SliderComponent/>
       <CategorySection/>
       <AboutUs/>
@@ -22,7 +22,7 @@ const Home = () => {
       <MakingProcess/>
       <MenuSection/>
       <FeedbackSection/>
-      <Footer/>
+
     
     </>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './BestSellerSection.css';
+import './YouMayAlsoLike.css';
 import sampleImage from '../../Images/slider1.jpg';
 
 const bestSellers = [
@@ -10,7 +10,7 @@ const bestSellers = [
   { name: 'Beery Passion Tart', price: 1299, img: sampleImage },
 ];
 
-const BestSellerSection = () => {
+const YouMayAlsoLike = () => {
   const navigate = useNavigate();
 
   const handleClick = (product) => {
@@ -19,8 +19,8 @@ const BestSellerSection = () => {
 
   return (
     <div className="best-seller-section">
-      <p className="subtitle">Gifts For Your Special Ones</p>
-      <h2 className="title">Best Selling Varieties</h2>
+      <p className="subtitleYMAL">Gifts For Your Special Ones</p>
+      <h2 className="titleYMAL">Explore more Options</h2>
 
       <div className="products-grid">
         {bestSellers.map((product, index) => (
@@ -38,4 +38,4 @@ const BestSellerSection = () => {
   );
 };
 
-export default BestSellerSection;
+export default YouMayAlsoLike;
