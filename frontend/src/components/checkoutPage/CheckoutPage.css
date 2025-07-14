@@ -1,0 +1,279 @@
+.checkout-container {
+  display: flex;
+  padding: 40px 60px;
+  background: #fef9f5;
+  gap: 40px;
+}
+
+.checkout-left {
+  flex: 7;
+  max-width: 60%;
+}
+
+.checkout-right {
+  flex: 3;
+  max-width: 40%;
+  /* background: white; */
+  padding: 24px;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); */
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 900;
+  font-family: Ethereal Demo;
+  color: rgba(195, 151, 53, 1);
+  margin-bottom: 24px;
+}
+
+.input-box {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 1px solid #e8e5df;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fdf7f0;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.delivery-toggle {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.delivery-toggle button {
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fdf7f0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delivery-toggle .active {
+  border-color: #222;
+  font-weight: 600;
+}
+
+.checkout-product {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.checkout-img {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.cart-category {
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  color: rgba(172, 135, 116, 1);
+  margin: 0;
+}
+
+.cart-name-pro{
+margin: 6px 0px 10px 0px;
+font-family: Gilroy-SemiBold;
+font-weight: 400;
+font-size: 18px;
+color: rgba(118, 87, 70, 1);
+}
+
+.cart-size-line {
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+}
+
+.checkout-price {
+  margin-left: auto;
+  font-weight: bold;
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  font-size: 18px;
+  color: rgba(118, 87, 70, 1);
+}
+
+.discount-code-box {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.discount-code-box input {
+  flex: 1;
+  padding: 14px 10px;
+  border: 1px solid rgba(120, 88, 71, 0.15);
+  border-radius: 8px;
+  background: transparent;
+  font-family: Gilroy-Medium;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(120, 88, 71, 1);
+  outline: none;
+}
+
+.apply-btn {
+  padding: 14px 18px;
+  background: rgba(12, 74, 49, 1);
+  color:rgba(255, 255, 255, 1);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: Gilroy-SemiBold;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.price-breakdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px;
+}
+
+.price-breakdown-title{
+  margin: 10px 0px;
+  font-family: Gilroy-SemiBold;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+}
+.price-breakdown-price{
+  margin: 10px 0px;
+  font-family: Gilroy-SemiBold;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+}
+
+.total-price {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+    font-family: Gilroy-SemiBold;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+}
+
+.total-price-title, .total-price-price{
+  font-family: Gilroy-Bold;
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+}
+
+.pay-btn {
+  width: 100%;
+  background: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  border-radius: 8px;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+
+.pickup-info {
+  background-color: rgba(120, 88, 71, 0.05);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 16px;
+  border: 1px solid rgba(120, 88, 71, 0.15);
+}
+
+.store-label {
+  font-weight: 400;
+  font-size: 16px;
+  font-family: Gilroy-SemiBold;
+  color: rgba(120, 88, 71, 1);
+  margin-bottom: 4px;
+}
+
+.store-name {
+  font-weight: 400;
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  color: rgba(120, 88, 71, 1);
+}
+
+.store-address {
+    font-weight: 400;
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  color: rgba(120, 88, 71, 1);
+}
+
+.delivery-toggle button {
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid rgba(120, 88, 71, 1);
+  border-radius: 12px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  color: rgba(120, 88, 71, 1);
+}
+
+.delivery-toggle button.active {
+  background: rgba(120, 88, 71, 0.05);
+  border: 1.5px solid rgba(120, 88, 71, 1);
+  color: rgba(120, 88, 71, 1);
+ 
+}
+
+.input-box {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid rgba(120, 88, 71, 0.15);
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Gilroy-Medium;
+ background: transparent;
+  color: rgba(120, 88, 71, 1);
+  outline: none;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+.back-text{
+    font-family: Gilroy-Medium;
+    font-weight: 400;
+    font-size: 16px;
+    text-decoration: underline;
+    color: rgba(148, 108, 86, 1);
+}
+
+.contact-title{
+    font-weight: 400;
+    font-size: 20px;
+    font-family: Gilroy-Bold;
+    color: rgba(120, 88, 71, 1);
+    margin: 26px 0px 10px 0px;
+}

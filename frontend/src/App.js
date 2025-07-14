@@ -6,6 +6,10 @@ import ProductDetails from './components/productPage/ProductDetails';
 import Navbar from './components/home/Navbar';
 import Footer from './components/home/Footer';
 import YouMayAlsoLike from './components/YouMayAlsoLike/YouMayAlsoLike';
+import NotFound from './components/NotFound/NotFound';
+import CartPage from './components/cartPage/CartPage';
+import CheckoutPage from './components/checkoutPage/CheckoutPage';
+
 
 const AppContent = () => {
   const location = useLocation();
@@ -17,6 +21,10 @@ const AppContent = () => {
         <Route path="/" element={<Home />} />
         <Route path="/category" element={<FullCategoryPage />} />
         <Route path="/product" element={<ProductDetails />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+
+         <Route path="*" element={<NotFound />} />
       </Routes>
       
       {/* Show YouMayAlsoLike only on product page */}

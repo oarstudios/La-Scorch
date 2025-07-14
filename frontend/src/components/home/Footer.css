@@ -1,21 +1,68 @@
-
-
-.footer-content {
-  padding: 40px 5%;
+.footer-wrapper {
   background: rgba(255, 252, 246, 1);
+}
+
+/* Main flex row between LEFT and MAP */
+.footer-main-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 20px 5%;
+}
+
+/* LEFT AREA (text sections) */
+.footer-left {
+  flex: 1.4;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Map on the right */
+.footer-map-full {
+  flex: 1;
+  min-width: 280px;
+  max-width: 360px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-map-full iframe {
+  flex: 1;
+  height: 100%;
+}
+
+.map-label {
+  font-size: 14px;
+  font-weight: 400;
+  background-color: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  font-family: Gilroy-SemiBold;
+  text-align: center;
+  padding: 6px;
+  margin-top: 6px;
+  border-radius: 5px;
 }
 
 .footer-columns {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
 }
 
-.footer-column h4 {
+.footer-column {
+  min-width: 160px;
+  flex: 1;
+}
+
+.footer-column h4,
+.footer-info-section h4 {
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   color: rgba(120, 88, 71, 1);
   font-family: Gilroy-SemiBold;
 }
@@ -35,27 +82,32 @@
   font-family: Gilroy-Medium;
 }
 
-.footer-map {
+/* Bottom Info: Address, Phone, Bulk Orders */
+.footer-bottom-info {
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.footer-info-section {
   flex: 1;
-  min-width: 250px;
-  max-width: 300px;
+  min-width: 200px;
 }
 
-.map-label {
-  font-size: 14px;
+.footer-info-section p {
+  font-size: 15px;
   font-weight: 400;
-  background-color: rgba(12, 74, 49, 1);
-  color: rgba(255, 255, 255, 1);
-  font-family: Gilroy-SemiBold;
-  text-align: center;
-  padding: 6px;
-  margin-top: 6px;
-  border-radius: 5px;
+  color: rgba(149, 108, 86, 1);
+  line-height: 1.6;
+  font-family: Gilroy-Medium;
+  margin: 0 0 10px 0;
 }
 
+/* Bottom bar */
 .footer-bottom {
   background: #08432b;
-  padding: 0px 5%;
+  padding: 12px 5%;
   color: rgba(216, 177, 108, 1);
   font-family: Gilroy-SemiBold;
   font-size: 14px;

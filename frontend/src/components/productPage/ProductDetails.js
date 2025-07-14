@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useLocation } from 'react-router-dom';
 import './ProductDetails.css';
 import vegIcon from '../../Images/veg.png';
 import noteIcon from '../../Images/notes.png';
-import preOrderIcon from '../../Images/calendar-days.png';
+
+
 
 const ProductDetails = () => {
   const { state: product } = useLocation();
@@ -11,13 +14,6 @@ const ProductDetails = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [note, setNote] = useState('');
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
-  const [calendarMonth, setCalendarMonth] = useState(new Date().getMonth());
-  const [selectedDay, setSelectedDay] = useState(null);
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // normalize time
 
   const sizes = [
     { name: 'Grande', desc: '8 inches (8–9 serves)' },
@@ -27,63 +23,13 @@ const ProductDetails = () => {
 
   const images = product?.images || [product?.img, product?.img, product?.img];
 
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  const navigate = useNavigate();
 
-  const getDaysInMonth = (month, year) => {
-    return new Date(year, month + 1, 0).getDate();
-  };
+const handleAddToCart = () => {
+  // Logic to add product to cart goes here (optional, like storing in state/localStorage)
+  navigate('/cart'); // Redirects to cart page
+};
 
-  const renderCalendarDays = () => {
-    const currentYear = today.getFullYear();
-    const daysInMonth = getDaysInMonth(calendarMonth, currentYear);
-    const weekdayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-    const firstDayOfMonth = new Date(currentYear, calendarMonth, 1).getDay();
-
-    const blanks = Array.from({ length: firstDayOfMonth }, (_, i) => (
-      <div key={`blank-${i}`} className="calendar-day blank-day" />
-    ));
-
-    const days = Array.from({ length: daysInMonth }, (_, i) => {
-      const day = i + 1;
-      const thisDate = new Date(currentYear, calendarMonth, day);
-      const isPast = thisDate < today;
-
-      return (
-        <div
-          key={day}
-          className={`calendar-day ${selectedDay === day ? 'selected-day' : ''} ${isPast ? 'disabled-day' : ''}`}
-          onClick={() => {
-            if (!isPast) {
-              setSelectedDay(day);
-              setSelectedDate(`${months[calendarMonth]} ${day}, ${currentYear}`);
-            }
-          }}
-        >
-          {day}
-        </div>
-      );
-    });
-
-    return (
-      <>
-        <div className="weekday-labels">
-          {weekdayLabels.map(day => (
-            <div key={day} className="weekday">
-              {day}
-            </div>
-          ))}
-        </div>
-        <div className="calendar-grid">
-          {blanks}
-          {days}
-        </div>
-      </>
-    );
-  };
 
   return (
     <div className="product-page">
@@ -156,77 +102,31 @@ const ProductDetails = () => {
         </div>
 
         <div className="button-group">
-          <button className="add-cart">Add to cart</button>
-          <button className="pre-order" onClick={() => setShowCalendar(true)}>
-            <img src={preOrderIcon} alt="preorder" style={{ width: '18px', marginRight: '8px', verticalAlign: 'middle' }} />
-            {selectedDate ? `Delivery: ${selectedDate}` : 'Pre-Order Delivery'}
-          </button>
+         <button className="add-cart full-width" onClick={handleAddToCart}>
+  Add to cart
+</button>
         </div>
       </div>
 
       {/* Personal Note Popup */}
-      {showNotePopup && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <h3>Choose or Write a Note</h3>
+     {showNotePopup && (
+  <div className="popup-overlay">
+    <div className="popup modern-popup">
+      <h2 className="popup-heading">Personalize Note</h2>
+      <label className="note-input-label">Add Personalize Note</label>
+      <textarea
+        className="modern-textarea"
+        placeholder="Add personalized note Eg. Happy Birthday"
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+      />
+      <button className="save-button" onClick={() => setShowNotePopup(false)}>
+        Save
+      </button>
+    </div>
+  </div>
+)}
 
-            <div className="preset-notes">
-              {["Happy Birthday!", "Congratulations!", "With Love ❤️"].map((msg) => (
-                <div
-                  key={msg}
-                  className="preset-note"
-                  onClick={() => setNote(msg)}
-                >
-                  {msg}
-                </div>
-              ))}
-            </div>
-
-            <textarea
-              maxLength={100}
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder="Write something sweet... (max 100 characters)"
-            />
-            <div className="char-limit">{note.length}/100</div>
-
-            <div className="popup-buttons">
-              <button onClick={() => setShowNotePopup(false)}>Cancel</button>
-              <button onClick={() => setShowNotePopup(false)}>Save</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Calendar Popup */}
-      {showCalendar && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <h3>Select a Delivery Date</h3>
-
-            <div className="month-selector">
-              {months.map((month, index) => (
-                <div
-                  key={month}
-                  className={`month-option ${calendarMonth === index ? 'active-month' : ''}`}
-                  onClick={() => {
-                    setCalendarMonth(index);
-                    setSelectedDay(null);
-                  }}
-                >
-                  {month}
-                </div>
-              ))}
-            </div>
-
-            {renderCalendarDays()}
-
-            <div className="popup-buttons">
-              <button onClick={() => setShowCalendar(false)}>Close</button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
