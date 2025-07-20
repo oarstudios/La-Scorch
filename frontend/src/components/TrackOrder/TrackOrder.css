@@ -1,0 +1,187 @@
+/* src/components/trackOrder/TrackOrder.css */
+.track-order-container {
+  display: flex;
+  padding: 40px;
+  background: #fff7f1;
+
+  gap: 50px;
+}
+
+.track-left {
+  flex: 1;
+}
+
+.track-right {
+  flex: 1;
+  padding-left: 2rem;
+  border-left: 1px solid #e6dcd1;
+}
+
+.back-text {
+  color: rgba(148, 108, 86, 1);
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-family: Gilroy-Medium;
+  font-size: 16px;
+  font-weight: 400;
+
+}
+
+.order-id {
+  color: rgba(195, 151, 53, 1);
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.order-status {
+  margin: 10px 0 30px;
+  font-weight: 400;
+  font-family: Gilroy-Bold;
+  font-size: 20px;
+}
+
+.status-success {
+  color: rgba(107, 191, 127, 1);
+}
+
+
+.status-pending {
+  color: rgba(123, 94, 87, 1); 
+}
+
+.address-title {
+  margin-bottom: 10px;
+    font-weight: 400;
+  font-family: Gilroy-SemiBold;
+  font-size: 20px;
+  color: rgba(120, 88, 71, 1);
+}
+
+.address-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(120, 88, 71, 0.15);
+  border-radius: 8px;
+  background: transparent;
+  outline: none;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(120, 88, 71, 1);
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.order-meta {
+  text-align: right;
+  font-size: 14px;
+  color: rgba(118, 87, 70, 1);
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+}
+
+.total-items {
+  margin: 20px 0 10px;
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  font-size: 18px;
+  color: rgba(118, 87, 70, 1);
+}
+
+.order-product {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.order-product img {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-category {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(172, 135, 116, 1);
+  margin-bottom: 4px;
+  font-family: Gilroy-Medium;
+}
+
+.item-name {
+  margin: 0;
+  font-size: 18px;
+  color: rgba(118, 87, 70, 1);
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+}
+
+.item-size {
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+}
+
+.item-price {
+ margin: 0;
+  font-size: 18px;
+  color: rgba(118, 87, 70, 1);
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+}
+
+.bill-summary {
+  
+
+  margin-top: 3rem;
+
+}
+
+.bill-summary-text{
+  
+     font-size: 18px;
+  color: rgba(118, 87, 70, 1);
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+}
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+    font-size: 16px;
+  color: rgba(118, 87, 70, 1);
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+}
+
+.summary-line.total {
+  font-size: 20px;
+  font-family: Gilroy-Bold;
+  font-weight: 400;
+ color: rgba(118, 87, 70, 1);
+  margin-top: 20px;
+}
+
+.coupon-msg {
+  background-color: rgba(195, 151, 53, 0.05);
+  padding: 10px;
+  margin-top: 15px;
+  text-align: center;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  font-size: 14px;
+  border-radius: 8px;
+  color: rgba(195, 151, 53, 1);
+}

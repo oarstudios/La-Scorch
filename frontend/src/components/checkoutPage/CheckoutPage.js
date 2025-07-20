@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CheckoutPage.css';
 import sampleImg from '../../Images/slider1.jpg';
 
@@ -40,6 +41,7 @@ const CheckoutPage = () => {
   const deliveryCharge = 500;
   const discount = 500;
   const total = subtotal + deliveryCharge - discount;
+  const navigate = useNavigate();
 
   return (
     <div className="checkout-container">
@@ -179,7 +181,9 @@ const CheckoutPage = () => {
           <h2 className="total-price-price">₹{total.toLocaleString()}</h2>
         </div>
 
-        <button className="pay-btn">Pay Now</button>
+    <button className="pay-btn" onClick={() => navigate('/order-confirmation')}>
+  Pay Now
+</button>
       </div>
     </div>
   );

@@ -9,6 +9,10 @@ import YouMayAlsoLike from './components/YouMayAlsoLike/YouMayAlsoLike';
 import NotFound from './components/NotFound/NotFound';
 import CartPage from './components/cartPage/CartPage';
 import CheckoutPage from './components/checkoutPage/CheckoutPage';
+import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation';
+import TrackOrder from './components/TrackOrder/TrackOrder';
+import MyOrders from './components/MyOrders/MyOrders';
+import MyAccount from './components/MyAccount/MyAccount';
 
 
 const AppContent = () => {
@@ -23,6 +27,12 @@ const AppContent = () => {
         <Route path="/product" element={<ProductDetails />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
+        <Route path="/track-order" element={<TrackOrder />} />
+        <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/my-account" element={<MyAccount/>}/>
+
+
 
          <Route path="*" element={<NotFound />} />
       </Routes>

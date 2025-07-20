@@ -1,0 +1,46 @@
+/* src/components/orderConfirmation/OrderConfirmation.css */
+.confirmation-container {
+  text-align: center;
+
+  background-color: #fff7f1;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmation-image {
+  width: 100px;
+  /* margin-bottom: 20px; */
+}
+
+.confirmation-title {
+  font-size: 28px;
+  font-weight: 400;
+  font-family: Gilroy-SemiBold;
+  color: rgba(123, 94, 87, 1);
+  margin: 0.5rem 0rem;
+}
+
+.confirmation-text {
+  color: rgba(123, 94, 87, 1);
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  font-size: 14px;
+  margin: 0.5rem 0rem;
+}
+
+.track-order-btn {
+  background-color: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
