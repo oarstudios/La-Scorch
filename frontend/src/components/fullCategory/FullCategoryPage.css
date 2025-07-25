@@ -100,3 +100,52 @@
 .add-btn:hover {
   background: #093c28;
 }
+
+
+
+.full-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(204, 204, 204, 1);
+  padding: 10px 14px;
+  border-radius: 12px;
+  width: 260px;
+}
+
+.search-bar img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  opacity: 0.6;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  font-family: 'Gilroy-Medium', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  width: 100%;
+color: rgba(148, 108, 86, 1);
+ 
+}
+
+@media (max-width: 768px) {
+  .full-category-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+}

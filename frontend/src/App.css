@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'Gilroy-Medium';
+  src: url('./assets/fonts/gilroy-medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy-SemiBold';
+  src: url('./assets/fonts/gilroy-semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy-Bold';
+  src: url('./assets/fonts/gilroy-bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ethereal Demo';
+  src: url('./assets/fonts/ethereal-demo.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

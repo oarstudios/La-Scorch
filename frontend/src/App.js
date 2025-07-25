@@ -13,6 +13,8 @@ import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation'
 import TrackOrder from './components/TrackOrder/TrackOrder';
 import MyOrders from './components/MyOrders/MyOrders';
 import MyAccount from './components/MyAccount/MyAccount';
+import './App.css'
+import './index.css'
 
 
 const AppContent = () => {

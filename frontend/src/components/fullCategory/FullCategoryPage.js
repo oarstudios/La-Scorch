@@ -1,6 +1,7 @@
 import React from 'react';
 import './FullCategoryPage.css';
-import sampleImage from '../../Images/slider1.jpg'; // Replace with actual cake image
+import sampleImage from '../../Images/slider1.jpg';
+import searchIcon from '../../Images/Search.png'; // Replace with your magnifying glass icon
 
 const products = Array(8).fill({
   name: 'Dark Chocolate',
@@ -11,8 +12,16 @@ const products = Array(8).fill({
 const FullCategoryPage = () => {
   return (
     <div className="full-category-section">
-      <p className="subtitle-allCAt">Gifts For Your Special Ones</p>
-      <h2 className="title-allCAt">Explore More In Chocolates</h2>
+      <div className="full-category-header">
+        <div>
+          <p className="subtitle-allCAt">Gifts For Your Special Ones</p>
+          <h2 className="title-allCAt">Explore More In Chocolates</h2>
+        </div>
+        <div className="search-bar">
+          <img src={searchIcon} alt="Search Icon" />
+          <input type="text" placeholder="Search For Chocolates" />
+        </div>
+      </div>
 
       <div className="products-grid">
         {products.map((product, index) => (

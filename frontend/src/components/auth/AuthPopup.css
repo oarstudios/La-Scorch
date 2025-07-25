@@ -110,7 +110,7 @@
 }
 
 .input-field {
-  border: none;
+  border: none; 
   outline: none;
   flex: 1;
   font-size: 14px;
@@ -141,13 +141,14 @@
   text-align: center;
   color: hsl(156, 72%, 17%);
   font-family: Gilroy-Medium;
-  text-decoration: underline;
+
   font-weight: 400;
 }
 
 .link {
   color: #0d3b2e;
   font-weight: 500;
+    text-decoration: underline;
   cursor: pointer;
 }
 

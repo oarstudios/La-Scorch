@@ -8,6 +8,7 @@ import CupcakeBoxSection from './CupcakeBoxSection';
 import MakingProcess from './MakingProcess';
 import MenuSection from './MenuSection';
 import FeedbackSection from './FeedbackSection';
+import FeedbackView from './FeedbackView';
 
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
       <CupcakeBoxSection/>
       <MakingProcess/>
       <MenuSection/>
+      <FeedbackView/>
       <FeedbackSection/>
 
     

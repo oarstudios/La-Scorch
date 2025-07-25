@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './MyAccount.css';
-import EditIcon from '../../Images/Vector (5).png';
-import DeleteIcon from '../../Images/delete-01-stroke-rounded 1.png';
+import EditIcon from '../../Images/pen.png';
+import DeleteIcon from '../../Images/del.png';
 
 const MyAccount = () => {
   const [showPopup, setShowPopup] = useState(false);
