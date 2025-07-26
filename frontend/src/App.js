@@ -15,6 +15,7 @@ import MyOrders from './components/MyOrders/MyOrders';
 import MyAccount from './components/MyAccount/MyAccount';
 import './App.css'
 import './index.css'
+import ContactUs from './components/ContactUs/ContactUs';
 
 
 const AppContent = () => {
@@ -33,6 +34,7 @@ const AppContent = () => {
         <Route path="/track-order" element={<TrackOrder />} />
         <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/my-account" element={<MyAccount/>}/>
+             <Route path="/contact-us" element={<ContactUs/>}/>
 
 
 

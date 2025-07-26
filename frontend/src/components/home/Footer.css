@@ -1,5 +1,5 @@
 .footer-wrapper {
-  background: rgba(255, 252, 246, 1);
+  background: #FFFCF6;
 }
 
 /* Main flex row between LEFT and MAP */
@@ -9,6 +9,7 @@
   align-items: flex-start;
   gap: 40px;
   flex-wrap: wrap;
+  background-color: #FFFCF6;
   padding: 20px 5%;
 }
 
@@ -106,7 +107,7 @@
 
 /* Bottom bar */
 .footer-bottom {
-  background: #08432b;
+  background: #0C4A31;
   padding: 12px 5%;
   color: rgba(216, 177, 108, 1);
   font-family: Gilroy-SemiBold;
@@ -128,3 +129,113 @@
   margin-right: 12px;
   cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+  .footer-main-row {
+    flex-direction: column;
+    padding: 20px 6%;
+  }
+
+  .footer-columns {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  .footer-column {
+    flex: 1 1 calc(50% - 10px); /* 2 columns per row */
+    min-width: 140px;
+  }
+
+  .footer-bottom-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-info-section {
+    width: 100%;
+  }
+
+  .footer-map-full {
+    width: 100%;
+    max-width: 100%;
+    height: 25rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    height: 3rem;
+  }
+}
+
+/* Tablet (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .footer-columns {
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-column {
+    flex: 1 1 calc(50% - 12px); /* Ensure 2 columns in one row */
+  }
+
+  .footer-bottom-info {
+    flex-wrap: wrap;
+  }
+
+  .footer-map-full {
+    width: 100%;
+    max-width: 100%;
+    height: 20rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    height: 3.5rem;
+  }
+}
+
+/* Small Laptops (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .footer-columns {
+    gap: 30px;
+  }
+
+  .footer-column {
+    flex: 1 1 calc(33% - 20px);
+  }
+
+  .footer-map-full {
+    height: 22rem;
+  }
+
+  .footer-bottom {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+/* Large Laptops and up (≥1025px) */
+/* No changes needed — existing layout handles it well */

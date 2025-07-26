@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 60px 5%;
-  background: rgba(255, 246, 228, 1);
+  background: #FFF6E4;
   font-family: 'Gilroy-Medium', sans-serif;
 }
 
@@ -156,3 +156,113 @@
 .popup-submit:hover {
   background-color: #003b2e;
 }
+
+
+
+
+/* ---------------- Responsive Design ------------------ */
+
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+  .feedback-left h2 {
+    font-size: 24px;
+  }
+
+  .feedback-btn {
+    padding: 10px 36px;
+    font-size: 16px;
+  }
+
+  .popup-title {
+    font-size: 22px;
+  }
+
+  .popup-stars img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .popup-textarea {
+    height: 70px;
+    font-size: 13px;
+  }
+
+  .popup-submit {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .ratestar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .popup-close {
+    top: 10px;
+    right: 14px;
+  }
+}
+
+/* Tablet (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .feedback-left h2 {
+    font-size: 28px;
+  }
+
+  .feedback-btn {
+    padding: 10px 40px;
+    font-size: 18px;
+  }
+
+  .popup-title {
+    font-size: 24px;
+  }
+
+  .popup-textarea {
+    height: 75px;
+  }
+
+  .popup-submit {
+    font-size: 15px;
+  }
+
+  .ratestar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .popup-close {
+    top: 10px;
+    right: 14px;
+  }
+}
+
+/* Small Laptops (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .feedback-left h2 {
+    font-size: 32px;
+  }
+}
+
+/* Large Laptops / Desktops (≥1025px) */
+@media (min-width: 1025px) {
+  .feedback-popup {
+    width: 400px;
+  }
+}
+
+/* ---------------- Popup Close Button ------------------ */
+.popup-close {
+  
+ 
+  font-size: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #7c5b45;
+  z-index: 10;
+}
+
+

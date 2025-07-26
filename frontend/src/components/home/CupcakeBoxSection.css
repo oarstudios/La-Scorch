@@ -85,3 +85,95 @@
     margin-top: 20px;
   }
 }
+
+
+
+
+/* ---------- Mobile (≤480px) ---------- */
+@media (max-width: 480px) {
+  .cupcake-box-section {
+    padding: 40px 20px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+
+  .add-to-cart-btn {
+    font-size: 16px;
+    padding: 10px 24px;
+  }
+
+  .cupcake-box-img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+  }
+}
+
+/* ---------- Tablet (481px to 767px) ---------- */
+@media (min-width: 481px) and (max-width: 767px) {
+  .cupcake-box-section {
+    padding: 50px 30px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .description {
+    font-size: 17px;
+  }
+
+  .add-to-cart-btn {
+    font-size: 18px;
+  }
+
+  .cupcake-box-img {
+    max-width: 90%;
+    height: auto;
+  }
+
+  .cupcake-box-right {
+    flex: 1 1;
+    text-align: center;
+}
+}
+
+/* ---------- Small Laptop (768px to 1023px) ---------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cupcake-box-section {
+    padding: 60px 40px;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .description {
+    font-size: 18px;
+  }
+
+  .add-to-cart-btn {
+    font-size: 18px;
+    padding: 12px 28px;
+  }
+
+  .cupcake-box-right {
+    flex: 1 1;
+    text-align: center;
+}
+
+
+}
+
+/* ---------- Large Laptop (≥1024px) ---------- */
+@media (min-width: 1024px) {
+  .cupcake-box-section {
+    padding: 60px 5%;
+  }
+}

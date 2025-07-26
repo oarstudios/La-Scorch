@@ -101,3 +101,87 @@
   color: #333;
   cursor: pointer;
 }
+
+
+
+
+/* ---------- Responsive: Mobile Phones ---------- */
+@media (max-width: 480px) {
+  .popup-box {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .popup-title-pin {
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .input-field-pincode {
+    font-size: 14px;
+    padding: 10px 14px;
+    width: 100%;
+  }
+
+  .confirm-btn,
+  .explore-btn {
+    font-size: 14px;
+    height: 44px;
+    padding: 10px;
+  }
+
+  .error-btn-wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .close-btn {
+    font-size: 22px;
+    top: 8px;
+    right: 12px;
+  }
+}
+
+/* ---------- Responsive: Tablets ---------- */
+@media (min-width: 481px) and (max-width: 768px) {
+  .popup-box {
+    padding: 26px;
+  }
+
+  .popup-title-pin {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .input-field-pincode {
+    font-size: 15px;
+  }
+
+  .confirm-btn,
+  .explore-btn {
+    font-size: 15px;
+  }
+}
+
+/* ---------- Responsive: Small Laptops ---------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .popup-box {
+    max-width: 360px;
+  }
+
+  .popup-title-pin {
+    font-size: 28px;
+  }
+}
+
+/* ---------- Responsive: Large Screens ---------- */
+@media (min-width: 1440px) {
+  .popup-box {
+    max-width: 420px;
+  }
+
+  .popup-title-pin {
+    font-size: 34px;
+  }
+}

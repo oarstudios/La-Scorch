@@ -1,7 +1,7 @@
 .account-wrapper {
   display: flex;
   min-height: 100vh;
-  background-color: #fdf7ee;
+background-color: #FFF9F0;
   font-family: 'Inter', sans-serif;
 }
 
@@ -220,11 +220,11 @@
 
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 6px;
+  right: 6px;
   background: transparent;
   border: none;
-  font-size: 18px;
+  font-size: 18px !important;
   cursor: pointer;
   color: #333;
 }
@@ -272,4 +272,129 @@
   margin-bottom: 4px;
   font-family: Gilroy-Medium;
   display: block;
+}
+
+
+
+
+
+
+
+
+@media (max-width: 1024px) {
+  .left-content {
+    width: 100%;
+    padding: 32px;
+  }
+
+  .account-wrapper {
+    flex-direction: column;
+  }
+
+  .right-content {
+    display: none;
+  }
+
+  .popup-content {
+    width: 90%;
+  }
+
+  .popup-content .input-group-row {
+    flex-direction: column;
+  }
+
+  .popup-content input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .left-content {
+    padding: 24px;
+  }
+
+  .heading {
+    font-size: 26px;
+  }
+
+  .section-heading {
+    font-size: 18px;
+  }
+
+  .input-group-row {
+    flex-direction: column;
+  }
+
+  .account-wrapper input[type="text"],
+  .account-wrapper input[type="email"],
+  .account-wrapper input[type="tel"] {
+    width: 90%;
+  }
+
+  .popup-content {
+    padding: 10px;
+  }
+
+  .popup-content h2 {
+    font-size: 24px;
+  }
+
+  .update-btn {
+    font-size: 14px;
+  }
+
+  .radio-option {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .radio-option input[type="radio"] {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .left-content {
+    padding: 16px;
+  }
+
+  .heading {
+    font-size: 22px;
+  }
+
+  .section-heading {
+    font-size: 16px;
+  }
+
+  .address-header h3 {
+    font-size: 14px;
+  }
+
+  .phone,
+  .address-header-p {
+    font-size: 13px;
+  }
+
+  .popup-content h2 {
+    font-size: 20px;
+  }
+
+  .form-label {
+    font-size: 13px;
+  }
+
+  .radio-option {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .update-btn {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .close-btn {
+    font-size: 20px;
+  }
 }

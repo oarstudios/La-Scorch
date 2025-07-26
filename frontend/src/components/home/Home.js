@@ -1,4 +1,6 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import SliderComponent from './SliderComponent';
 import CategorySection from './CategorySection';
@@ -12,6 +14,18 @@ import FeedbackView from './FeedbackView';
 
 
 const Home = () => {
+   const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo === 'feedback') {
+      const section = document.getElementById('feedback');
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }, 100); // delay to ensure DOM is ready
+      }
+    }
+  }, [location]);
   return (
     <>
 
@@ -23,7 +37,8 @@ const Home = () => {
       <MakingProcess/>
       <MenuSection/>
       <FeedbackView/>
-      <FeedbackSection/>
+     <FeedbackSection id="feedback" />
+
 
     
     </>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import './MyAccount.css';
 import EditIcon from '../../Images/pen.png';
 import DeleteIcon from '../../Images/del.png';
@@ -40,11 +41,12 @@ const MyAccount = () => {
   const handleAddressTypeChange = (type) => {
     setAddressType(type);
   };
+      const navigate = useNavigate();
 
   return (
     <div className="account-wrapper">
       <div className="left-content">
-       <a href="#" className="back-link">Back</a>
+         <p className="back-text" onClick={() => navigate(-1)} style={{ cursor: 'pointer' }}>← Back</p>
         <h1 className="heading">My Account</h1>
 
         <section className="section">

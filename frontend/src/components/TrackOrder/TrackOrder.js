@@ -1,5 +1,6 @@
 // src/components/trackOrder/TrackOrder.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './TrackOrder.css';
 import sampleImg from '../../Images/slider1.jpg'; // use actual product image
 
@@ -30,6 +31,7 @@ const TrackOrder = () => {
       img: sampleImg,
     },
   ];
+    const navigate = useNavigate();
   const status = 'Delivered'; // or 'Delivered'
 const deliveryDate = '14/07/25';
 const deliveryTime = '03:24 PM';
@@ -46,7 +48,9 @@ const deliveryTime = '03:24 PM';
   return (
     <div className="track-order-container">
       <div className="track-left">
-        <p className="back-text">← Back</p>
+    
+        <p className="back-text" onClick={() => navigate(-1)} style={{ cursor: 'pointer' }}>← Back</p>
+
         <h2 className="order-id">Order ID #12345</h2>
         <p className="order-status">
  <span className={getStatusClass()}>

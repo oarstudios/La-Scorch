@@ -21,7 +21,8 @@ const FeedbackSection = () => {
 
   return (
     <>
-      <section className="feedback-section">
+   <section className="feedback-section" id="feedback">
+
         <div className="feedback-left">
           <h2>Listen what people say about our delicious cakes!</h2>
           <button className="feedback-btn" onClick={() => setShowPopup(true)}>Give Feedback</button>
@@ -34,6 +35,7 @@ const FeedbackSection = () => {
       {showPopup && (
         <div className="popup-overlay" onClick={() => setShowPopup(false)}>
           <div className="feedback-popup" onClick={(e) => e.stopPropagation()}>
+            <button className="popup-close" onClick={() => setShowPopup(false)}>×</button>
             <h3 className="popup-title">Give Feedback</h3>
             <div className="ratestar">
                <p className="popup-label">Rate Us</p>

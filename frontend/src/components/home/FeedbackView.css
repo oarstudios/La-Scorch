@@ -1,5 +1,5 @@
 .feedback-view-section {
-  background-color: rgba(255, 249, 240, 1);
+  background-color: #FFF9F0;
   padding: 100px 40px;
   text-align: center;
 }
@@ -81,4 +81,80 @@
   color: rgba(120, 88, 71, 1);
   line-height: 1.4;
   font-family: Gilroy-SemiBold;
+}
+
+
+
+/* ---------- Mobile (≤480px) ---------- */
+@media (max-width: 480px) {
+  .feedback-view-section {
+    padding: 60px 20px;
+  }
+
+  .feedback-view-title {
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+
+  .feedback-view-subtitle {
+    font-size: 14px;
+  }
+
+  .feedback-card {
+    padding: 16px;
+    height: auto;
+  }
+
+  .feedback-text {
+    font-size: 14px;
+  }
+}
+
+/* ---------- Tablet (481px to 767px) ---------- */
+@media (min-width: 481px) and (max-width: 767px) {
+  .feedback-view-section {
+    padding: 80px 30px;
+  }
+
+  .feedback-view-title {
+    font-size: 26px;
+  }
+
+  .feedback-card {
+    /* height: auto; */
+  }
+
+  .feedback-text {
+    font-size: 15px;
+  }
+}
+
+/* ---------- Small Laptop (768px to 1023px) ---------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .feedback-view-section {
+    padding: 90px 40px;
+  }
+
+  .feedback-view-title {
+    font-size: 30px;
+  }
+
+  .feedback-card {
+    /* height: auto; */
+  }
+}
+
+/* ---------- Large Laptop/Desktop (≥1024px) ---------- */
+@media (min-width: 1024px) {
+  .feedback-view-section {
+    padding: 100px 40px;
+  }
+
+  .feedback-view-title {
+    font-size: 32px;
+  }
+
+  .feedback-card {
+    height: 14rem;
+  }
 }

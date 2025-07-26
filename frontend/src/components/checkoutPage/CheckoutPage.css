@@ -1,7 +1,7 @@
 .checkout-container {
   display: flex;
   padding: 40px 60px;
-  background: #fef9f5;
+ background-color: #FFF9F0;
   gap: 40px;
 }
 
@@ -276,4 +276,127 @@ color: rgba(118, 87, 70, 1);
     font-family: Gilroy-Bold;
     color: rgba(120, 88, 71, 1);
     margin: 26px 0px 10px 0px;
+}
+
+
+
+
+
+
+
+
+/* Large Tablets & Small Laptops */
+@media (max-width: 1024px) {
+  .checkout-container {
+    flex-direction: column;
+    padding: 32px 40px;
+  }
+
+  .checkout-left,
+  .checkout-right {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .checkout-right {
+    margin-top: 32px;
+    padding: 0px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+/* Tablets */
+@media (max-width: 568px) {
+  .checkout-container {
+    padding: 24px 20px;
+  }
+
+  .checkout-product {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .checkout-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .checkout-price {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .discount-code-box {
+    /* flex-direction: column; */
+    gap: 12px;
+  }
+
+  .delivery-toggle {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .delivery-toggle button {
+    width: 100%;
+  }
+
+  .pay-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 480px) {
+  .checkout-container {
+    padding: 1.5rem;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .contact-title {
+    font-size: 18px;
+  }
+
+  .cart-name-pro {
+    font-size: 16px;
+  }
+
+  .cart-size-line,
+  .cart-category,
+  .checkout-price {
+    font-size: 14px;
+  }
+
+  .total-price-title,
+  .total-price-price {
+    font-size: 18px;
+  }
+
+  .apply-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .discount-code-box input {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .input-box {
+    font-size: 13px;
+    padding: 10px;
+    width: 95%;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 0;
+  }
 }

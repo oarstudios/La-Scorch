@@ -46,7 +46,8 @@ const CheckoutPage = () => {
   return (
     <div className="checkout-container">
       <div className="checkout-left">
-        <h3 className="back-text">← Back</h3>
+     <h3 className="back-text" onClick={() => navigate(-1)} style={{ cursor: 'pointer' }}>← Back</h3>
+
         <h1 className="page-title">Enter Details</h1>
 
         <h4 className='contact-title'>Contact</h4>

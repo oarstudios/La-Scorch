@@ -2,7 +2,7 @@
 .track-order-container {
   display: flex;
   padding: 40px;
-  background: #fff7f1;
+background-color: #FFF9F0;
 
   gap: 50px;
 }
@@ -184,4 +184,136 @@
   font-size: 14px;
   border-radius: 8px;
   color: rgba(195, 151, 53, 1);
+}
+
+
+
+
+
+
+
+
+@media (max-width: 1024px) {
+  .track-order-container {
+    flex-direction: column;
+    padding: 30px 40px;
+  }
+
+  .track-left, .track-right {
+    max-width: 100%;
+    padding: 0;
+    border: none;
+  }
+
+  .track-right {
+    margin-top: 40px;
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .order-meta {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .track-order-container {
+    padding: 24px;
+  }
+
+  .order-id {
+    font-size: 22px;
+  }
+
+  .order-status {
+    font-size: 16px;
+  }
+
+  .address-box input {
+    font-size: 13px;
+    padding: 10px;
+    width: 95%;
+  }
+
+  .item-name {
+    font-size: 16px;
+  }
+
+  .item-price {
+    font-size: 16px;
+  }
+
+  .summary-line {
+    font-size: 15px;
+  }
+
+  .summary-line.total {
+    font-size: 18px;
+  }
+
+  .coupon-msg {
+    font-size: 13px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .track-order-container {
+    padding: 1.5rem;
+  }
+
+  .order-id {
+    font-size: 20px;
+  }
+
+  .order-status {
+    font-size: 14px;
+  }
+
+  .total-items {
+    font-size: 16px;
+  }
+
+  .order-product {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-product img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 12px;
+  }
+
+  .item-price {
+    align-self: flex-end;
+    margin-top: 6px;
+  }
+
+  .bill-summary-text {
+    font-size: 16px;
+  }
+
+  .summary-line {
+    font-size: 14px;
+  }
+
+  .summary-line.total {
+    font-size: 16px;
+  }
+
+  .coupon-msg {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .address-box input {
+    font-size: 12px;
+    padding: 8px;
+    width: 95%;
+  }
 }

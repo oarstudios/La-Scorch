@@ -1,7 +1,7 @@
 .product-page {
   display: flex;
   padding: 5rem;
-  background-color: #fff9f0;
+  background-color: #FFF9F0;
   font-family: "Poppins", sans-serif;
   gap: 4rem;
 }
@@ -318,3 +318,148 @@
 .save-button:hover {
   background-color: #063b27;
 }
+
+
+
+
+
+
+
+
+
+
+/* Responsive styles for small devices (≤ 480px) */
+@media (max-width: 480px) {
+  .product-page {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
+
+  .product-image img {
+    height: auto;
+    max-height: 18rem;
+  }
+
+  .product-details {
+    width: 100%;
+  }
+
+  .title-row {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .size-options {
+    flex-direction: column;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .add-cart,
+  .pre-order {
+    width: 100%;
+  }
+
+  .modern-popup {
+    width: 100%;
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .popup-heading {
+    font-size: 24px;
+  }
+
+  .modern-textarea {
+    width: 95%;
+  }
+
+  .save-button {
+    font-size: 15px;
+  }
+}
+
+/* Responsive styles for tablets (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .product-page {
+    flex-direction: column;
+    padding: 2.5rem;
+    gap: 2.5rem;
+  }
+
+  .product-image img {
+    height: auto;
+    max-height: 24rem;
+  }
+
+  .size-options {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .add-cart,
+  .pre-order {
+    width: 100%;
+  }
+
+  .modern-popup {
+    width: 90%;
+    margin: 20px;
+  }
+
+  .popup-heading {
+    font-size: 26px;
+  }
+
+  .modern-textarea {
+    width: 95%;
+  }
+}
+
+/* Responsive styles for small laptops (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .product-page {
+    padding: 3rem;
+    gap: 3rem;
+  }
+
+  .product-image img {
+    height: 28rem;
+  }
+
+  .size-options {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .button-group {
+    flex-direction: row;
+  }
+
+  .modern-popup {
+    width: 480px;
+  }
+}
+
+/* No changes for large laptops and desktops (≥1025px) — existing layout handles it well */
+.close-button {
+  
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: rgba(118, 87, 70, 1);
+  cursor: pointer;
+  z-index: 10;
+  line-height: 1;
+}
+
+

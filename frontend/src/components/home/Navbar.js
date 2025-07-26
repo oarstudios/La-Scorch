@@ -8,6 +8,10 @@ import pinIcon from '../../Images/Vector (10).png';
 import cartIcon from '../../Images/shopping-bag-02-stroke-rounded 1.png';
 import menuIcon from '../../Images/Menu-Icon.png';
 import logoImage from '../../Images/WhatsApp Image 2024-11-27 at 18.39.53_5f47cead 1.png';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+
+
+
 
 const Navbar = () => {
   const [showSignIn, setShowSignIn] = useState(false);
@@ -16,6 +20,11 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const menuButtonRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [showFeedback, setShowFeedback] = useState(false);
+
+
 
   const switchToSignUp = () => {
     setShowSignIn(false);
@@ -69,7 +78,10 @@ const Navbar = () => {
         </div>
 
         <div className="logo">
-          <img src={logoImage} alt="La Scorch Logo" className="logo-img" />
+          <Link to="/" className="logo">
+  <img src={logoImage} alt="La Scorch Logo" className="logo-img" />
+</Link>
+
         </div>
 
         <div className="nav-buttons">
@@ -79,22 +91,77 @@ const Navbar = () => {
           <button className="icon-btn" onClick={() => setShowDropdown(prev => !prev)}>
             <img src={menuIcon} alt="User/Cake" className="nav-icon" />
           </button>
-          <button className="nav-login-btn" onClick={() => setShowSignIn(true)}>Log In</button>
+          {/* <button className="nav-login-btn" onClick={() => setShowSignIn(true)}>Log In</button> */}
         </div>
       </div>
 
-      {showDropdown && (
-        <div className="user-dropdown" ref={dropdownRef}>
-          <div className="user-item">My Profile</div>
-          <div className="user-item">My Orders</div>
-          <div className="user-item">Give Feedback</div>
-          <div className="user-item">Log Out</div>
-        </div>
-      )}
+{showDropdown && (
+  <div className="user-dropdown" ref={dropdownRef}>
+    <div
+      className="user-item"
+      onClick={() => {
+        setShowDropdown(false);
+        navigate('/my-account');
+      }}
+    >
+      My Profile
+    </div>
+
+    <div
+      className="user-item"
+      onClick={() => {
+        setShowDropdown(false);
+        navigate('/my-orders');
+      }}
+    >
+      My Orders
+    </div>
+
+    <div
+      className="user-item"
+      onClick={() => {
+        setShowDropdown(false);
+        navigate('/contact-us');
+      }}
+    >
+      Contact Us
+    </div>
+
+    <div
+      className="user-item"
+      onClick={() => {
+        setShowDropdown(false);
+        if (location.pathname === '/') {
+          const section = document.getElementById('feedback');
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        } else {
+          navigate('/', { state: { scrollTo: 'feedback' } });
+        }
+      }}
+    >
+      Give Feedback
+    </div>
+
+    <div
+      className="user-item"
+      onClick={() => {
+        setShowDropdown(false);
+        // Add logout logic here if needed
+      }}
+    >
+      Log Out
+    </div>
+  </div>
+)}
+
+
 
       {showSignIn && <SignInPopup onClose={() => setShowSignIn(false)} onSwitch={switchToSignUp} />}
       {showSignUp && <SignUpPopup onClose={() => setShowSignUp(false)} onSwitch={switchToSignIn} />}
       {showPincode && <PincodePopup onClose={() => setShowPincode(false)} />}
+        
     </>
   );
 };

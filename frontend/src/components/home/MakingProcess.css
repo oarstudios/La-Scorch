@@ -53,3 +53,73 @@
 .read-more-btn:hover {
   background: #f5f5f5;
 }
+
+
+
+
+/* ---------- Mobile (≤480px) ---------- */
+@media (max-width: 480px) {
+  .making-process-section {
+    height: 26rem;
+    padding: 0 16px;
+  }
+
+  .content h2 {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .read-more-btn {
+    font-size: 14px;
+    padding: 8px 20px;
+  }
+}
+
+/* ---------- Tablet (481px to 767px) ---------- */
+@media (min-width: 481px) and (max-width: 767px) {
+  .making-process-section {
+    height: 32rem;
+    padding: 0 24px;
+  }
+
+  .content h2 {
+    font-size: 26px;
+  }
+
+  .read-more-btn {
+    font-size: 16px;
+    padding: 9px 22px;
+  }
+}
+
+/* ---------- Small Laptop (768px to 1023px) ---------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .making-process-section {
+    height: 36rem;
+    padding: 0 32px;
+  }
+
+  .content h2 {
+    font-size: 32px;
+  }
+
+  .read-more-btn {
+    font-size: 18px;
+    padding: 10px 24px;
+  }
+}
+
+/* ---------- Large Laptop/Desktop (≥1024px) ---------- */
+@media (min-width: 1024px) {
+  .making-process-section {
+    height: 40rem;
+  }
+
+  .content h2 {
+    font-size: 38px;
+  }
+
+  .read-more-btn {
+    font-size: 20px;
+  }
+}

@@ -1,7 +1,7 @@
 .notfound-container {
   text-align: center;
   padding: 80px 20px;
-  background-color: #FFF9F0;
+background-color: #FFF9F0;
   min-height: 70vh;
   font-family: 'Poppins', sans-serif;
 }
@@ -42,4 +42,68 @@
 
 .notfound-button:hover {
   background-color: #063b27;
+}
+
+
+
+
+@media (max-width: 1024px) {
+  .notfound-heading {
+    font-size: 24px;
+  }
+
+  .notfound-subtext {
+    font-size: 16px;
+  }
+
+  .notfound-button {
+    font-size: 15px;
+    padding: 10px 24px;
+  }
+
+  .notfound-image {
+    max-width: 18rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .notfound-heading {
+    font-size: 22px;
+  }
+
+  .notfound-subtext {
+    font-size: 15px;
+  }
+
+  .notfound-button {
+    font-size: 14px;
+    padding: 9px 22px;
+  }
+
+  .notfound-image {
+    max-width: 16rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .notfound-container {
+    padding: 60px 16px;
+  }
+
+  .notfound-heading {
+    font-size: 20px;
+  }
+
+  .notfound-subtext {
+    font-size: 14px;
+  }
+
+  .notfound-button {
+    font-size: 13px;
+    padding: 8px 20px;
+  }
+
+  .notfound-image {
+    max-width: 14rem;
+  }
 }
