@@ -165,7 +165,7 @@
 /* Mobile (≤480px) */
 @media (max-width: 480px) {
   .feedback-left h2 {
-    font-size: 24px;
+    font-size: 26px;
   }
 
   .feedback-btn {
@@ -202,6 +202,17 @@
     top: 10px;
     right: 14px;
   }
+
+  .feedback-popup {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 16px;
+    padding: 16px;
+    width: 400px;
+    max-width: 86%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    font-family: 'Gilroy-Medium', sans-serif;
+    text-align: left;
+}
 }
 
 /* Tablet (481px - 768px) */

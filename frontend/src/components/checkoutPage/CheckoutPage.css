@@ -357,7 +357,7 @@ color: rgba(118, 87, 70, 1);
   }
 
   .page-title {
-    font-size: 24px;
+    font-size: 26px;
   }
 
   .contact-title {
@@ -372,6 +372,7 @@ color: rgba(118, 87, 70, 1);
   .cart-category,
   .checkout-price {
     font-size: 14px;
+
   }
 
   .total-price-title,

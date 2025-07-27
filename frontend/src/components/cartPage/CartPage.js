@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CartPage.css';
 import sampleImg from '../../Images/slider1.jpg'; // Replace with actual image
+import pencilIcon from '../../Images/pen.png';
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -98,8 +99,16 @@ const CartPage = () => {
               <h2 className="cart-name">{item.name}</h2>
               <p className="cart-description">{item.description}</p>
 
-              <div className="cart-size" onClick={() => setShowSizePopupIndex(index)}>
-                Size : {item.size} <span className="edit-icon">🖉</span>
+            <div
+  className="cart-size"
+  onClick={() =>
+    setShowSizePopupIndex((prev) => (prev === index ? null : index))
+  }
+>
+
+                Size : {item.size} <span className="edit-icon">
+  <img src={pencilIcon} alt="Edit" style={{ width: '15px', height: '15px' }} />
+</span>
                 {showSizePopupIndex === index && (
                   <div className="size-popup" ref={sizePopupRef}>
                     {['Petit (6 inches)', 'Petit (8 inches)', 'Petit (12 inches)'].map(
