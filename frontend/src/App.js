@@ -28,6 +28,7 @@ import Creatives from './components/Admin/Creatives';
 
 import "./App.css"
 import "./index.css"
+import ScrollToTop from './components/ScrollToTop';
 
 const AppContent = () => {
   const location = useLocation();
@@ -85,6 +86,7 @@ const AppContent = () => {
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <AppContent />
     </Router>
   );
