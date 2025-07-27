@@ -1,0 +1,400 @@
+.account-wrapper {
+  display: flex;
+  min-height: 100vh;
+background-color: #FFF9F0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Left Side (50%) */
+.left-content {
+  width: 50%;
+  padding: 40px 60px;
+  box-sizing: border-box;
+}
+
+/* Right Side (50%) Empty */
+.right-content {
+  width: 50%;
+  background-color: transparent; /* Can change to white or image if needed */
+}
+
+/* Rest styling remains the same */
+.back-link {
+  color: rgba(148, 108, 86, 1);
+  text-decoration: underline;
+  font-size: 16px;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+}
+
+.heading {
+  font-size: 32px;
+  font-weight: 900;
+  font-family: Ethereal Demo;
+  color: rgba(195, 151, 53, 1);
+  margin-bottom: 30px;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section-heading {
+  font-size: 20px;
+  font-weight: 400;
+  font-family: Gilroy-Bold;
+  color: rgba(120, 88, 71, 1);
+  margin-bottom: 20px;
+}
+
+.input-group-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.account-wrapper input[type="text"],
+.account-wrapper input[type="email"],
+.account-wrapper input[type="tel"] {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(120, 88, 71, 0.15);
+  width: 94%;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Gilroy-Medium;
+  color: rgba(120, 88, 71, 1);
+  outline: none;
+  margin-bottom: 15px;
+  background: transparent;
+}
+
+
+.address-card {
+  background-color: rgba(120, 88, 71, 0.05);
+  padding: 16px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(120, 88, 71, 0.15);
+  margin-bottom: 20px;
+}
+
+.address-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.address-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Gilroy-SemiBold;
+  color: rgba(120, 88, 71, 1);
+}
+.address-header-p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Gilroy-Medium;
+  color: rgba(120, 88, 71, 1);
+}
+
+.icons {
+  display: flex;
+  gap: 8px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+.phone {
+
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Gilroy-Medium;
+  color: rgba(120, 88, 71, 1);
+  margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: rgba(255, 255, 255, 1);
+  padding: 30px;
+  border-radius: 16px;
+  width: 450px;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.popup-content h2 {
+  font-family: Gilroy-SemiBold;
+  font-size: 28px;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+  margin-bottom: 20px;
+}
+
+.address-type-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.address-type-buttons button {
+  flex: 1;
+  padding: 10px;
+  margin-right: 8px;
+  border: 1px solid #603e2c;
+  border-radius: 8px;
+  background: white;
+  color: #603e2c;
+  font-family: Gilroy-Medium;
+  cursor: pointer;
+}
+
+.address-type-buttons .selected {
+  background: #fdf7ee;
+  font-weight: bold;
+}
+
+.popup-content input {
+  width: 90%;
+
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(120, 88, 71, 0.15);
+  font-family: Gilroy-Medium;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.popup-content .input-group-row {
+  display: flex;
+  gap: 10px;
+}
+
+.update-btn {
+  width: 100%;
+  background-color: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-family: Gilroy-SemiBold;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  font-size: 18px !important;
+  cursor: pointer;
+  color: #333;
+}
+
+
+
+
+.radio-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border: 1px solid rgba(12, 74, 49, 0.15);
+  border-radius: 12px;
+  font-family: Gilroy-Medium;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(120, 88, 71, 1);
+  cursor: pointer;
+}
+
+.radio-option.selected {
+  border: 1px solid rgba(120, 88, 71, 1);
+  border-radius: 12px;
+}
+
+.radio-option input[type="radio"] {
+  accent-color: rgba(120, 88, 71, 1);
+  border: 2px solid rgba(120, 88, 71, 1);
+  height: 20px;
+  width: 20px;
+  background: transparent;
+  margin: 0px 0px;
+}
+
+.form-label {
+  font-size: 14px;
+  color: rgba(120, 88, 71, 1);
+  margin-bottom: 4px;
+  font-family: Gilroy-Medium;
+  display: block;
+}
+
+
+
+
+
+
+
+
+@media (max-width: 1024px) {
+  .left-content {
+    width: 100%;
+    padding: 32px;
+  }
+
+  .account-wrapper {
+    flex-direction: column;
+  }
+
+  .right-content {
+    display: none;
+  }
+
+  .popup-content {
+    width: 90%;
+  }
+
+  .popup-content .input-group-row {
+    flex-direction: column;
+  }
+
+  .popup-content input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .left-content {
+    padding: 24px;
+  }
+
+  .heading {
+    font-size: 26px;
+  }
+
+  .section-heading {
+    font-size: 18px;
+  }
+
+  .input-group-row {
+    flex-direction: column;
+  }
+
+  .account-wrapper input[type="text"],
+  .account-wrapper input[type="email"],
+  .account-wrapper input[type="tel"] {
+    width: 90%;
+  }
+
+  .popup-content {
+    padding: 10px;
+  }
+
+  .popup-content h2 {
+    font-size: 24px;
+  }
+
+  .update-btn {
+    font-size: 14px;
+  }
+
+  .radio-option {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .radio-option input[type="radio"] {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .left-content {
+    padding: 16px;
+  }
+
+  .heading {
+    font-size: 26px;
+  }
+
+  .section-heading {
+    font-size: 16px;
+  }
+
+  .address-header h3 {
+    font-size: 14px;
+  }
+
+  .phone,
+  .address-header-p {
+    font-size: 13px;
+  }
+
+  .popup-content h2 {
+    font-size: 20px;
+  }
+
+  .form-label {
+    font-size: 13px;
+  }
+
+  .radio-option {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .update-btn {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .close-btn {
+    font-size: 20px;
+  }
+}

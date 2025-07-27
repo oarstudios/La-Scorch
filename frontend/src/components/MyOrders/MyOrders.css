@@ -1,0 +1,267 @@
+.my-orders-container {
+  padding: 40px;
+background-color: #FFF9F0;
+
+}
+
+.view-past-title {
+  font-size: 16px;
+  color: rgba(148, 108, 86, 1);
+  margin-bottom: 5px;
+  font-weight: 400;
+  font-family: Gilroy-Medium;
+}
+
+.orders-title {
+  font-size: 32px;
+  color: rgba(195, 151, 53, 1);
+  margin-bottom: 20px;
+  font-family: Ethereal Demo;
+  font-weight: 900;
+}
+
+.order-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.order-filters button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(12, 74, 49, 0.1);
+  color: rgba(12, 74, 49, 1);
+  font-weight: 400;
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  cursor: pointer;
+}
+
+.order-filters button.active {
+  background: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.order-card {
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  cursor: pointer;
+  padding: 20px;
+    border-bottom: 1px solid rgba(195, 151, 53, 0.25);
+
+
+  flex-wrap: wrap;
+}
+
+.order-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.order-details {
+  flex: 1;
+  min-width: 300px;
+}
+
+.order-category {
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  color: rgba(172, 135, 116, 1);
+  margin: 0;
+}
+
+.order-name {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: Gilroy-SemiBold;
+  margin: 2px 0;
+  color: rgba(118, 87, 70, 1);
+}
+
+.order-desc {
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  color: rgba(172, 135, 116, 1);
+  margin-bottom: 10px;
+}
+
+.order-meta-MO {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 14px;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+  margin-bottom: 6px;
+}
+
+.order-address {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Gilroy-Medium;
+  color: rgba(172, 135, 116, 1);
+}
+
+.order-actions {
+  min-width: 140px;
+  text-align: right;
+}
+
+.buy-again-btn {
+  background-color: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.delivery-date-MO {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Gilroy-Medium;
+  color: rgba(172, 135, 116, 1);
+}
+
+/* Status color classes */
+.status-delivered {
+  color: rgba(107, 191, 127, 1);
+}
+
+.status-in-kitchen {
+  color: rgba(123, 94, 87, 1);
+}
+
+
+.no-orders-container {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #fff7f1;
+}
+
+.no-orders-image {
+  max-width: 200px;
+  margin: 0 auto 20px;
+}
+
+.no-orders-text {
+  font-size: 28px;
+  font-weight: 400;
+  font-family: Gilroy-SemiBold;
+  color: rgba(120, 88, 71, 1);
+}
+
+
+
+
+@media (max-width: 1024px) {
+  .my-orders-container {
+    padding: 32px;
+  }
+
+  .order-actions {
+    text-align: left;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 568px) {
+  .my-orders-container {
+    padding: 24px;
+  }
+
+  .orders-title {
+    font-size: 26px;
+  }
+
+  .order-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .order-image {
+    width: 100%;
+    height: auto;
+    max-height: 240px;
+  }
+
+  .order-details {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .order-actions {
+    width: 100%;
+    text-align: left;
+    margin-top: 12px;
+  }
+
+  .buy-again-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .order-meta-MO {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .order-filters {
+    flex-wrap: wrap;
+  }
+
+  .order-filters button {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .no-orders-text {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-orders-container {
+    padding: 1.5rem;
+  }
+
+ 
+
+  .order-name {
+    font-size: 16px;
+  }
+
+  .order-desc,
+  .order-category,
+  .order-address,
+  .delivery-date-MO {
+    font-size: 13px;
+  }
+
+  .buy-again-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .order-meta-MO {
+    font-size: 13px;
+  }
+
+  .no-orders-text {
+    font-size: 20px;
+  }
+}

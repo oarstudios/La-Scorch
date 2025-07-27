@@ -1,0 +1,160 @@
+.feedback-view-section {
+  background-color: #FFF9F0;
+  padding: 100px 40px;
+  text-align: center;
+}
+
+.feedback-view-subtitle {
+  color: rgba(148, 108, 86, 1);
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+}
+
+.feedback-view-title {
+  color: rgba(118, 87, 70, 1);
+  font-size: 32px;
+  font-weight: 700;
+  font-family: Ethereal Demo;
+  margin-bottom: 40px;
+
+}
+
+/* spacing between slides */
+.feedback-card-wrapper {
+  padding: 0 10px; /* spacing between each card */
+  box-sizing: border-box;
+}
+
+/* actual card */
+.feedback-card {
+  background-color: rgba(255, 255, 255, 1);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  height: 14rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  text-align: left;
+}
+
+/* top section: name and rating */
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.feedback-name {
+  font-weight: 400;
+  color: rgba(12, 74, 49, 1);
+  font-size: 16px;
+  font-family: Gilroy-SemiBold;
+}
+
+.feedback-rating {
+  background-color: rgba(12, 74, 49, 1);
+  color: rgba(255, 255, 255, 1);
+  font-size: 14px;
+  padding: 4px 8px;
+  font-family: Gilroy-SemiBold;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+}
+
+.feedback-rating img {
+  width: 12px;
+  height: 12px;
+  margin-left: 4px;
+}
+
+/* text */
+.feedback-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(120, 88, 71, 1);
+  line-height: 1.4;
+  font-family: Gilroy-SemiBold;
+}
+
+
+
+/* ---------- Mobile (≤480px) ---------- */
+@media (max-width: 480px) {
+  .feedback-view-section {
+    padding: 60px 20px;
+  }
+
+  .feedback-view-title {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .feedback-view-subtitle {
+    font-size: 16px;
+  }
+
+  .feedback-card {
+    padding: 16px;
+    height: auto;
+  }
+
+  .feedback-text {
+    font-size: 14px;
+  }
+}
+
+/* ---------- Tablet (481px to 767px) ---------- */
+@media (min-width: 481px) and (max-width: 767px) {
+  .feedback-view-section {
+    padding: 80px 30px;
+  }
+
+  .feedback-view-title {
+    font-size: 26px;
+  }
+
+  .feedback-card {
+    /* height: auto; */
+  }
+
+  .feedback-text {
+    font-size: 15px;
+  }
+}
+
+/* ---------- Small Laptop (768px to 1023px) ---------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .feedback-view-section {
+    padding: 90px 40px;
+  }
+
+  .feedback-view-title {
+    font-size: 30px;
+  }
+
+  .feedback-card {
+    /* height: auto; */
+  }
+}
+
+/* ---------- Large Laptop/Desktop (≥1024px) ---------- */
+@media (min-width: 1024px) {
+  .feedback-view-section {
+    padding: 100px 40px;
+  }
+
+  .feedback-view-title {
+    font-size: 32px;
+  }
+
+  .feedback-card {
+    height: 14rem;
+  }
+}

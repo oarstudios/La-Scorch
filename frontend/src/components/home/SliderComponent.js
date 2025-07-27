@@ -1,32 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './SliderComponent.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Autoplay } from 'swiper/modules';
 
-const slides = [
-  {
-    image: require('../../Images/slider1.jpg'), // replace with your image
-    title: "MOTHER’S DAY SPECIAL",
-    subtitle: "Tart | Bun | Cheese",
-    description: "To the most beautiful women in this entire world",
-  },
-  {
-    image: require('../../Images/slider1.jpg'),
-    title: "VALENTINE’S DAY LOVE",
-    subtitle: "Red Velvet | Heart Cake",
-    description: "Celebrate the sweetness of love this season",
-  },
-  {
-    image: require('../../Images/slider1.jpg'),
-    title: "CHOCOLATE HEAVEN",
-    subtitle: "Fudge | Choco Drip",
-    description: "Every bite melts into a memory",
-  },
-];
+// Import both desktop and mobile images
+import slider1Desktop from '../../Images/slider1.jpg';
+import slider1Mobile from '../../Images/slider1-mobile.jpg'; // replace with your mobile version
 
 const SliderComponent = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 680);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 680);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const slides = [
+    {
+      image: isMobile ? slider1Mobile : slider1Desktop,
+      title: "MOTHER’S DAY SPECIAL",
+      subtitle: "Tart | Bun | Cheese",
+      description: "To the most beautiful women in this entire world",
+    },
+    {
+      image: isMobile ? slider1Mobile : slider1Desktop,
+      title: "VALENTINE’S DAY LOVE",
+      subtitle: "Red Velvet | Heart Cake",
+      description: "Celebrate the sweetness of love this season",
+    },
+    {
+      image: isMobile ? slider1Mobile : slider1Desktop,
+      title: "CHOCOLATE HEAVEN",
+      subtitle: "Fudge | Choco Drip",
+      description: "Every bite melts into a memory",
+    },
+  ];
+
   return (
     <div className="slider-container">
       <Swiper

@@ -110,7 +110,7 @@
 }
 
 .input-field {
-  border: none;
+  border: none; 
   outline: none;
   flex: 1;
   font-size: 14px;
@@ -141,13 +141,14 @@
   text-align: center;
   color: hsl(156, 72%, 17%);
   font-family: Gilroy-Medium;
-  text-decoration: underline;
+
   font-weight: 400;
 }
 
 .link {
   color: #0d3b2e;
   font-weight: 500;
+    text-decoration: underline;
   cursor: pointer;
 }
 
@@ -194,10 +195,64 @@
 
 
 
-/* Adjust title font size on smaller screens */
+/* -------- Mobile: up to 480px -------- */
 @media (max-width: 480px) {
+  .popup-box {
+    width: 90%;
+    padding: 16px 12px;
+  }
+
   .popup-title {
-    font-size: 24px;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .input-wrapper {
+    padding: 6px 10px;
+  }
+
+  .input-field {
+    font-size: 13px;
+  }
+
+  .google-btn,
+  .email-btn,
+  .login-btn {
+    font-size: 13px;
+    height: 42px;
+    padding: 10px;
+  }
+
+  .separator {
+    font-size: 12px;
+    margin: 16px 0;
+  }
+
+  .reset-password,
+  .toggle-text {
+    font-size: 12px;
+  }
+
+  .close-btn {
+    font-size: 20px;
+    top: 6px;
+    right: 10px;
+  }
+}
+
+/* -------- Tablet: 481px to 768px -------- */
+@media (min-width: 481px) and (max-width: 768px) {
+  .popup-box {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .popup-title {
+    font-size: 26px;
+  }
+
+  .input-field {
+    font-size: 14px;
   }
 
   .google-btn,
@@ -206,52 +261,32 @@
     font-size: 14px;
     height: 44px;
   }
-
-  .input-field {
-    font-size: 13px;
-  }
-
-  .toggle-text {
-    font-size: 14px;
-  }
-
-  .separator {
-    font-size: 13px;
-  }
-
-  .popup-box {
-    padding: 16px;
-  }
-
-  .reset-password {
-    font-size: 11px;
-  }
 }
 
-/* Adjust layout slightly for tablets and small laptops */
-@media (min-width: 481px) and (max-width: 768px) {
+/* -------- Small Laptop: 769px to 1024px -------- */
+@media (min-width: 769px) and (max-width: 1024px) {
   .popup-box {
-    width: 380px;
-    padding: 20px;
+    width: 360px;
+    padding: 22px;
   }
 
   .popup-title {
     font-size: 28px;
   }
-
-  .login-btn,
-  .email-btn {
-    font-size: 15px;
-  }
 }
 
-/* Large laptops/desktops */
-@media (min-width: 1200px) {
+/* -------- Large Screens: 1440px and up -------- */
+@media (min-width: 1440px) {
   .popup-box {
-    width: 400px;
-    padding: 24px;
+    width: 420px;
+    padding: 26px;
+  }
+
+  .popup-title {
+    font-size: 34px;
   }
 }
+
 /* Fade-in for overlay */
 @keyframes fadeInOverlay {
   from {
@@ -273,3 +308,8 @@
     opacity: 1;
   }
 }
+
+
+
+
+

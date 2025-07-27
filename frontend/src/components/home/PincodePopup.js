@@ -3,23 +3,19 @@ import './PincodePopup.css';
 
 const PincodePopup = ({ onClose }) => {
   const [pincode, setPincode] = useState('');
-  const [message, setMessage] = useState('');
   const [status, setStatus] = useState(null); // "success" | "error"
 
   const serviceablePincodes = ['400001', '401501', '400604', '110001'];
 
   const handleCheck = () => {
     if (pincode.length !== 6 || isNaN(pincode)) {
-      setMessage('Please enter a valid 6-digit pincode');
       setStatus('error');
       return;
     }
 
     if (serviceablePincodes.includes(pincode)) {
-      setMessage("🎉 Awesome! We serve in your city.");
       setStatus('success');
     } else {
-      setMessage("😔 Sorry, we don't deliver to this area yet. But we’re baking plans to get there soon!");
       setStatus('error');
     }
   };
@@ -27,12 +23,31 @@ const PincodePopup = ({ onClose }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-box pincode-box">
-        <h2 className="popup-title">Enter Pincode</h2>
+         <button className="popup-close" onClick={onClose}>×</button>
+        {/* TITLE */}
+        {status === 'success' && (
+          <h2 className="popup-title-pin" style={{ fontSize: '28px' }}>
+            Awesome! We serve in your location.
+          </h2>
+        )}
 
+        {status === 'error' && (
+          <h2 className="popup-title-pin" style={{ fontSize: '28px' }}>
+            Sorry, we do not deliver at your location. Try another pin code or explore page
+          </h2>
+        )}
+
+        {status === null && (
+          <h2 className="popup-title-pin">
+            Check if we deliver at your location
+          </h2>
+        )}
+
+        {/* INPUT */}
         <div className="input-wrapper-pincode">
           <input
             type="text"
-            placeholder="Enter 6 Digit Pincode"
+            placeholder="Add Your Pincode Here"
             maxLength={6}
             value={pincode}
             onChange={(e) => setPincode(e.target.value)}
@@ -40,15 +55,18 @@ const PincodePopup = ({ onClose }) => {
           />
         </div>
 
-        <button className="confirm-btn" onClick={handleCheck}>Confirm</button>
-
-        {message && (
-          <div className={`message ${status}`}>
-            <span>{message}</span>
+        {/* BUTTONS */}
+        {status === 'error' ? (
+          <div className="error-btn-wrapper">
+            <button className="confirm-btn" onClick={handleCheck}>Check</button>
+            <button className="explore-btn" onClick={onClose}>Explore Page</button>
           </div>
+        ) : (
+          <button className="confirm-btn" onClick={handleCheck}>Check</button>
         )}
 
-        <button className="close-btn" onClick={onClose}>×</button>
+        {/* Close icon */}
+       
       </div>
     </div>
   );
