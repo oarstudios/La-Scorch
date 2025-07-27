@@ -15,6 +15,7 @@ const SignInPopup = ({ onClose, onSwitch }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-box">
+         <button className="popup-close" onClick={onClose}>×</button>
         <h2 className="popup-title">Sign in</h2>
 
         {!showEmailForm ? (
@@ -64,7 +65,7 @@ const SignInPopup = ({ onClose, onSwitch }) => {
           Don’t have an account? <span className="link" onClick={onSwitch}>Sign up</span>
         </p>
 
-        <button className="close-btn" onClick={onClose}>×</button>
+     
       </div>
     </div>
   );

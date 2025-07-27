@@ -49,7 +49,8 @@ const deliveryTime = '03:24 PM';
     <div className="track-order-container">
       <div className="track-left">
     
-        <p className="back-text" onClick={() => navigate(-1)} style={{ cursor: 'pointer' }}>← Back</p>
+  <p className="back-text" onClick={() => navigate('/my-orders')} style={{ cursor: 'pointer' }}>← Back</p>
+
 
         <h2 className="order-id">Order ID #12345</h2>
         <p className="order-status">

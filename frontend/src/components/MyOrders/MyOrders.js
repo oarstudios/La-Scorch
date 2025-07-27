@@ -28,7 +28,7 @@ const ordersData = [
     description:
       'Savor The Marriage Of Intensified Raspberries And Tart Passion Fruit Coupled With A Buttery Vanilla Almond Crust In Our Latest Drop',
     placedAt: '04/07/2025',
-    status: 'Delivered',
+    status: 'In-Kitchen',
     total: 1399,
     type: 'Delivery',
     address: 'Off Shore Society, Room No 345, Navi Mumbai',

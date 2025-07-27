@@ -76,7 +76,9 @@ const MyAccount = () => {
 
       {showPopup && (
         <div className="popup-overlay">
+                   
           <div className="popup-content">
+               <button className="popup-close" onClick={() => setShowPopup(false)}>×</button>
             <h2>Edit Address</h2>
 
             <div className="radio-group">
@@ -119,7 +121,7 @@ const MyAccount = () => {
             <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="Phone Number" />
 
             <button className="update-btn">Update</button>
-            <button className="close-btn" onClick={handleClosePopup}>X</button>
+       
           </div>
         </div>
       )}

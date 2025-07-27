@@ -14,6 +14,7 @@ const SignUpPopup = ({ onClose, onSwitch }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-box">
+         <button className="popup-close" onClick={onClose}>×</button>
         <h2 className="popup-title">Sign Up</h2>
 
         <button className="google-btn">
@@ -73,7 +74,7 @@ const SignUpPopup = ({ onClose, onSwitch }) => {
           Already have an account? <span className="link" onClick={onSwitch}>Sign in</span>
         </p>
 
-        <button className="close-btn" onClick={onClose}>×</button>
+       
       </div>
     </div>
   );
