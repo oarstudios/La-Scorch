@@ -161,7 +161,7 @@ const CheckoutPage = () => {
 
         <div className="discount-code-box">
           <input placeholder="Apply Discount Code" />
-          <button className="apply-btn">Apply</button>
+          <button className="apply-btn-user">Apply</button>
         </div>
 
         <div className="price-breakdown">

@@ -76,7 +76,7 @@ const MyOrders = () => {
             onClick={() => navigate('/track-order')} // ⬅️ Navigate on click
           >
             <img src={order.image} alt={order.name} className="order-image" />
-            <div className="order-details">
+            <div className="order-details-user">
               <p className="order-category">{order.category}</p>
               <h3 className="order-name">{order.name} | {order.size}</h3>
               <p className="order-desc">{order.description}</p>

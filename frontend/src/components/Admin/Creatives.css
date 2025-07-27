@@ -1,0 +1,91 @@
+.creatives-container {
+    padding: 2rem 1rem;
+    background-color: #fdfaf5;
+  }
+  
+  .creatives-container h2 {
+    font-family: "Jost";
+    font-weight: 500;
+    font-size: 36px;
+    color: rgba(19, 19, 19, 1);
+    text-align: center;
+  }
+  
+  .creatives-container h3 {
+    font-family: "Jost";
+    font-weight: 400;
+    font-size: 24px;
+    color: rgba(19, 19, 19, 1);
+    margin: 20px 0px;
+  }
+  
+  .image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* justify-content: center; */
+    margin-bottom: 20px;
+  }
+  
+  .image-card {
+    position: relative;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  /* Desktop Image Styles */
+  .creative-image {
+    width: 500px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+
+  }
+  
+  /* Mobile Image Styles */
+  .mobile-image {
+    width: 400px;
+    height: 300px;
+  }
+  
+  /* Edit Button */
+  .edit-btn-creatives {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(57, 114, 193, 1);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Lato", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .image-card {
+      width: 100%;
+      max-width: 300px;
+    }
+  
+    .creative-image {
+      width: 400px;
+      height: 150px;
+    }
+    .mobile-image {
+        width: 300px;
+        height: 200px;
+      }
+      .image-grid{
+        justify-content: center;
+      }
+  }

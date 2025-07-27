@@ -112,12 +112,8 @@ const handleAddToCart = () => {
 {showNotePopup && (
   <div className="popup-overlay">
     <div className="popup modern-popup">
-      <button
-        className="close-button"
-        onClick={() => setShowNotePopup(false)}
-      >
-        &times;
-      </button>
+        <button className="popup-close" onClick={() => setShowNotePopup(false)}>×</button>
+
       <h2 className="popup-heading">Personalize Note</h2>
       <label className="note-input-label">Add Personalize Note</label>
       <textarea

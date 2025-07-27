@@ -12,7 +12,7 @@
     animation: fadeInOverlay 0.3s ease-out;
 }
 
-.popup-box {
+.popup-box-user {
   position: relative;
   background: rgba(255, 255, 255, 1);
   padding: 10px 20px;
@@ -23,7 +23,7 @@
 
 }
 
-.popup-title {
+.popup-title-user {
   font-size: 32px;
   font-weight: 700;
 
@@ -92,7 +92,7 @@
   font-weight: 400;
 }
 
-.input-wrapper {
+.input-wrapper-user {
   display: flex;
   height: 25px;
   align-items: center;
@@ -197,17 +197,17 @@
 
 /* -------- Mobile: up to 480px -------- */
 @media (max-width: 480px) {
-  .popup-box {
+  .popup-box-user {
     width: 90%;
     padding: 16px 12px;
   }
 
-  .popup-title {
+  .popup-title-user {
     font-size: 22px;
-    text-align: center;
+    /* text-align: center; */
   }
 
-  .input-wrapper {
+  .input-wrapper-user{
     padding: 6px 10px;
   }
 
@@ -242,12 +242,12 @@
 
 /* -------- Tablet: 481px to 768px -------- */
 @media (min-width: 481px) and (max-width: 768px) {
-  .popup-box {
+  .popup-box-user {
     width: 90%;
     padding: 20px;
   }
 
-  .popup-title {
+  .popup-title-user {
     font-size: 26px;
   }
 
@@ -265,24 +265,24 @@
 
 /* -------- Small Laptop: 769px to 1024px -------- */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .popup-box {
+  .popup-box-user {
     width: 360px;
     padding: 22px;
   }
 
-  .popup-title {
+  .popup-title-user {
     font-size: 28px;
   }
 }
 
 /* -------- Large Screens: 1440px and up -------- */
 @media (min-width: 1440px) {
-  .popup-box {
+  .popup-box-user {
     width: 420px;
     padding: 26px;
   }
 
-  .popup-title {
+  .popup-title-user {
     font-size: 34px;
   }
 }

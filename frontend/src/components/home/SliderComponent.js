@@ -7,7 +7,7 @@ import { Autoplay } from 'swiper/modules';
 
 // Import both desktop and mobile images
 import slider1Desktop from '../../Images/slider1.jpg';
-import slider1Mobile from '../../Images/slider1-mobile.jpg'; // replace with your mobile version
+import slider1Mobile from '../../Images/slider1-mobile.png'; // replace with your mobile version
 
 const SliderComponent = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 680);

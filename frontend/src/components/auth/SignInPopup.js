@@ -14,9 +14,9 @@ const SignInPopup = ({ onClose, onSwitch }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup-box">
+      <div className="popup-box-user">
          <button className="popup-close" onClick={onClose}>×</button>
-        <h2 className="popup-title">Sign in</h2>
+        <h2 className="popup-title-user">Sign in</h2>
 
         {!showEmailForm ? (
           <>
@@ -37,12 +37,12 @@ const SignInPopup = ({ onClose, onSwitch }) => {
               ← Back
             </button>
 
-            <div className="input-wrapper">
+            <div className="input-wrapper-user">
               <img src={emailIcon} alt="Email" className="input-icon" />
               <input type="email" placeholder="Enter Your Email ID" className="input-field" />
             </div>
 
-            <div className="input-wrapper password-wrapper">
+            <div className="input-wrapper-user password-wrapper">
               <img src={passwordIcon} alt="Password" className="input-icon" />
               <input
                 type={showPassword ? 'text' : 'password'}
