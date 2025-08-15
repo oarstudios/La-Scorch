@@ -97,7 +97,7 @@ const QuickPricing = () => {
             <th>PRODUCT</th>
             <th>WEIGHT</th>
             <th>SALE PRICE</th>
-            <th>FISH OF THE DAY</th>
+            <th>CAKE OF THE DAY</th>
           </tr>
         </thead>
         <tbody>
@@ -136,7 +136,7 @@ const QuickPricing = () => {
                 <p className="max-price">MAX: ₹{product.maxPrice}</p>
               </td>
               <td className="bestseller-checkbox">
-                <span className="fish-of-the-day">Fish of the Day:</span>
+                <span className="fish-of-the-day">CAKE OF THE DAY:</span>
                 <input
                   type="checkbox"
                   checked={product.bestseller}

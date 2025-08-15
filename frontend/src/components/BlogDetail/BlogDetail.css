@@ -1,0 +1,140 @@
+.blog-detail-container {
+  padding: 4rem;
+  background: #FFF9F0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.main-blog-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.subtitle-blog {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+  margin-bottom: 10px;
+  font-family: Gilroy-Medium;
+}
+
+.blog-detail-container p {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(123, 94, 87, 1);
+  font-family: Gilroy-Medium;
+}
+
+.read-more-heading {
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 40px;
+  font-family: Gilroy-SemiBold;
+  color: rgba(123, 94, 87, 1);
+}
+
+.read-more-section {
+  display: flex;
+  gap: 30px;
+  margin-top: 15px;
+
+}
+
+.read-more-card {
+  width: 300px;
+  max-width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.read-more-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.read-more-card h4 {
+  font-size: 20px;
+  margin: 10px 0px;
+  color: rgba(118, 87, 70, 1);
+  font-family: Gilroy-Bold;
+  font-weight: 400;
+}
+
+.read-more-card p {
+  font-size: 14px;
+  margin: 10px 0px;
+  color: rgba(118, 87, 70, 1);
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+}
+
+.blg-mid {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.blg-title {
+  font-family: Gilroy-SemiBold;
+  font-size: 28px;
+  font-weight: 400;
+  color: rgba(118, 87, 70, 1);
+}
+
+/* ---------- RESPONSIVE STYLES ---------- */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .blog-detail-container {
+    padding: 2rem;
+  }
+
+  .blg-mid {
+    width: 80%;
+  }
+
+  .blg-title {
+    font-size: 24px;
+  }
+
+  .read-more-section {
+    gap: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .blog-detail-container {
+    padding: 1rem;
+  }
+
+  .blg-mid {
+    width: 100%;
+  }
+
+  .blg-title {
+    font-size: 20px;
+  }
+
+  .subtitle-blog {
+    font-size: 13px;
+  }
+
+  .blog-detail-container p {
+    font-size: 13px;
+  }
+
+  .read-more-section {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .read-more-card {
+    width: 100%;
+  }
+
+  .read-more-card img {
+    height: auto;
+  }
+}

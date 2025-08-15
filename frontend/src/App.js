@@ -29,6 +29,13 @@ import Creatives from './components/Admin/Creatives';
 import "./App.css"
 import "./index.css"
 import ScrollToTop from './components/ScrollToTop';
+import CouponsManagement from './components/Admin/CouponsManagement';
+import AdminAddBlog from './components/Admin/AdminAddBlog';
+import AdminBlogList from './components/Admin/AdminBlogList';
+import AdminEditBlog from './components/Admin/AdminEditBlog';
+import BlogList from './components/BlogList/BlogList';
+import BlogDetail from './components/BlogDetail/BlogDetail';
+
 
 const AppContent = () => {
   const location = useLocation();
@@ -50,6 +57,8 @@ const AppContent = () => {
         <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/my-account" element={<MyAccount />} />
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/articles" element={<BlogList />} />
+        <Route path="/blog" element={<BlogDetail />} />
 
         {/* ADMIN ROUTES */}
         <Route
@@ -67,6 +76,10 @@ const AppContent = () => {
                 <Route path="quick-pricing" element={<QuickPricing />} />
                 <Route path="delivery-pricing" element={<DeliveryPricing />} />
                 <Route path="creatives" element={<Creatives />} />
+                <Route path="coupons" element={<CouponsManagement/>} />
+                <Route path="add-blogs" element={<AdminAddBlog />} />
+                  <Route path="blogs-list" element={<AdminBlogList />} />
+                  <Route path="edit-blog" element={<AdminEditBlog />} />
               </Routes>
             </>
           }

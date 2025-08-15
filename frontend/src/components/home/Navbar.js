@@ -121,6 +121,16 @@ const Navbar = () => {
       className="user-item"
       onClick={() => {
         setShowDropdown(false);
+        navigate('/articles');
+      }}
+    >
+      Blogs
+    </div>
+
+    <div
+      className="user-item"
+      onClick={() => {
+        setShowDropdown(false);
         navigate('/contact-us');
       }}
     >

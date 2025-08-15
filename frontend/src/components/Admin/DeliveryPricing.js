@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./DeliveryPricing.css";
-import { FiSearch, FiFilter } from "react-icons/fi";
-import { FaArchive } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
 
 const DeliveryPricing = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -48,36 +47,23 @@ const DeliveryPricing = () => {
   return (
     <div className="delivery-pricing-container">
       <div className="admin-products-header lsp">
-        {/* <button className="back-button">Back</button> */}
-     
-        
-        <div className="search-bar">
+        <div className="admin-prod-search">
+          <FiSearch className="admin-prod-search-icon" />
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search products..."
             value={searchQuery}
             onChange={handleSearch}
           />
-          <FiSearch className="search-icon" />
         </div>
-        
-        {/* <div className="admin-icons">
-          <button className="archive-button">
-            <FaArchive />
-            Archive
-          </button>
-          <button className="filter-button">
-            <FiFilter />
-            Filter
-          </button>
-        </div> */}
       </div>
+
       <div className="table-responsive">
-      <button className="add-button-delivery" onClick={addNewEntry}>Add</button>
+        <button className="add-button-delivery" onClick={addNewEntry}>Add</button>
         <table className="delivery-pricing-table">
           <thead>
             <tr>
-              <th>#</th>
+              <th>Sr. No</th>
               <th>PINCODE</th>
               <th>NAME</th>
               <th>DELIVERY CHARGES</th>
@@ -93,6 +79,7 @@ const DeliveryPricing = () => {
                   <input
                     type="text"
                     value={area.pincode}
+                    placeholder={area.readonly ? "" : "Enter pincode"}
                     className={area.readonly ? "pincode-field readonly" : "pincode-field"}
                     onChange={(e) => handleChange(area.id, "pincode", e.target.value)}
                     readOnly={area.readonly}
@@ -102,6 +89,7 @@ const DeliveryPricing = () => {
                   <input
                     type="text"
                     value={area.name}
+                    placeholder={area.readonly ? "" : "Enter area name"}
                     className={area.readonly ? "name-field readonly" : "name-field"}
                     onChange={(e) => handleChange(area.id, "name", e.target.value)}
                     readOnly={area.readonly}
@@ -111,6 +99,7 @@ const DeliveryPricing = () => {
                   <input
                     type="number"
                     value={area.charges}
+                    placeholder={area.readonly ? "" : "Enter charges"}
                     className={area.readonly ? "charges-field readonly" : "charges-field"}
                     onChange={(e) => handleChange(area.id, "charges", e.target.value)}
                     readOnly={area.readonly}

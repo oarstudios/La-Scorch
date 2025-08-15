@@ -45,14 +45,18 @@ const AdminNavbar = () => {
           <Link to="/admin/customers" className={location.pathname === "/admin/customers" ? "active-link" : ""}>Customers</Link>
         </li>
         <li onClick={closeMenu}>
-          <Link to="/admin/customers" className={location.pathname === "/admin/customers" ? "active-link" : ""}>Coupon Pricing</Link>
+          <Link to="/admin/coupons" className={location.pathname === "/admin/coupons" ? "active-link" : ""}>Coupon</Link>
         </li>
         <li onClick={closeMenu}>
-          <Link to="/admin/quick-pricing" className={location.pathname === "/admin/quick-pricing" ? "active-link" : ""}>Quick Pricing</Link>
+          <Link to="/admin/quick-pricing" className={location.pathname === "/admin/quick-pricing" ? "active-link" : ""}>Quick</Link>
         </li>
         <li onClick={closeMenu}>
-          <Link to="/admin/delivery-pricing" className={location.pathname === "/admin/delivery-pricing" ? "active-link" : ""}>Delivery Pricing</Link>
+          <Link to="/admin/delivery-pricing" className={location.pathname === "/admin/delivery-pricing" ? "active-link" : ""}>Delivery</Link>
         </li>
+        <li onClick={closeMenu}>
+          <Link to="/admin/blogs-list" className={location.pathname === "/admin/blogs-list" ? "active-link" : ""}>Blogs</Link>
+        </li>
+        
       </ul>
       <div className="admin-navbar-icons">
         <img src={admin} alt="Admin Icon" onClick={handleAdminClick} />

@@ -125,6 +125,7 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
+      accent-color: rgba(120, 88, 71, 1);
   }
   
   
@@ -132,7 +133,7 @@
 
   .quick-pricing-container {
     /* width: 100%; */
-    padding: 2rem;
+    padding: 3rem 2rem;
     background: white;
     overflow-x: auto;
   }
@@ -183,7 +184,7 @@
   
   @media (max-width: 768px) {
     .quick-pricing-container {
-      padding:1rem;
+      padding:3rem 1.5rem;
     }
   
     .quick-pricing-table thead {
@@ -197,7 +198,7 @@
     }
   
     .quick-pricing-table tr {
-      margin-bottom: 1rem;
+      margin: 1rem 0rem;
       /* background: #f9f9f9; */
       padding: 10px;
       border-radius: 10px;
@@ -223,11 +224,13 @@
     .QP-product-image {
       width: 80px;
       height: 80px;
+      border-radius: 8px;
     }
   
     .QP-product-name {
       font-size: 20px;
       text-align: left;
+      width: 66%;
     }
   
     .price-box {
@@ -259,7 +262,7 @@
         font-size: 16px;
         font-weight: 600;
         color: rgba(19, 19, 19, 1);
-        margin-bottom: 5px;
+        /* margin-bottom: 5px; */
       }
   }
   
