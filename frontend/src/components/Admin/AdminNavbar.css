@@ -321,7 +321,7 @@ font-weight: 400;
       flex-direction: column;
       gap: 20px;
       position: absolute;
-      top: 4rem;
+      /* top: 4rem; */
       right: 0.5rem;
       background-color: #A97E67;
       padding: 1rem 1rem;

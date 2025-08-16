@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaImage, FaTimes } from 'react-icons/fa';
-import './EditAdminProducts.css';
+
 import sampleImage from '../../Images/slider1.jpg'; // replace with your actual image path
 
 const EditAdminProduct = () => {
@@ -169,7 +169,7 @@ const EditAdminProduct = () => {
           />
 
           {/* Action Buttons at Bottom */}
-          <div className="anp-actions" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <div className="anp-actions" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
             <button className="anp-submit-btn" style={{ backgroundColor: '#c39735' }}>Best Seller</button>
             <button className="anp-submit-btn" style={{ backgroundColor: '#8d6c55' }}>Archive Now</button>
             <button className="anp-submit-btn">Update Product</button>

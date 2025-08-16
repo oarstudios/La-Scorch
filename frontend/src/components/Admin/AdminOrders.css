@@ -2,7 +2,7 @@
 .admin-orders {
     padding: 20px;
   
-    background-color:rgba(255, 255, 255, 1);
+    background-color:rgba(255, 249, 240, 1);
   }
   
   /* Navigation Tabs */
@@ -104,7 +104,7 @@
   .order-row.active-order {
       border: 1px solid rgba(19, 19, 19, 1);
       border-radius: 10px;
-      background:linear-gradient(180deg, #FDFAF5 4.37%, #DFECFF 103.98%);
+      /* background:linear-gradient(180deg, #FDFAF5 4.37%, #DFECFF 103.98%); */
       padding: 10px; /* Use padding for spacing */
       overflow: hidden; /* To ensure the radius works */
     }
@@ -120,13 +120,13 @@
     .order-details-row.active-order-details {
       border: 1px solid rgba(19, 19, 19, 1);
       border-radius: 10px;
-      background:linear-gradient(180deg, #FDFAF5 4.37%, #DFECFF 103.98%);
+      /* background:linear-gradient(180deg, #FDFAF5 4.37%, #DFECFF 103.98%); */
       padding: 20px; /* Adjust as needed */
       overflow: hidden;
     }
     
   .order-details-row td {
-    background: linear-gradient(180deg, #FDFAF5 4.37%, #DFECFF 103.98%);
+    /* background: linear-gradient(180deg, #FDFAF5 4.37%, #DFECFF 103.98%); */
     border-top: 1px solid rgba(19, 19, 19, 1);
     padding: 20px;
   }
@@ -182,9 +182,9 @@
   }
   
   .order-item img.cake-image {
-    width: 70px;
-    height: 70px;
-    border-radius: 15px;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
     margin-right: 10px;
     object-fit: fill;
   }
@@ -295,8 +295,8 @@
   
     /* General Styling */
   .admin-orders {
-    padding: 50px 20px;
-    background-color: rgba(255, 255, 255, 1);
+    padding: 60px 40px;
+  
   }
   
   /* Responsive Design */
@@ -407,6 +407,10 @@
       font-size: 12px;
       margin: 2px;
     }
+    .admin-orders {
+    padding: 50px 20px;
+  
+  }
   }
   
   

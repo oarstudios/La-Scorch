@@ -1,9 +1,7 @@
-/* src/components/trackOrder/TrackOrder.css */
 .track-order-container {
   display: flex;
   padding: 40px;
-background-color: #FFF9F0;
-
+  background-color: #FFF9F0;
   gap: 50px;
 }
 
@@ -24,7 +22,6 @@ background-color: #FFF9F0;
   font-family: Gilroy-Medium;
   font-size: 16px;
   font-weight: 400;
-
 }
 
 .order-id {
@@ -45,14 +42,13 @@ background-color: #FFF9F0;
   color: rgba(107, 191, 127, 1);
 }
 
-
 .status-pending {
   color: rgba(123, 94, 87, 1); 
 }
 
 .address-title {
   margin-bottom: 10px;
-    font-weight: 400;
+  font-weight: 400;
   font-family: Gilroy-SemiBold;
   font-size: 20px;
   color: rgba(120, 88, 71, 1);
@@ -135,7 +131,7 @@ background-color: #FFF9F0;
 }
 
 .item-price {
- margin: 0;
+  margin: 0;
   font-size: 18px;
   color: rgba(118, 87, 70, 1);
   font-family: Gilroy-SemiBold;
@@ -143,24 +139,21 @@ background-color: #FFF9F0;
 }
 
 .bill-summary {
-  
-
   margin-top: 3rem;
-
 }
 
-.bill-summary-text{
-  
-     font-size: 18px;
+.bill-summary-text {
+  font-size: 18px;
   color: rgba(118, 87, 70, 1);
   font-family: Gilroy-SemiBold;
   font-weight: 400;
 }
+
 .summary-line {
   display: flex;
   justify-content: space-between;
   margin: 8px 0;
-    font-size: 16px;
+  font-size: 16px;
   color: rgba(118, 87, 70, 1);
   font-family: Gilroy-SemiBold;
   font-weight: 400;
@@ -170,7 +163,7 @@ background-color: #FFF9F0;
   font-size: 20px;
   font-family: Gilroy-Bold;
   font-weight: 400;
- color: rgba(118, 87, 70, 1);
+  color: rgba(118, 87, 70, 1);
   margin-top: 20px;
 }
 
@@ -186,13 +179,50 @@ background-color: #FFF9F0;
   color: rgba(195, 151, 53, 1);
 }
 
+/* 🎁 Next Order Coupon */
+.next-order-offer {
+  margin-top: 20px;
+  padding: 15px;
+  border: 2px dashed rgba(195, 151, 53, 0.7);
+  border-radius: 12px;
+  background: rgba(195, 151, 53, 0.05);
+  text-align: center;
+}
 
+.offer-title {
+  font-size: 18px;
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  color: rgba(195, 151, 53, 1);
+  margin-bottom: 8px;
+}
 
+.offer-text {
+  font-size: 16px;
+  margin-bottom: 6px;
+  font-family: Gilroy-Medium;
+  color: rgba(118, 87, 70, 1);
+  line-height: 1.5;
+}
 
+.next-coupon {
+  background: rgba(195, 151, 53, 1);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-top: 10px;
+  font-family: Gilroy-SemiBold;
+}
 
+.offer-subtext {
+  font-size: 13px;
+  color: rgba(120, 88, 71, 0.8);
+  font-family: Gilroy-Medium;
+}
 
-
-
+/* ---------------- Responsive ---------------- */
 @media (max-width: 1024px) {
   .track-order-container {
     flex-direction: column;
@@ -255,6 +285,22 @@ background-color: #FFF9F0;
     font-size: 13px;
   }
 
+  .next-order-offer {
+    padding: 12px;
+  }
+
+  .offer-title {
+    font-size: 16px;
+  }
+
+  .offer-text {
+    font-size: 14px;
+  }
+
+  .offer-subtext {
+    font-size: 12px;
+  }
+
   .row {
     flex-direction: column;
     gap: 8px;
@@ -309,6 +355,23 @@ background-color: #FFF9F0;
   .coupon-msg {
     font-size: 12px;
     padding: 8px;
+  }
+
+  .next-order-offer {
+    padding: 10px;
+  }
+
+  .offer-title {
+    font-size: 15px;
+  }
+
+  .offer-text {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .offer-subtext {
+    font-size: 11px;
   }
 
   .address-box input {

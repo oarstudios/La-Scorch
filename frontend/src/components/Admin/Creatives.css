@@ -1,11 +1,12 @@
 .creatives-container {
-    padding: 2rem 1rem;
-    background-color: #fdfaf5;
+    padding: 60px 40px;
+    background-color: rgba(255, 249, 240, 1);
   }
   
   .creatives-container h2 {
     font-family: "Jost";
     font-weight: 500;
+    margin: 0;
     font-size: 36px;
     color: rgba(19, 19, 19, 1);
     text-align: center;
@@ -88,4 +89,8 @@
       .image-grid{
         justify-content: center;
       }
+      .creatives-container {
+    padding: 50px 20px;
+
+  }
   }

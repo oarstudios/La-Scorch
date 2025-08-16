@@ -1,6 +1,7 @@
 .admin-bloglist {
-  padding: 4rem;
-  font-family: Arial, sans-serif;
+  padding: 60px 40px;
+  background: rgba(255, 249, 240, 1);
+  font-family: "Lato", Arial, sans-serif;
 }
 
 /* Header */
@@ -13,28 +14,41 @@
 
 .abl-back {
   font-size: 14px;
-  color: #c2a059;
+  color: rgba(120, 88, 71, 1); /* warm brown accent */
   margin-bottom: 10px;
+  font-family: "Lato";
+  font-weight: 600;
 }
 
 .abl-title {
-  font-size: 24px;
+  font-size: 28px;
+  font-family: "Jost";
   font-weight: 600;
-  color: #c2a059;
+  color: rgba(57, 114, 193, 1); /* primary blue */
   margin: 0;
 }
 
+/* Add Button */
 .abl-add-btn {
-  background-color: #124734;
+  background-color: rgba(57, 114, 193, 1);
   color: white;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  font-family: "Lato";
+  font-weight: 600;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+}
+.abl-add-btn:hover {
+  background-color: rgba(40, 90, 150, 1);
 }
 
-.abl-add-btn:hover {
-  opacity: 0.9;
+.abl-add-link {
+  color: white;
+  text-decoration: none;
+  display: block;
 }
 
 /* Blog List Items */
@@ -44,15 +58,15 @@
 
 .abl-card {
   display: flex;
-  border: 1px solid #e5e5e5;
+  border: 1px solid rgba(193, 193, 193, 1);
   border-radius: 10px;
   overflow: hidden;
   background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .abl-img {
   width: 250px;
-  /* height: 150px; */
   object-fit: cover;
 }
 
@@ -64,22 +78,28 @@
   justify-content: space-between;
 }
 
+/* Blog text */
 .abl-blog-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #5b2b1a;
-  margin: 0;
+  font-size: 20px;
+  font-family: "Jost";
+  font-weight: 600;
+  color: rgba(19, 19, 19, 1);
+  margin: 0 0 4px 0;
 }
 
 .abl-subtitle {
   font-size: 14px;
-  color: #7a5230;
-  margin: 4px 0 8px 0;
+  font-family: "Lato";
+  font-weight: 600;
+  color: rgba(96, 96, 96, 1);
+  margin: 0 0 8px 0;
 }
 
 .abl-description {
   font-size: 14px;
-  color: #6d5a4d;
+  font-family: "Lato";
+  font-weight: 400;
+  color: rgba(96, 96, 96, 1);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -91,48 +111,65 @@
 /* Actions */
 .abl-actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
+}
+
+.abl-edit-btn,
+.abl-delete-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: "Lato";
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.3s ease-in-out;
 }
 
 .abl-edit-btn {
-  background-color: #1f6d4a;
+  background-color: rgba(57, 114, 193, 1);
   color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+}
+.abl-edit-btn:hover {
+  background-color: rgba(40, 90, 150, 1);
 }
 
 .abl-delete-btn {
-  background-color: #d63d2d;
+  background-color: rgba(214, 61, 45, 1);
   color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
 }
-
-.abl-edit-btn:hover,
 .abl-delete-btn:hover {
-  opacity: 0.9;
+  background-color: rgba(180, 50, 35, 1);
 }
 
 /* Divider */
 .abl-divider {
   margin-top: 16px;
   border: none;
-  border-top: 1px solid #dcdcdc;
-}
-.abl-add-btn {
-  background-color: #124734;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  cursor: pointer;
+  border-top: 1px solid rgba(193, 193, 193, 1);
 }
 
-.abl-add-link {
-  color: white;
-  text-decoration: none;
-  display: block;
+/* Responsive */
+@media (max-width: 768px) {
+  .abl-card {
+    flex-direction: column;
+  }
+
+  .abl-img {
+    width: 100%;
+    height: 180px;
+  }
+
+  .abl-title {
+    font-size: 22px;
+  }
+
+  .abl-blog-title {
+    font-size: 18px;
+  }
+
+  .admin-bloglist {
+  padding: 50px 20px;
+ 
+}
 }

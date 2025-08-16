@@ -1,6 +1,6 @@
 .anp-container {
-  padding: 40px;
-  background: #fdfaf5;
+  padding: 60px 40px;
+  background: rgba(255, 249, 240, 1);
   font-family: 'Gilroy-Regular', sans-serif;
 }
 
@@ -246,7 +246,7 @@
 /* ===== EXTRA SMALL SCREENS ===== */
 @media (max-width: 576px) {
   .anp-container {
-    padding: 30px 20px;
+    padding: 50px 20px;
   }
 
   .anp-heading {

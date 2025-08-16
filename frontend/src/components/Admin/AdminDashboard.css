@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 60px 40px;
-  background-color: #fff9f0;
+  background-color: rgba(255, 249, 240, 1);
   font-family: 'Gilroy-Medium', sans-serif;
 }
 
@@ -80,7 +80,7 @@
 
 @media (max-width: 568px) {
   .admin-dashboard {
-    padding: 40px 20px;
+    padding: 50px 20px;
   }
 
   .dashboard-row {

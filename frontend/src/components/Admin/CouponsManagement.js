@@ -48,6 +48,7 @@ const CouponsManagement = () => {
         enabled: false,
         readonly: false,
       },
+      
     ]);
   };
 
