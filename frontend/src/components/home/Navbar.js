@@ -91,7 +91,7 @@ const Navbar = () => {
           <button className="icon-btn" onClick={() => setShowDropdown(prev => !prev)}>
             <img src={menuIcon} alt="User/Cake" className="nav-icon" />
           </button>
-          {/* <button className="nav-login-btn" onClick={() => setShowSignIn(true)}>Log In</button> */}
+          <button className="nav-login-btn" onClick={() => setShowSignIn(true)}>Log In</button>
         </div>
       </div>
 

@@ -7,6 +7,11 @@ const ProductSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    flavour: {
+        type: String,
+        required: true,
+        trim: true
+    },
     size: {
         name: {
             type: String,
@@ -26,16 +31,16 @@ const ProductSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
         required: true
+    },
+    preparationTime: {
+        type: String
     },
     care: {
         type: String,
         required: true
-    },
-    note: {
-        type: String,
-        default: ''
     },
     images: [
         {
@@ -50,6 +55,10 @@ const ProductSchema = new mongoose.Schema({
     inStock: {
         type: Boolean,
         default: true
+    },
+    cakeOfTheDay: {
+        type: Boolean,
+        default: false
     },
     productId: {
         type: String,
