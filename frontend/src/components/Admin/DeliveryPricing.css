@@ -11,7 +11,7 @@
 
 /* Add button */
 .add-button-delivery {
-  background-color: rgba(57, 114, 193, 1);
+  background-color: #C39735;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -23,9 +23,7 @@
   border-radius: 5px;
   transition: background 0.3s ease-in-out;
 }
-.add-button-delivery:hover {
-  background-color: rgba(40, 90, 150, 1);
-}
+
 
 /* Table wrapper */
 .table-responsive {
@@ -70,7 +68,7 @@
 /* Edit Button */
 .edit-btn2 {
   width: 80px;
-  background: rgba(57, 114, 193, 1);
+  background: #C39735;
   color: white;
   border: none;
   padding: 10px;
@@ -81,9 +79,7 @@
   font-size: 18px;
   transition: 0.2s;
 }
-.edit-btn2:hover {
-  background: rgba(40, 90, 150, 1);
-}
+
 
 /* Input Fields */
 .pincode-field,

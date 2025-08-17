@@ -21,7 +21,18 @@ const EditAdminProduct = () => {
     },
     preparationTime: '2 Days',
     careInstructions: 'Keep refrigerated. Consume within 48 hours.',
+    category: 'Birthday Cakes', // 👈 default category
   });
+
+  // Example categories (can later come from API or props)
+  const cakeCategories = [
+    'Birthday Cakes',
+    'Wedding Cakes',
+    'Cupcakes',
+    'Cheesecakes',
+    'Photo Cakes',
+    'Customized Cakes',
+  ];
 
   const handleTypeChange = (type) => {
     setSelectedType(type);
@@ -100,6 +111,23 @@ const EditAdminProduct = () => {
                 </label>
               ))}
             </div>
+          </div>
+
+          {/* Cake Category */}
+          <div className="anp-section">
+            <p className="anp-label">Cake Category</p>
+            <select
+              className="anp-input"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+            >
+              {cakeCategories.map((cat, index) => (
+                <option key={index} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
           </div>
 
           <input

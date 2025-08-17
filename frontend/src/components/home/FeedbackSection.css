@@ -5,6 +5,10 @@
   padding: 60px 5%;
   background: #FFF6E4;
   font-family: 'Gilroy-Medium', sans-serif;
+
+   background-image: url('../../Images/d13f29d87fd25b6a33577653cc0e67b0e027be63.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .feedback-left {
