@@ -2,6 +2,10 @@
   padding: 40px 5% !important;
   background-color: #FFF9F0;
   text-align: center;
+
+   background-image: url('../../Images/d13f29d87fd25b6a33577653cc0e67b0e027be63.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .subtitle {

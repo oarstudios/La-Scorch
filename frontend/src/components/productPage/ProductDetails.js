@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './ProductDetails.css';
 import vegIcon from '../../Images/veg.png';
 import noteIcon from '../../Images/notes.png';
-
-
 
 const ProductDetails = () => {
   const { state: product } = useLocation();
@@ -15,25 +11,75 @@ const ProductDetails = () => {
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [note, setNote] = useState('');
 
+  const images = product?.images || [product?.img, product?.img, product?.img];
   const sizes = [
     { name: 'Grande', desc: '8 inches (8–9 serves)' },
     { name: 'Petit', desc: '6 inches (4–5 serves)' },
     { name: 'Individual', desc: '3 inches (1 serves)' },
   ];
 
-  const images = product?.images || [product?.img, product?.img, product?.img];
-
   const navigate = useNavigate();
+  const sliderRef = useRef(null);
+  const startX = useRef(0);
+  const isDragging = useRef(false);
 
-const handleAddToCart = () => {
-  // Logic to add product to cart goes here (optional, like storing in state/localStorage)
-  navigate('/cart'); // Redirects to cart page
-};
+  // Auto-slide every 3 sec
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
+  // Drag/Swipe Handlers
+  const handleMouseDown = (e) => {
+    isDragging.current = true;
+    startX.current = e.clientX;
+  };
+
+  const handleMouseUp = (e) => {
+    if (!isDragging.current) return;
+    const diff = e.clientX - startX.current;
+    if (diff > 50) {
+      // swipe right
+      setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+    } else if (diff < -50) {
+      // swipe left
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }
+    isDragging.current = false;
+  };
+
+  const handleTouchStart = (e) => {
+    isDragging.current = true;
+    startX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!isDragging.current) return;
+    const diff = e.changedTouches[0].clientX - startX.current;
+    if (diff > 50) {
+      setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+    } else if (diff < -50) {
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }
+    isDragging.current = false;
+  };
+
+  const handleAddToCart = () => {
+    navigate('/cart');
+  };
 
   return (
     <div className="product-page">
-      <div className="product-image">
+      <div
+        className="product-image"
+        ref={sliderRef}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <img src={images[activeIndex]} alt={product?.name} />
         <div className="dot-indicators">
           {images.map((_, index) => (
@@ -102,34 +148,31 @@ const handleAddToCart = () => {
         </div>
 
         <div className="button-group">
-         <button className="add-cart full-width" onClick={handleAddToCart}>
-  Add to cart
-</button>
+          <button className="add-cart full-width" onClick={handleAddToCart}>
+            Add to cart
+          </button>
         </div>
       </div>
 
       {/* Personal Note Popup */}
-{showNotePopup && (
-  <div className="popup-overlay">
-    <div className="popup modern-popup">
-        <button className="popup-close" onClick={() => setShowNotePopup(false)}>×</button>
-
-      <h2 className="popup-heading">Personalize Note</h2>
-      <label className="note-input-label">Add Personalize Note</label>
-      <textarea
-        className="modern-textarea"
-        placeholder="Add personalized note Eg. Happy Birthday"
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-      />
-      <button className="save-button" onClick={() => setShowNotePopup(false)}>
-        Save
-      </button>
-    </div>
-  </div>
-)}
-
-
+      {showNotePopup && (
+        <div className="popup-overlay">
+          <div className="popup modern-popup">
+            <button className="popup-close" onClick={() => setShowNotePopup(false)}>×</button>
+            <h2 className="popup-heading">Personalize Note</h2>
+            <label className="note-input-label">Add Personalize Note</label>
+            <textarea
+              className="modern-textarea"
+              placeholder="Add personalized note Eg. Happy Birthday"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+            />
+            <button className="save-button" onClick={() => setShowNotePopup(false)}>
+              Save
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

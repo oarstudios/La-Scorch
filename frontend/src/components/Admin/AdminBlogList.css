@@ -24,13 +24,13 @@
   font-size: 28px;
   font-family: "Jost";
   font-weight: 600;
-  color: rgba(57, 114, 193, 1); /* primary blue */
+  color: rgb(195 151 53); /* primary blue */
   margin: 0;
 }
 
 /* Add Button */
 .abl-add-btn {
-  background-color: rgba(57, 114, 193, 1);
+  background-color: #C39735;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -41,9 +41,7 @@
   font-size: 16px;
   transition: background 0.3s ease-in-out;
 }
-.abl-add-btn:hover {
-  background-color: rgba(40, 90, 150, 1);
-}
+
 
 .abl-add-link {
   color: white;
@@ -127,12 +125,10 @@
 }
 
 .abl-edit-btn {
-  background-color: rgba(57, 114, 193, 1);
+  background-color: #C39735;
   color: white;
 }
-.abl-edit-btn:hover {
-  background-color: rgba(40, 90, 150, 1);
-}
+
 
 .abl-delete-btn {
   background-color: rgba(214, 61, 45, 1);
