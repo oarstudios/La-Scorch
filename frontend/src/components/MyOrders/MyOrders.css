@@ -64,7 +64,7 @@ background-color: #FFF9F0;
   border-radius: 12px;
 }
 
-.order-details {
+.order-details-user {
   flex: 1;
   min-width: 300px;
 }
@@ -199,7 +199,7 @@ background-color: #FFF9F0;
     max-height: 240px;
   }
 
-  .order-details {
+  .order-details-user {
     width: 100%;
     margin-top: 10px;
   }

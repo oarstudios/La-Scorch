@@ -13,9 +13,9 @@ const SignUpPopup = ({ onClose, onSwitch }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup-box">
+      <div className="popup-box-user">
          <button className="popup-close" onClick={onClose}>×</button>
-        <h2 className="popup-title">Sign Up</h2>
+        <h2 className="popup-title-user">Sign Up</h2>
 
         <button className="google-btn">
           <img src={googleIcon} alt="Google" className="google-icon" />
@@ -24,17 +24,17 @@ const SignUpPopup = ({ onClose, onSwitch }) => {
 
         <div className="separator">or sign in with email</div>
 
-         <div className="input-wrapper">
+         <div className="input-wrapper-user">
           <img src={emailIcon} alt="Email" className="input-icon" />
           <input type="name" placeholder="Enter Your User Name" className="input-field" />
         </div>
 
-        <div className="input-wrapper">
+        <div className="input-wrapper-user">
           <img src={emailIcon} alt="Email" className="input-icon" />
           <input type="email" placeholder="Enter Your Email ID" className="input-field" />
         </div>
 
-        <div className="input-wrapper password-wrapper">
+        <div className="input-wrapper-user password-wrapper">
           <img src={passwordIcon} alt="Password" className="input-icon" />
           <input
             type={showPassword ? 'text' : 'password'}
@@ -49,7 +49,7 @@ const SignUpPopup = ({ onClose, onSwitch }) => {
           />
         </div>
 
-        <div className="input-wrapper password-wrapper">
+        <div className="input-wrapper-user password-wrapper">
           <img src={passwordIcon} alt="Password" className="input-icon" />
           <input
             type={showPassword ? 'text' : 'password'}

@@ -115,6 +115,15 @@ const deliveryTime = '03:24 PM';
           </div>
           <p className="coupon-msg">Saved ₹500 With Coupon Code <strong>#MyFirstCake</strong></p>
         </div>
+
+        <div className="next-order-offer">
+  <h4 className="offer-title">🎉 Special Gift For You!</h4>
+  <p className="offer-text">
+    Get <strong>10% OFF</strong> on your next order.  
+    Use Coupon Code: <span className="next-coupon">#Sweet10</span>
+  </p>
+  <p className="offer-subtext">Valid for the next 7 days | Minimum order ₹999</p>
+</div>
       </div>
     </div>
   );

@@ -96,7 +96,7 @@
   justify-content: space-between;
 }
 
-.popup-title {
+.popup-title-user {
   font-size: 28px;
   font-weight: 400;
   margin-bottom: 16px;
@@ -173,7 +173,7 @@
     font-size: 16px;
   }
 
-  .popup-title {
+  .popup-title-user {
     font-size: 22px;
   }
 
@@ -226,7 +226,7 @@
     font-size: 18px;
   }
 
-  .popup-title {
+  .popup-title-user {
     font-size: 24px;
   }
 

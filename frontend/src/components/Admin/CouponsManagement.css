@@ -1,0 +1,132 @@
+.coupons-container {
+  padding: 60px 40px;
+  background: rgba(255, 249, 240, 1);
+}
+
+.add-button-coupons {
+  background-color: rgba(195, 151, 53, 1);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  transition: background 0.3s ease-in-out;
+}
+.add-button-coupons:hover {
+  background-color: rgba(148, 108, 86, 1);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.coupons-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Gilroy-Medium;
+  font-size: 16px;
+  color: rgba(118, 87, 70, 1);
+}
+
+.coupons-table th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid rgba(120, 88, 71, 0.25);
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  font-size: 18px;
+  color: rgba(120, 88, 71, 1);
+}
+
+.coupons-table td {
+  padding: 15px;
+  border-bottom: 1px solid rgba(120, 88, 71, 0.15);
+  font-family: Gilroy-Medium;
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(118, 87, 70, 1);
+}
+
+.coupon-row {
+  border: 1px solid rgba(120, 88, 71, 0.2);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: white;
+}
+
+.coupon-field {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  font-family: Gilroy-SemiBold;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: right;
+  color: rgba(118, 87, 70, 1);
+}
+
+.coupon-field.readonly {
+  border: none;
+}
+
+.coupon-field:not(.readonly) {
+  border: 1px solid rgba(120, 88, 71, 0.25);
+  border-radius: 6px;
+  background: #FFF9F0;
+}
+
+.coupon-field:not(.readonly):focus {
+  border-color: rgba(195, 151, 53, 1);
+  outline: none;
+}
+
+.checkbox-large {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  accent-color: rgba(195, 151, 53, 1);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .coupons-container {
+    padding: 50px 20px;
+  }
+
+  .coupons-table thead {
+    display: none;
+  }
+
+  .coupons-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .coupon-row {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .coupon-row td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 14px;
+    font-family: Gilroy-Medium;
+  }
+
+  .coupon-row td::before {
+    content: attr(data-label);
+    font-weight: 400;
+    font-family: Gilroy-SemiBold;
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+    color: rgba(148, 108, 86, 1);
+  }
+}

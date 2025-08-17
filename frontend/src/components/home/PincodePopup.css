@@ -9,7 +9,7 @@
   z-index: 999;
 }
 
-.popup-box {
+.popup-box-user {
   background: #fff;
   padding: 30px;
   border-radius: 16px;
@@ -20,7 +20,7 @@
 }
 
 .popup-title-pin {
-  font-size: 32px;
+  font-size: 32px ; 
   color: rgba(118, 87, 70, 1);
   margin-bottom: 28px;
   font-family: Gilroy-SemiBold;
@@ -107,7 +107,7 @@
 
 /* ---------- Responsive: Mobile Phones ---------- */
 @media (max-width: 480px) {
-  .popup-box {
+  .popup-box-user {
     padding: 20px;
     border-radius: 12px;
   }
@@ -145,7 +145,7 @@
 
 /* ---------- Responsive: Tablets ---------- */
 @media (min-width: 481px) and (max-width: 768px) {
-  .popup-box {
+  .popup-box-user {
     padding: 26px;
   }
 
@@ -166,7 +166,7 @@
 
 /* ---------- Responsive: Small Laptops ---------- */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .popup-box {
+  .popup-box-user {
     max-width: 360px;
   }
 
@@ -177,7 +177,7 @@
 
 /* ---------- Responsive: Large Screens ---------- */
 @media (min-width: 1440px) {
-  .popup-box {
+  .popup-box-user {
     max-width: 420px;
   }
 

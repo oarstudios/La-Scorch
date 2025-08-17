@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './components/home/Home';
 import FullCategoryPage from './components/fullCategory/FullCategoryPage';
@@ -13,9 +12,29 @@ import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation'
 import TrackOrder from './components/TrackOrder/TrackOrder';
 import MyOrders from './components/MyOrders/MyOrders';
 import MyAccount from './components/MyAccount/MyAccount';
-import './App.css'
-import './index.css'
 import ContactUs from './components/ContactUs/ContactUs';
+
+// 🧠 ADMIN COMPONENTS IMPORT
+import AdminNavbar from './components/Admin/AdminNavbar';
+import AdminProducts from './components/Admin/AdminProducts';
+import AddNewProduct from './components/Admin/AddNewProduct';
+import EditAdminProducts from './components/Admin/EditAdminProducts';
+import AdminOrders from './components/Admin/AdminOrders';
+import AdminCustomersDetails from './components/Admin/AdminCustomersDetails';
+import AdminDashboard from './components/Admin/AdminDashboard';
+import QuickPricing from './components/Admin/QuickPricing';
+import DeliveryPricing from './components/Admin/DeliveryPricing';
+import Creatives from './components/Admin/Creatives';
+
+import "./App.css"
+import "./index.css"
+import ScrollToTop from './components/ScrollToTop';
+import CouponsManagement from './components/Admin/CouponsManagement';
+import AdminAddBlog from './components/Admin/AdminAddBlog';
+import AdminBlogList from './components/Admin/AdminBlogList';
+import AdminEditBlog from './components/Admin/AdminEditBlog';
+import BlogList from './components/BlogList/BlogList';
+import BlogDetail from './components/BlogDetail/BlogDetail';
 
 
 const AppContent = () => {
@@ -23,8 +42,11 @@ const AppContent = () => {
 
   return (
     <>
-      <Navbar />
+      {/* Show only non-admin layout for user pages */}
+      {!location.pathname.startsWith('/admin') && <Navbar />}
+
       <Routes>
+        {/* USER ROUTES */}
         <Route path="/" element={<Home />} />
         <Route path="/category" element={<FullCategoryPage />} />
         <Route path="/product" element={<ProductDetails />} />
@@ -33,25 +55,51 @@ const AppContent = () => {
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="/track-order" element={<TrackOrder />} />
         <Route path="/my-orders" element={<MyOrders />} />
-        <Route path="/my-account" element={<MyAccount/>}/>
-             <Route path="/contact-us" element={<ContactUs/>}/>
+        <Route path="/my-account" element={<MyAccount />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/articles" element={<BlogList />} />
+        <Route path="/blog" element={<BlogDetail />} />
 
+        {/* ADMIN ROUTES */}
+        <Route
+          path="/admin/*"
+          element={
+            <>
+              <AdminNavbar />
+              <Routes>
+                <Route path="products" element={<AdminProducts />} />
+                <Route path="add-product" element={<AddNewProduct />} />
+                <Route path="edit-product" element={<EditAdminProducts />} />
+                <Route path="customer-orders" element={<AdminOrders />} />
+                <Route path="customers" element={<AdminCustomersDetails />} />
+                <Route path="" element={<AdminDashboard />} />
+                <Route path="quick-pricing" element={<QuickPricing />} />
+                <Route path="delivery-pricing" element={<DeliveryPricing />} />
+                <Route path="creatives" element={<Creatives />} />
+                <Route path="coupons" element={<CouponsManagement/>} />
+                <Route path="add-blogs" element={<AdminAddBlog />} />
+                  <Route path="blogs-list" element={<AdminBlogList />} />
+                  <Route path="edit-blog" element={<AdminEditBlog />} />
+              </Routes>
+            </>
+          }
+        />
 
-
-         <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      
-      {/* Show YouMayAlsoLike only on product page */}
+
+      {/* Conditionally render components */}
       {location.pathname === '/product' && <YouMayAlsoLike />}
-      
-      <Footer />
+      {!location.pathname.startsWith('/admin') && <Footer />}
     </>
   );
 };
 
+
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <AppContent />
     </Router>
   );

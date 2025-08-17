@@ -110,7 +110,7 @@ background-color: #FFF9F0;
   margin-bottom: 30px;
 }
 
-.search-bar {
+.search-bar-user {
   display: flex;
   align-items: center;
   background-color: rgba(255, 255, 255, 1);
@@ -120,14 +120,14 @@ background-color: #FFF9F0;
   width: 260px;
 }
 
-.search-bar img {
+.search-bar-user img {
   width: 24px;
   height: 24px;
   margin-right: 8px;
   opacity: 0.6;
 }
 
-.search-bar input {
+.search-bar-user input {
   border: none;
   outline: none;
   font-family: 'Gilroy-Medium', sans-serif;
@@ -145,7 +145,7 @@ color: rgba(148, 108, 86, 1);
     gap: 16px;
   }
 
-  .search-bar {
+  .search-bar-user {
     width: 90%;
   }
 

@@ -36,7 +36,7 @@ const FeedbackSection = () => {
         <div className="popup-overlay" onClick={() => setShowPopup(false)}>
           <div className="feedback-popup" onClick={(e) => e.stopPropagation()}>
             <button className="popup-close" onClick={() => setShowPopup(false)}>×</button>
-            <h3 className="popup-title">Give Feedback</h3>
+            <h3 className="popup-title-user">Give Feedback</h3>
             <div className="ratestar">
                <p className="popup-label">Rate Us</p>
             <div className="popup-stars">

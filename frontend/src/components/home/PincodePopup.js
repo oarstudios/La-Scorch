@@ -22,7 +22,7 @@ const PincodePopup = ({ onClose }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup-box pincode-box">
+      <div className="popup-box-user pincode-box">
          <button className="popup-close" onClick={onClose}>×</button>
         {/* TITLE */}
         {status === 'success' && (

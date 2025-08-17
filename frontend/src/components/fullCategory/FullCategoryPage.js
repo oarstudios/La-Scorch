@@ -17,7 +17,7 @@ const FullCategoryPage = () => {
           <p className="subtitle-allCAt">Gifts For Your Special Ones</p>
           <h2 className="title-allCAt">Explore More In Chocolates</h2>
         </div>
-        <div className="search-bar">
+        <div className="search-bar-user">
           <img src={searchIcon} alt="Search Icon" />
           <input type="text" placeholder="Search For Chocolates" />
         </div>
