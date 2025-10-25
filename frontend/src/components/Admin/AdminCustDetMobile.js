@@ -1,36 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCustomers } from "../../features/Customers/CustomerSlice";
 import "./AdminOrdersMobile.css";
 
 const AdminCustDetMobile = () => {
+  const dispatch = useDispatch();
+  const { customers, loading, error } = useSelector((state) => state.customers);
+  
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const ordersPerPage = 15;
 
-  // Mock Users Data
-  const users = [
-    {
-      id: "CUST001",
-      name: "Omkar Garate",
-      contact: "+91 99888 77666",
-      email: "omkar@example.com",
-      gender: "Male",
-      age: 29,
-      totalSpent: "₹4,300",
-      orders: 2,
-    },
-    {
-      id: "CUST002",
-      name: "Aarav Patel",
-      contact: "+91 99888 12345",
-      email: "aarav@example.com",
-      gender: "Male",
-      age: 34,
-      totalSpent: "₹3,000",
-      orders: 1,
-    },
-  ];
+  useEffect(() => {
+    dispatch(fetchCustomers());
+  }, [dispatch]);
 
-  const totalPages = Math.ceil(users.length / ordersPerPage);
+  const totalPages = Math.ceil(customers.length / ordersPerPage);
 
   const toggleDetails = (orderId) => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
@@ -41,7 +26,7 @@ const AdminCustDetMobile = () => {
     return users.slice(startIndex, startIndex + ordersPerPage);
   };
 
-  const paginatedUsers = paginateUsers(users, currentPage, ordersPerPage);
+  const paginatedUsers = paginateUsers(customers, currentPage, ordersPerPage);
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -51,32 +36,58 @@ const AdminCustDetMobile = () => {
   return (
     <div className="orders-list-mobile">
       {/* Orders List */}
-      {paginatedUsers.map((user) => (
-        <div key={user.id} className="order-container">
-          {/* Minimal details shown initially */}
-          <div className="order-row-mobile" onClick={() => toggleDetails(user.id)}>
-            <p><strong>Customer Name:</strong> {user.name}</p>
-            <p><strong>No. of Orders:</strong> {user.orders}</p>
-            <p><strong>Total Spent:</strong> {user.totalSpent}</p>
-          </div>
-
-          {/* Expanded details */}
-          {expandedOrderId === user.id && (
-            <div className="order-details-row-mobile">
-              {/* Customer Details */}
-              <div className="customer-details">
-                <h3>Customer Details</h3>
-                <p><strong>Name:</strong> {user.name}</p>
-                <p><strong>Customer ID:</strong> {user.id}</p>
-                <p><strong>Contact:</strong> {user.contact}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Gender:</strong> {user.gender}</p>
-                <p><strong>Age:</strong> {user.age}</p>
-              </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p className="error-message">{error}</p>
+      ) : paginatedUsers.length === 0 ? (
+        <p style={{ textAlign: "center", opacity: 0.6 }}>No customers</p>
+      ) : (
+        paginatedUsers.map((user) => (
+          <div key={user._id} className="order-container">
+            {/* Minimal details shown initially */}
+            <div className="order-row-mobile" onClick={() => toggleDetails(user._id)}>
+              <p>
+                <strong>Customer Name:</strong> {user.username}
+              </p>
+              <p>
+                <strong>No. of Orders:</strong> {user.orders || 0}
+              </p>
+              <p>
+                <strong>Total Spent:</strong> ₹{user.totalSpent || 0}
+              </p>
             </div>
-          )}
-        </div>
-      ))}
+
+            {/* Expanded details */}
+            {expandedOrderId === user._id && (
+              <div className="order-details-row-mobile">
+                {/* Customer Details */}
+                <div className="customer-details">
+                  <h3>Customer Details</h3>
+                  <p>
+                    <strong>Name:</strong> {user.username}
+                  </p>
+                  <p>
+                    <strong>Customer ID:</strong> {user.userId}
+                  </p>
+                  <p>
+                    <strong>Contact:</strong> {user.phoneNo}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {user.email}
+                  </p>
+                  <p>
+                    <strong>Gender:</strong> {user.gender}
+                  </p>
+                  <p>
+                    <strong>Age:</strong> {user.age}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        ))
+      )}
 
       {/* Pagination */}
       <div className="pagination">

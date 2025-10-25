@@ -1,35 +1,98 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Creatives.css";
-import img1 from "../../Images/slider1.jpg"
-
-const initialImages = {
-  desktop: [
-    { id: 1, src: img1 },
-    { id: 2, src: img1 },
-    { id: 3, src: img1 },
-  ],
-  mobile: [
-    { id: 4, src: img1 },
-    { id: 5, src: img1 },
-    { id: 6, src: img1 },
-  ],
-};
+import { IMG_BASE_URL } from "../../features/api/api";
+// import { useAuthContext } 
+// import useNotify from "../../hooks/useNotify";
 
 const Creatives = () => {
-  const [images, setImages] = useState(initialImages);
+  const [images, setImages] = useState({ desktop: [], mobile: [] });
+  // const { user } = useAuthContext();
+  // const { notify } = useNotify();
 
-  // Handle image change
-  const handleImageChange = (event, category, id) => {
-    const file = event.target.files[0];
-    if (file) {
-      const newImageUrl = URL.createObjectURL(file);
+  // Fetch existing images from backend
+  const fetchImages = async () => {
+    try {
+      const response = await fetch("http://localhost:4001/api/creatives");
+      const json = await response.json();
 
-      setImages((prevImages) => ({
-        ...prevImages,
-        [category]: prevImages[category].map((img) =>
-          img.id === id ? { ...img, src: newImageUrl } : img
-        ),
-      }));
+      if (response.ok) {
+        // Separate images based on the "tag" field
+        const desktopImages = json.data.filter((img) => img.tag === "desktop");
+        const mobileImages = json.data.filter((img) => img.tag === "mobile");
+
+        // Store the full image objects in state
+        setImages({
+          desktop: desktopImages,
+          mobile: mobileImages,
+        });
+
+        console.log("Desktop Images:", desktopImages);
+        console.log("Mobile Images:", mobileImages);
+      }
+    } catch (error) {
+      console.error("Error fetching images:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  const handleImageChange = async (e, category) => {
+    const file = e.target.files[0];
+    //console.log(file)
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("media", file);
+    formData.append("tag", category);
+
+    try {
+      const response = await fetch("http://localhost:4001/api/creatives/", {
+        method: "POST",
+        body: formData,
+        // headers: {
+        //   Authorization: `Bearer ${user?.token}`,
+        // },
+      });
+
+      const json = await response.json();
+      if (response.ok) {
+        //console.log(json)
+        setImages((prevImages) => ({
+          ...prevImages,
+          [category]: [...prevImages[category], json.data.image].slice(0, 4),
+        }));
+        fetchImages();
+        // notify("Creative added successfully", "success");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      // notify("Error adding the creative", "error");
+    }
+  };
+
+  const handleDeleteImage = async (e, creativeId) => {
+    e.preventDefault(); // Prevent form submission from reloading the page
+
+    try {
+      const response = await fetch(
+        `http://localhost:4001/api/creatives/${creativeId}`,
+        {
+          method: "DELETE",
+          // headers: {
+          //   Authorization: `Bearer ${user?.token}`,
+          // },
+        }
+      );
+
+      if (response.ok) {
+        fetchImages();
+        // notify("Creative deleted successfully", "success");
+      }
+    } catch (error) {
+      console.error("Error deleting image:", error);
+      // notify("Error deleting the creative", "error");
     }
   };
 
@@ -37,45 +100,66 @@ const Creatives = () => {
     <div className="creatives-container">
       <h2>Edit Home Page Carousel Images</h2>
 
-      {/* Desktop Images */}
-      <h3>Desktop/ Tablet</h3>
-      <div className="image-grid">
-        {images.desktop.map((image) => (
-          <div key={image.id} className="image-card">
-            <img src={image.src} alt={`Desktop ${image.id}`} className="creative-image" />
-            <label className="edit-btn-creatives">
-              Edit
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleImageChange(e, "desktop", image.id)}
-                className="file-input"
-              />
-            </label>
+      {/* Desktop Section */}
+      <h3>Desktop/Tablet</h3>
+      <form encType="multipart/form-data" className="image-box">
+        {images?.desktop?.map((img, index) => (
+          <div key={index} className="image-wrapper">
+            <img
+              src={`http://localhost:4001/uploads/${img?.media}`}
+              // src={`${IMG_BASE_URL}${img?.media}`}
+              alt={`Desktop ${index}`}
+              className="creative-image"
+            />
+            <button onClick={(e) => handleDeleteImage(e, img._id)}>
+              Delete
+            </button>
           </div>
         ))}
-      </div>
 
-      {/* Mobile Images */}
-      {/* Mobile Images */}
-<h3>Mobile</h3>
-<div className="image-grid">
-  {images.mobile.map((image) => (
-    <div key={image.id} className="image-card">
-      <img src={image.src} alt={`Mobile ${image.id}`} className="creative-image mobile-image" />
-      <label className="edit-btn-creatives">
-        Edit
+        {images?.desktop?.length < 4 && (
+          <label className="add-button" htmlFor="desktop-input">
+            + Add Image
+          </label>
+        )}
         <input
           type="file"
+          id="desktop-input"
           accept="image/*"
-          onChange={(e) => handleImageChange(e, "mobile", image.id)}
-          className="file-input"
+          onChange={(e) => handleImageChange(e, "desktop")}
+          style={{ display: "none" }}
         />
-      </label>
-    </div>
-  ))}
-</div>
+      </form>
 
+      {/* Mobile Section */}
+      <h3>Mobile</h3>
+      <div className="image-box">
+        {images?.mobile?.map((img, index) => (
+          <div key={index} className="image-wrapper2">
+            <img
+              src={`http://localhost:4001/${img?.media}`}
+              alt={`Mobile ${index}`}
+              className="creative-image mobile-image"
+            />
+            <button onClick={(e) => handleDeleteImage(e, img._id)}>
+              Delete
+            </button>
+          </div>
+        ))}
+
+        {images.mobile.length < 4 && (
+          <label className="add-button" htmlFor="mobile-input">
+            + Add Image
+          </label>
+        )}
+        <input
+          type="file"
+          id="mobile-input"
+          accept="image/*"
+          onChange={(e) => handleImageChange(e, "mobile")}
+          style={{ display: "none" }}
+        />
+      </div>
     </div>
   );
 };

@@ -1,59 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiSearch, FiFilter } from "react-icons/fi";
 import { FaArchive } from "react-icons/fa";
-import "./AdminProducts.css";
-import productImage1 from "../../Images/slider1.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../features/Products/ProductSlice";
 import FilterComponent from "./FilterComponent";
-
-const products = [
-  {
-    id: 1,
-    name: "Triple Chocolate Cheesecake",
-    price: "200",
-    image: productImage1,
-    tag: "Bestseller",
-  },
-  {
-    id: 2,
-    name: "Strawberry Chocolate",
-    price: "600",
-    image: productImage1,
-  },
-  {
-    id: 3,
-    name: "Chocolate Mousse",
-    price: "800",
-    image: productImage1,
-  },
-  {
-    id: 4,
-    name: "Vanilla Delight",
-    price: "500",
-    image: productImage1,
-    tag: "New",
-  },
-  {
-    id: 5,
-    name: "Red Velvet Cake",
-    price: "700",
-    image: productImage1,
-  },
-];
+import productImage1 from "../../Images/slider1.jpg";
+import "./AdminProducts.css";
 
 const AdminProducts = () => {
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector((state) => state.products);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 50;
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const productsPerPage = 50;
 
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const handleSearch = (event) => setSearchQuery(event.target.value);
+
+  if (loading) return <div className="p-6 text-center">Loading products...</div>;
+  if (error) return <div className="p-6 text-center text-red-500">Error: {error}</div>;
+
+  const filteredProducts =
+    products?.filter((product) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || [];
 
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
@@ -92,12 +68,20 @@ const AdminProducts = () => {
         </Link>
 
         {displayedProducts.map((product) => (
-          <div className="admin-prod-card" key={product.id}>
-            <img src={product.image} alt={product.name} className="admin-prod-img" />
+          <div className="admin-prod-card" key={product._id}>
+            <img
+              src={
+                product.images?.[0]
+                  ? `http://localhost:4001${product.images[0]}`
+                  : productImage1
+              }
+              alt={product.name}
+              className="admin-prod-img"
+            />
             <div className="admin-prod-info">
               <h3>{product.name}</h3>
-              <p>₹{product.price}</p>
-              <Link to="/admin/edit-product">
+              <p>₹{product.size?.[0]?.price || "—"}</p>
+              <Link to={`/admin/edit-product?id=${product._id}`}>
                 <button className="admin-prod-edit-btn">Edit</button>
               </Link>
             </div>

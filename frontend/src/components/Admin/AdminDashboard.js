@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./AdminDashboard.css";
-
+import { fetchOrdersAPI } from "../../features/Orders/OrdersAPI";
+import { fetchCustomersAPI } from "../../features/Customers/CustomerAPI";
+import { fetchLocationsAPI } from "../../features/DeliveryPricing/DeliveryAPI";
+import { fetchProducts } from "../../features/Products/ProductAPI";
 const AnimatedNumber = ({ value }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const end = parseInt(value.replace(/,/g, ""));
+    const end = parseInt(value.toString().replace(/,/g, ""));
     if (count === end) return;
 
     const duration = 2000;
-    const step = Math.ceil(end / (duration / 20));
     const startTime = Date.now();
 
     const timer = setInterval(() => {
@@ -17,7 +20,6 @@ const AnimatedNumber = ({ value }) => {
       const progress = Math.min(elapsed / duration, 1);
       const newValue = Math.floor(progress * end);
       setCount(newValue);
-
       if (progress >= 1) clearInterval(timer);
     }, 20);
 
@@ -28,54 +30,88 @@ const AnimatedNumber = ({ value }) => {
 };
 
 const AdminDashboard = () => {
+  const [revenue, setRevenue] = useState(0);
+  const [customersCount, setCustomersCount] = useState(0);
+  const [ordersCount, setOrdersCount] = useState(0);
+  const [locationsCount, setLocationsCount] = useState(0);
+  const [productsCount, setProductsCount] = useState(0);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        // Fetch orders and calculate revenue and orders count
+        const orders = await fetchOrdersAPI();
+        setOrdersCount(orders.length);
+        const totalRevenue = orders.reduce((sum, order) => sum + (order.total ?? 0), 0);
+        setRevenue(totalRevenue);
+
+        // Fetch customers count
+        const customers = await fetchCustomersAPI();
+        setCustomersCount(customers.length);
+
+        // Fetch delivery locations count
+        const locations = await fetchLocationsAPI();
+        setLocationsCount(locations.length);
+
+        // Fetch products count
+        const products = await fetchProducts();
+        setProductsCount(products.length);
+      } catch (error) {
+        console.error("Error fetching dashboard stats:", error);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
   return (
     <div className="admin-dashboard">
       <div className="dashboard-row">
-        <a href="/admin" className="dashboard-link">
+        <Link to="/admin" className="dashboard-link">
           <div className="dashboard-card full-width">
-            <AnimatedNumber value="1000000" />
+            <AnimatedNumber value={revenue} />
             <p>REVENUE</p>
           </div>
-        </a>
-        <a href="/admin/customers" className="dashboard-link">
+        </Link>
+        <Link to="/admin/customers" className="dashboard-link">
           <div className="dashboard-card full-width">
-            <AnimatedNumber value="1291" />
+            <AnimatedNumber value={customersCount} />
             <p>CUSTOMERS</p>
           </div>
-        </a>
-        <a href="/admin/creatives" className="dashboard-link">
+        </Link>
+        <Link to="/admin/creatives" className="dashboard-link">
           <div className="dashboard-card full-width">
             <h2>WEBSITE</h2>
             <p>CMS</p>
           </div>
-        </a>
+        </Link>
       </div>
 
       <div className="dashboard-row">
-        <a href="/admin/customer-orders" className="dashboard-link">
+        <Link to="/admin/customer-orders" className="dashboard-link">
           <div className="dashboard-card half-width">
-            <AnimatedNumber value="10973" />
+            <AnimatedNumber value={ordersCount} />
             <p>ORDERS</p>
           </div>
-        </a>
-        <a href="/admin/delivery-pricing" className="dashboard-link">
+        </Link>
+        <Link to="/admin/delivery-pricing" className="dashboard-link">
           <div className="dashboard-card half-width">
-            <AnimatedNumber value="21" />
+            <AnimatedNumber value={locationsCount} />
             <p>LOCATIONS</p>
           </div>
-        </a>
-        <a href="/admin/products" className="dashboard-link">
+        </Link>
+        <Link to="/admin/products" className="dashboard-link">
           <div className="dashboard-card half-width">
-            <AnimatedNumber value="52" />
+            <AnimatedNumber value={productsCount} />
             <p>PRODUCTS</p>
           </div>
-        </a>
-        <a href="/admin/quick-pricing" className="dashboard-link">
+        </Link>
+        <Link to="/admin/quick-pricing" className="dashboard-link">
           <div className="dashboard-card half-width">
             <h2>QUICK</h2>
             <p>PRICING</p>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   );

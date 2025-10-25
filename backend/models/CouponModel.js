@@ -4,7 +4,9 @@ const CouponSchema = new mongoose.Schema(
   {
     couponId: {
       type: String,
-      unique: true
+      unique: true,
+      required: true,
+       default: () => "C" + (Math.floor(Math.random() * 90000) + 10000).toString()
     },
     code: {
       type: String,

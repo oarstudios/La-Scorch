@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Home from './components/home/Home';
 import FullCategoryPage from './components/fullCategory/FullCategoryPage';
 import ProductDetails from './components/productPage/ProductDetails';
@@ -35,10 +35,45 @@ import AdminBlogList from './components/Admin/AdminBlogList';
 import AdminEditBlog from './components/Admin/AdminEditBlog';
 import BlogList from './components/BlogList/BlogList';
 import BlogDetail from './components/BlogDetail/BlogDetail';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { checkAuth } from './features/Auth/AuthSlice';
+import USER_TYPES from './constants/userTypes';
 
 
 const AppContent = () => {
   const location = useLocation();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  const { user, loading } = useSelector((state) => state.auth);
+  console.log("User in AppContent:", user);
+
+  useEffect(() => {
+  // ✅ Wait until loading completes
+  if (loading) return;
+
+  
+
+  // ✅ Only run this if we have an authenticated user
+  if (user) {
+    if (user.userType === USER_TYPES.ADMIN) {
+      console.log("It is an admin, Navigating to admin dashboard");
+      navigate('/admin');
+    } else {
+      console.log("It is a user, Navigating to home page");
+      navigate('/');
+    }
+  }
+}, [user, loading]);
+
+  
+  
 
   return (
     <>

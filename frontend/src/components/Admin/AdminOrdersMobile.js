@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminOrdersMobile.css";
-import { FiSearch, FiFilter } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchOrders, updateOrder } from "../../features/Orders/OrderSlice";
 
-const AdminOrdersMobile = ({ orders }) => {
+const AdminOrdersMobile = () => {
+  const dispatch = useDispatch();
+  const { orders, loading, error } = useSelector((state) => state.orders);
+
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = 15;
   const [filter, setFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const ordersPerPage = 15;
 
-  const totalPages = Math.ceil(orders.length / ordersPerPage);
+  useEffect(() => {
+    dispatch(fetchOrders());
+  }, [dispatch]);
 
   const toggleDetails = (orderId) => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
@@ -18,6 +26,10 @@ const AdminOrdersMobile = ({ orders }) => {
     setFilter(status);
     setCurrentPage(1);
   };
+
+  const handleStatusUpdate = (orderId, newStatus) => {
+      dispatch(updateOrder({ id: orderId, data: { status: newStatus } }));
+    };
 
   const filterOrders = (orders, filter) => {
     if (filter === "All") return orders;
@@ -29,31 +41,39 @@ const AdminOrdersMobile = ({ orders }) => {
     return orders.slice(startIndex, startIndex + ordersPerPage);
   };
 
-  const filteredOrders = filterOrders(orders, filter);
+  const filteredByStatus = filterOrders(orders, filter);
+  const filteredOrders = filteredByStatus.filter(
+    (order) =>
+      order.productName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order.customer.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const paginatedOrders = paginateOrders(filteredOrders, currentPage, ordersPerPage);
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
     setExpandedOrderId(null);
   };
-   const [searchQuery, setSearchQuery] = useState("");
-  
-    const handleSearch = (event) => {
-      setSearchQuery(event.target.value);
-    };
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div className="error-message">{error}</div>;
 
   return (
     <div className="orders-list-mobile">
-    <div className="admin-prod-search">
-                          <FiSearch className="admin-prod-search-icon" />
-                          <input
-                            type="text"
-                            placeholder="Search products..."
-                            value={searchQuery}
-                            onChange={handleSearch}
-                          />
-                        </div>
-      {/* Orders Navigation */}
+      <div className="admin-prod-search">
+        <FiSearch className="admin-prod-search-icon" />
+        <input
+          type="text"
+          placeholder="Search products or customers..."
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+      </div>
+
       <div className="orders-navigation">
         <button className={filter === "All" ? "active" : ""} onClick={() => handleFilterClick("All")}>
           All Orders
@@ -69,22 +89,16 @@ const AdminOrdersMobile = ({ orders }) => {
         </button>
       </div>
 
-      {/* Orders List */}
       {paginatedOrders.map((order) => (
-        <div key={order.id} className="order-container">
-          {/* Minimal details shown initially */}
-          <div className="order-row-mobile" onClick={() => toggleDetails(order.id)}>
+        <div key={order._id} className="order-container">
+          <div className="order-row-mobile" onClick={() => toggleDetails(order._id)}>
             <p><strong>Order Date:</strong> {order.date}</p>
             <p><strong>Product:</strong> {order.productName}</p>
-            <p><strong>Status:</strong>
-              <button className={`status-button ${order.status}`}>{order.status}</button>
-            </p>
+            <p><strong>Status:</strong> <button className={`status-button ${order.status}`}>{order.status}</button></p>
           </div>
 
-          {/* Expanded details */}
-          {expandedOrderId === order.id && (
+          {expandedOrderId === order._id && (
             <div className="order-details-row-mobile">
-              {/* Customer Details */}
               <div className="customer-details">
                 <h3>Customer Details</h3>
                 <p><strong>Name:</strong> {order.customer.name}</p>
@@ -93,18 +107,14 @@ const AdminOrdersMobile = ({ orders }) => {
                 <p><strong>Email:</strong> {order.customer.email}</p>
                 <p><strong>Payment Method:</strong> {order.customer.paymentMethod}</p>
                 <p><strong>Delivery Date:</strong> {order.deliveryDate}</p>
-                <p>
-                  <strong>Delivery:</strong> Today, {order.deliveryDetails.date}, {order.deliveryDetails.time}, {order.deliveryDetails.duration}
-                </p>
+                <p><strong>Delivery:</strong> Today, {order.deliveryDetails.date}, {order.deliveryDetails.time}, {order.deliveryDetails.duration}</p>
               </div>
 
-              {/* Address, Date, and Price */}
               <div className="order-extra-details">
                 <p><strong>Address:</strong> {order.address}</p>
                 <p><strong>Total Price:</strong> ₹{parseFloat(order.price).toFixed(2)}</p>
               </div>
 
-              {/* Order Items */}
               <div className="order-items-mobile">
                 <h3>Order Details</h3>
                 <p className="orderID"><strong>Order ID:</strong> {order.id}</p>
@@ -123,19 +133,35 @@ const AdminOrdersMobile = ({ orders }) => {
                 ))}
               </div>
 
-              {/* Update Order Status */}
-              <div className="update-status">
-                <h3>Update Order Status</h3>
-                <button className="Pending">Pending</button>
-                <button className="Delivered">Delivered</button>
-                <button className="Canceled">Canceled</button>
-              </div>
+               <div className="update-status">
+    <h3>Update Order Status</h3>
+    <button
+      disabled={(order.status ?? '') === 'Pending'}
+      className="Pending"
+      onClick={() => handleStatusUpdate(order._id, 'Pending')}
+    >
+      Pending
+    </button>
+    <button
+      disabled={(order.status ?? '') === 'Delivered'}
+      className="Delivered"
+      onClick={() => handleStatusUpdate(order._id, 'Delivered')}
+    >
+      Delivered
+    </button>
+    <button
+      disabled={(order.status ?? '') === 'Canceled'}
+      className="Canceled"
+      onClick={() => handleStatusUpdate(order._id, 'Canceled')}
+    >
+      Canceled
+    </button>
+  </div>
             </div>
           )}
         </div>
       ))}
 
-      {/* Pagination */}
       <div className="pagination">
         <button
           className={`pagination-btn ${currentPage === 1 ? "disabled" : ""}`}
@@ -144,7 +170,7 @@ const AdminOrdersMobile = ({ orders }) => {
         >
           Previous
         </button>
-        {Array.from({ length: totalPages }, (_, i) => (
+        {Array.from({ length: Math.ceil(filteredOrders.length / ordersPerPage) }, (_, i) => (
           <button
             key={i + 1}
             className={`pagination-btn ${currentPage === i + 1 ? "active-page" : ""}`}
@@ -154,9 +180,9 @@ const AdminOrdersMobile = ({ orders }) => {
           </button>
         ))}
         <button
-          className={`pagination-btn ${currentPage === totalPages ? "disabled" : ""}`}
+          className={`pagination-btn ${currentPage === Math.ceil(filteredOrders.length / ordersPerPage) ? "disabled" : ""}`}
           onClick={() => handlePageClick(currentPage + 1)}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === Math.ceil(filteredOrders.length / ordersPerPage)}
         >
           Next
         </button>

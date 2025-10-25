@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./AdminAddBlog.css";
+import { useDispatch } from "react-redux";
+import { createBlog, fetchBlogs } from "../../features/Blogs/BlogSlice";
 
-export default function AdminAddBlog({ onPublish }) {
-  const [image, setImage] = useState(null);
+export default function AdminAddBlog() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [content, setContent] = useState("");
@@ -11,14 +17,22 @@ export default function AdminAddBlog({ onPublish }) {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file));
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
-  const handlePublish = () => {
+  const handlePublish = async () => {
     if (title && subtitle && content) {
-      const newBlog = { title, subtitle, content, image };
-      onPublish(newBlog);
+      const formData = new FormData();
+      formData.append("heading", title);
+      formData.append("subheading", subtitle);
+      formData.append("content", content);
+      if (imageFile) formData.append("image", imageFile);
+
+      await dispatch(createBlog(formData));
+      dispatch(fetchBlogs());
+      navigate("/admin/blogs-list");
     } else {
       alert("Please fill in all fields.");
     }
@@ -26,7 +40,6 @@ export default function AdminAddBlog({ onPublish }) {
 
   return (
     <div className="admin-add-blog">
-      {/* Header */}
       <div className="aab-header">
         <div className="aab-back-title">
           <Link to="/admin/blogs-list" className="aab-back">
@@ -38,48 +51,41 @@ export default function AdminAddBlog({ onPublish }) {
           Publish Blog
         </button>
       </div>
-    <div className="blog-mid">
-
-         {/* Image Upload */}
-      <label className="aab-image-upload">
-        {image ? (
-          <img src={image} alt="Preview" className="aab-image-preview" />
-        ) : (
-          <div className="aab-placeholder" />
-        )}
+      <div className="blog-mid">
+        <label className="aab-image-upload">
+          {imagePreview ? (
+            <img src={imagePreview} alt="Preview" className="aab-image-preview" />
+          ) : (
+            <div className="aab-placeholder" />
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleImageUpload}
+          />
+        </label>
         <input
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }}
-          onChange={handleImageUpload}
+          type="text"
+          placeholder="Heading Of The Blog"
+          className="aab-input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
-      </label>
-
-      {/* Inputs */}
-      <input
-        type="text"
-        placeholder="Heading Of The Blog"
-        className="aab-input"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Subheading"
-        className="aab-input"
-        value={subtitle}
-        onChange={(e) => setSubtitle(e.target.value)}
-      />
-      <textarea
-        placeholder="Add Content Of The Blog Goes Here"
-        className="aab-textarea"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
-    </div>
-     
-
-
+        <input
+          type="text"
+          placeholder="Subheading"
+          className="aab-input"
+          value={subtitle}
+          onChange={(e) => setSubtitle(e.target.value)}
+        />
+        <textarea
+          placeholder="Add Content Of The Blog Goes Here"
+          className="aab-textarea"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+      </div>
     </div>
   );
 }

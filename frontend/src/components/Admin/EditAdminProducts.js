@@ -1,80 +1,245 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaImage, FaTimes } from 'react-icons/fa';
-
-import sampleImage from '../../Images/slider1.jpg'; // replace with your actual image path
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FaImage, FaTimes } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getProduct,
+  updateProduct,
+} from "../../features/Products/ProductSlice";
+import "./AddNewProduct.css";
+import { IMG_BASE_URL } from "../../features/api/api";
 
 const EditAdminProduct = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
 
-  // Pre-filled data from backend (mocked here)
-  const [selectedType, setSelectedType] = useState('Egg');
-  const [images, setImages] = useState([{ name: 'cake1', file: sampleImage }]);
-  const [formData, setFormData] = useState({
-    flavor: 'Chocolate',
-    name: 'Truffle Cake',
-    description: 'Rich chocolate truffle with layers of ganache and fudge.',
-    sizes: {
-      Grande: '1299',
-      Petit: '899',
-      Individual: '299',
-    },
-    preparationTime: '2 Days',
-    careInstructions: 'Keep refrigerated. Consume within 48 hours.',
-    category: 'Birthday Cakes', // 👈 default category
+  const searchParams = new URLSearchParams(location.search);
+  const productId = searchParams.get("id");
+
+  const { currentProduct, loading, error } = useSelector(
+    (state) => state.products
+  );
+
+  const [form, setForm] = useState({
+    type: "Egg",
+    category: "",
+    flavor: "",
+    name: "",
+    description: "",
+    preparationTime: "",
+    careInstructions: "",
+    sizes: [
+      {
+        name: "Grande",
+        description: "8 inches (8–9 serves)",
+        price: "",
+        checked: false,
+      },
+      {
+        name: "Petit",
+        description: "6 inches (4–5 serves)",
+        price: "",
+        checked: false,
+      },
+      {
+        name: "Individual",
+        description: "3 inches (1 serves)",
+        price: "",
+        checked: false,
+      },
+    ],
+    images: [],
   });
 
-  // Example categories (can later come from API or props)
-  const cakeCategories = [
-    'Birthday Cakes',
-    'Wedding Cakes',
-    'Cupcakes',
-    'Cheesecakes',
-    'Photo Cakes',
-    'Customized Cakes',
-  ];
+  // Fetch product on mount
+  useEffect(() => {
+    if (productId) dispatch(getProduct(productId));
+  }, [dispatch, productId]);
 
-  const handleTypeChange = (type) => {
-    setSelectedType(type);
-  };
-
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files).slice(0, 3 - images.length);
-    const newImages = files.map((file) => ({
-      name: file.name + Date.now(),
-      file: URL.createObjectURL(file),
+  // Merge backend data into form
+  useEffect(() => {
+    if (!currentProduct) return;
+    const defaultSizes = [
+      {
+        name: "Grande",
+        description: "8 inches (8–9 serves)",
+        price: "",
+        checked: false,
+      },
+      {
+        name: "Petit",
+        description: "6 inches (4–5 serves)",
+        price: "",
+        checked: false,
+      },
+      {
+        name: "Individual",
+        description: "3 inches (1 serves)",
+        price: "",
+        checked: false,
+      },
+    ];
+    const backendSizesMap = (currentProduct.size || []).reduce((acc, s) => {
+      acc[s.name] = s;
+      return acc;
+    }, {});
+    const mergedSizes = defaultSizes.map((size) => {
+      if (backendSizesMap[size.name]) {
+        return {
+          ...size,
+          price: backendSizesMap[size.name].price,
+          checked: true,
+        };
+      }
+      return size;
+    });
+    const images = (currentProduct.images || []).map((img, idx) => ({
+      name: `existing-${idx}`,
+      file: `${IMG_BASE_URL}${img}`,
+      rawFile: null,
+      isExisting: true,
+      url: img,
     }));
-    setImages((prev) => [...prev, ...newImages]);
+    setForm((prev) => ({
+      ...prev,
+      type: currentProduct.type || prev.type,
+      category: currentProduct.category || prev.category,
+      flavor: currentProduct.flavour || prev.flavor,
+      name: currentProduct.name || prev.name,
+      description: currentProduct.description || prev.description,
+      preparationTime: currentProduct.preparationTime || prev.preparationTime,
+      careInstructions: currentProduct.care || prev.careInstructions,
+      sizes: mergedSizes,
+      isArchived: currentProduct.isArchived || false,
+      images,
+    }));
+    // eslint-disable-next-line
+  }, [currentProduct]);
+
+  const toggleArchive = (isa) => {
+    setForm((prev) => ({ ...prev, isArchived: isa }));
   };
 
-  const removeImage = (name) => {
-    setImages((prev) => prev.filter((img) => img.name !== name));
-  };
-
+  // Handle text input changes
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSizeChange = (e, size) => {
-    setFormData({
-      ...formData,
-      sizes: { ...formData.sizes, [size]: e.target.value },
+  // Toggle size checkbox (with price reset if unchecked)
+  const toggleSizeChecked = (index) => {
+    setForm((prev) => {
+      const updated = [...prev.sizes];
+      updated[index] = {
+        ...updated[index],
+        checked: !updated[index].checked,
+        price: updated[index].checked ? "" : updated[index].price, // Clear price if just unchecked
+      };
+      return { ...prev, sizes: updated };
     });
   };
 
+  // Handle price field for size
+  const handleSizeChange = (index, value) => {
+    setForm((prev) => {
+      const updated = [...prev.sizes];
+      updated[index].price = value;
+      return { ...prev, sizes: updated };
+    });
+  };
+
+  // Handle image upload
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    const allowed = 3 - form.images.length;
+    const toAdd = files.slice(0, allowed);
+    const newImages = toAdd.map((file) => ({
+      name: file.name + "-" + Date.now(),
+      file: URL.createObjectURL(file),
+      rawFile: file,
+      isExisting: false,
+      url: null,
+    }));
+    setForm((prev) => ({ ...prev, images: [...prev.images, ...newImages] }));
+  };
+
+  // Remove image from list
+  const removeImage = (name) => {
+    setForm((prev) => ({
+      ...prev,
+      images: prev.images.filter((img) => img.name !== name),
+    }));
+  };
+
+  // Submit changes
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Only include checked sizes
+    const selectedSizes = form.sizes
+      .filter((s) => s.checked)
+      .map((s) => ({
+        name: s.name,
+        description: s.description,
+        price: s.price === "" ? 0 : Number(s.price),
+      }));
+    // Existing images
+    const existingImages = form.images
+      .filter((img) => img.isExisting)
+      .map((img) => img.url)
+      .filter(Boolean);
+
+    const fd = new FormData();
+    fd.append("type", form.type);
+    fd.append("category", form.category);
+    fd.append("flavor", form.flavor);
+    fd.append("name", form.name);
+    fd.append("description", form.description);
+    fd.append("prepTime", form.preparationTime);
+    fd.append("storage", form.careInstructions);
+    fd.append("sizes", JSON.stringify(selectedSizes));
+    fd.append("existingImages", JSON.stringify(existingImages));
+    fd.append("isArchived", form.isArchived ? "true" : "false");
+
+    console.log("printing isarchived", form.isArchived);
+    // Add new images
+    form.images
+      .filter((img) => !img.isExisting && img.rawFile)
+      .forEach((img) => fd.append("images", img.rawFile));
+    try {
+      await dispatch(updateProduct({ id: productId, formData: fd })).unwrap();
+      alert("🎉 Product updated successfully!");
+      navigate("/admin");
+    } catch (err) {
+      console.error("Update failed:", err);
+      alert("❌ Failed to update product: " + (err?.message || err));
+    }
+  };
+
+  if (loading) return <div className="p-6 text-center">Loading product...</div>;
+  if (error)
+    return <div className="p-6 text-center text-red-500">Error: {error}</div>;
+
   return (
     <div className="anp-container">
-      <p className="anp-back-text" onClick={() => navigate(-1)}>← Back</p>
+      <p className="anp-back-text" onClick={() => navigate(-1)}>
+        ← Back
+      </p>
       <h2 className="anp-heading">Edit Product</h2>
+      <form className="anp-form" onSubmit={handleSubmit}>
+        {/* Image Upload */}
 
-      <div className="anp-form">
-        {/* Left Image Section */}
         <div className="anp-image-upload">
           <label htmlFor="imageInput" className="anp-main-image">
-            {images.length === 0 ? (
+            {form.images.length === 0 ? (
               <FaImage className="anp-img-icon" />
             ) : (
-              <img src={images[0].file} alt="Uploaded Preview" className="anp-preview-image" />
+              <img
+                src={form.images[0].file}
+                alt="Preview"
+                className="anp-preview-image"
+              />
             )}
           </label>
           <input
@@ -83,98 +248,106 @@ const EditAdminProduct = () => {
             accept="image/*"
             multiple
             onChange={handleImageUpload}
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
           />
           <div className="anp-thumbnail-row">
-            {images.map((img, index) => (
-              <div className="anp-thumbnail" key={index}>
-                <img src={img.file} alt={`thumb-${index}`} className="anp-thumb-img" />
-                <FaTimes className="anp-remove-icon" onClick={() => removeImage(img.name)} />
+            {form.images.map((img, idx) => (
+              <div className="anp-thumbnail" key={idx}>
+                <img
+                  src={img.file}
+                  alt={`thumb-${idx}`}
+                  className="anp-thumb-img"
+                />
+                <FaTimes
+                  className="anp-remove-icon"
+                  onClick={() => removeImage(img.name)}
+                />
               </div>
             ))}
           </div>
         </div>
-
-        {/* Right Form Section */}
+        {/* Form Fields */}
         <div className="anp-input-fields">
           <div className="anp-section">
             <p className="anp-label">Type of Cake</p>
             <div className="anp-radio-group">
-              {['Egg', 'Eggless'].map((type) => (
-                <label key={type} className={`anp-radio-option ${selectedType === type ? 'active' : ''}`}>
+              {["Egg", "Eggless"].map((t) => (
+                <label
+                  key={t}
+                  className={`anp-radio-option ${
+                    form.type === t ? "active" : ""
+                  }`}
+                >
                   <input
                     type="radio"
-                    checked={selectedType === type}
-                    onChange={() => handleTypeChange(type)}
+                    checked={form.type === t}
+                    onChange={() => setForm((p) => ({ ...p, type: t }))}
                   />
-                  {type}
+                  {t}
                 </label>
               ))}
             </div>
           </div>
 
-          {/* Cake Category */}
           <div className="anp-section">
             <p className="anp-label">Cake Category</p>
-            <select
+            <input
+              type="text"
               className="anp-input"
               name="category"
-              value={formData.category}
+              value={form.category}
               onChange={handleInputChange}
-            >
-              {cakeCategories.map((cat, index) => (
-                <option key={index} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
+              readOnly
+            />
           </div>
 
           <input
             type="text"
-            className="anp-input"
             name="flavor"
-            value={formData.flavor}
-            onChange={handleInputChange}
+            className="anp-input"
             placeholder="Flavor"
+            value={form.flavor}
+            onChange={handleInputChange}
           />
           <input
             type="text"
-            className="anp-input"
             name="name"
-            value={formData.name}
-            onChange={handleInputChange}
+            className="anp-input"
             placeholder="Name Of The Product"
+            value={form.name}
+            onChange={handleInputChange}
           />
           <textarea
-            className="anp-textarea"
             name="description"
-            value={formData.description}
-            onChange={handleInputChange}
+            className="anp-textarea"
             placeholder="Description"
+            value={form.description}
+            onChange={handleInputChange}
           />
 
           <p className="anp-label">Choose Size</p>
           <div className="anp-size-group">
-            {[
-              { label: 'Grande', detail: '8 inches (8–9 serves)' },
-              { label: 'Petit', detail: '6 inches (4–5 serves)' },
-              { label: 'Individual', detail: '3 inches (1 serves)' },
-            ].map((item, i) => (
-              <div className="anp-size-row" key={i}>
+            {form.sizes.map((item, index) => (
+              <div className="anp-size-row" key={index}>
                 <label className="anp-size-option">
-                  <input type="checkbox" defaultChecked />
+                  <input
+                    type="checkbox"
+                    checked={item.checked}
+                    onChange={() => toggleSizeChecked(index)}
+                  />
                   <div className="anp-size-labels">
-                    <span className="anp-size-name">{item.label}</span>
-                    <span className="anp-size-detail">{item.detail}</span>
+                    <span className="anp-size-name">{item.name}</span>
+                    <span className="anp-size-detail">{item.description}</span>
                   </div>
                 </label>
                 <input
-                  type="text"
-                  className="anp-price-input"
-                  value={formData.sizes[item.label]}
-                  onChange={(e) => handleSizeChange(e, item.label)}
+                  type="number"
                   placeholder="Enter Price"
+                  className="anp-price-input"
+                  value={item.price}
+                  onChange={(e) => handleSizeChange(index, e.target.value)}
+                  disabled={!item.checked}
+                  min="0"
                 />
               </div>
             ))}
@@ -182,28 +355,51 @@ const EditAdminProduct = () => {
 
           <input
             type="text"
-            className="anp-input"
             name="preparationTime"
-            value={formData.preparationTime}
-            onChange={handleInputChange}
+            className="anp-input"
             placeholder="Estimated Preparation Time"
+            value={form.preparationTime}
+            onChange={handleInputChange}
           />
           <textarea
-            className="anp-textarea"
             name="careInstructions"
-            value={formData.careInstructions}
-            onChange={handleInputChange}
+            className="anp-textarea"
             placeholder="Storage And Care Instructions"
+            value={form.careInstructions}
+            onChange={handleInputChange}
           />
-
-          {/* Action Buttons at Bottom */}
-          <div className="anp-actions" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-            <button className="anp-submit-btn" style={{ backgroundColor: '#c39735' }}>Best Seller</button>
-            <button className="anp-submit-btn" style={{ backgroundColor: '#8d6c55' }}>Archive Now</button>
-            <button className="anp-submit-btn">Update Product</button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <button className="anp-submit-btn" type="submit">
+              Update Product
+            </button>
+            <div className="anp-section">
+              {form.isArchived ? (
+                <button
+                  className="anp-submit-btn"
+                  onClick={toggleArchive(false)}
+                  type="button"
+                >
+                  Archived
+                </button>
+              ) : (
+                <button
+                  className="anp-submit-btn"
+                  onClick={toggleArchive(true)}
+                  type="button"
+                >
+                  Archive
+                </button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

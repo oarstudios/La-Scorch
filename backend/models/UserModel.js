@@ -1,7 +1,7 @@
-// /models/UserModel.js
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const USER_TYPES = require('../constants/userTypes');
 
 const UserSchema = mongoose.Schema({
     userId: { type: String },
@@ -30,13 +30,31 @@ const UserSchema = mongoose.Schema({
             quantity: Number
         }
     ],
-    userType: { type: String, enum: ["User", "Admin"], required: true }
+    // ✅ numeric enum for userType
+    userType: { 
+        type: Number, 
+        enum: [USER_TYPES.ADMIN, USER_TYPES.USER], 
+        required: true 
+    }
 }, { timestamps: true });
+
+/**
+ * Custom JSON output: replace numeric userType with readable string
+ */
+UserSchema.methods.toJSON = function() {
+    const obj = this.toObject();    
+    delete obj.password; // never return password
+    return obj;
+};
 
 UserSchema.statics.signup = async function(userId, username, email, password, userType) {
     if (!userId || !username || !email || !password || !userType) throw Error("All fields must be filled");
     if (!validator.isEmail(email)) throw Error("Enter valid email address");
     if (!validator.isStrongPassword(password)) throw Error("Password is too weak");
+
+    if (![USER_TYPES.ADMIN, USER_TYPES.USER].includes(userType)) {
+        throw Error("Invalid userType");
+    }
 
     const exists = await this.findOne({ email });
     if (exists) throw Error("Email already in use");

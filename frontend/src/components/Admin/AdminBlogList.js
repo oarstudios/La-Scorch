@@ -1,68 +1,78 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./AdminBlogList.css";
-import cake from "../../Images/slider1.jpg"
+import { useSelector, useDispatch } from "react-redux";
+import { fetchBlogs, deleteBlog } from "../../features/Blogs/BlogSlice";
 
-const blogs = [
-  {
-    id: 1,
-    image: cake, // Replace with real image
-    title: "How to build a cake like a pro",
-    subtitle: "Decorating A Cake is Like A Solving Puzzle",
-    description: `It All Comes To Us From The New Book, Great Cake Decorating, Written By Our Very Own Contributor, Erin Gardner Of Wild Orchid Baking Co. Erin Has Been Wowing Us With Her Stylish Designs And Teaching Us Her Techniques For Several Years Now. So Needless To Say, We Are Thrilled To See Her New Book Out In Stores For All To Enjoy! Filled With Hundreds Of Creative Ideas, Tips, And Techniques, Erin's Book Has Something For Everyone. Beginners Will Find What They Need To Get Started With Recipes, Tools Of The Trade, And The Basics Thoroughly Explained And Paired With Gorgeous Images By Mark Davidson Photography.`,
-  },
-  {
-    id: 2,
-    image: cake, // Replace with real image
-    title: "Cake Decorating Tips",
-    subtitle: "Ways You Can Elevate Your Caking Process",
-    description: `It All Comes To Us From The New Book, Great Cake Decorating, Written By Our Very Own Contributor, Erin Gardner Of Wild Orchid Baking Co. Erin Has Been Wowing Us With Her Stylish Designs And Teaching Us Her Techniques For Several Years Now. So Needless To Say, We Are Thrilled To See Her New Book Out In Stores For All To Enjoy! Filled With Hundreds Of Creative Ideas, Tips, And Techniques, Erin's Book Has Something For Everyone. Beginners Will Find What They Need To Get Started With Recipes, Tools Of The Trade, And The Basics Thoroughly Explained And Paired With Gorgeous Images By Mark Davidson Photography.`,
-  },
-];
+const API_URL = "http://localhost:4001"; // (or your production base)
 
 export default function AdminBlogList() {
+  const dispatch = useDispatch();
+  const { blogs, loading } = useSelector(state => state.blogs);
+
+  useEffect(() => {
+    dispatch(fetchBlogs());
+  }, [dispatch]);
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Delete this blog?")) {
+      await dispatch(deleteBlog(id));
+      dispatch(fetchBlogs());
+    }
+  };
+
   return (
     <div className="admin-bloglist">
-      {/* Header */}
       <div className="abl-header">
         <div>
           <p className="abl-back">Back</p>
           <h1 className="abl-title">Blogs</h1>
         </div>
-       <button className="abl-add-btn">
-  <Link to="/admin/add-blogs" className="abl-add-link">
-    Add New Blog
-  </Link>
-</button>
+        <button className="abl-add-btn">
+          <Link to="/admin/add-blogs" className="abl-add-link">
+            Add New Blog
+          </Link>
+        </button>
       </div>
 
-      {/* Blog List */}
-      {blogs.map((blog, index) => (
-        <div key={blog.id} className="abl-item">
-          <div className="abl-card">
-            {/* Image */}
-            <img src={blog.image} alt={blog.title} className="abl-img" />
-
-            {/* Content */}
-            <div className="abl-content">
-              <h2 className="abl-blog-title">{blog.title}</h2>
-              <p className="abl-subtitle">{blog.subtitle}</p>
-              <p className="abl-description">{blog.description}</p>
-
-              {/* Actions */}
-              <div className="abl-actions">
-                <button className="abl-edit-btn"><Link to="/admin/edit-blog" className="abl-edit-btn">
-  Edit
-</Link></button>
-                <button className="abl-delete-btn">Delete</button>
+      {loading ? (
+        <div>Loading...</div>
+      ) : blogs.length === 0 ? (
+        <div style={{ opacity: 0.6, textAlign: "center", marginTop: 20 }}>
+          No blogs
+        </div>
+      ) : (
+        blogs.map((blog, index) => (
+          <div key={blog._id} className="abl-item">
+            <div className="abl-card">
+              <img
+                src={blog.image ? `${API_URL}${blog.image}` : ""}
+                alt={blog.heading}
+                className="abl-img"
+              />
+              <div className="abl-content">
+                <h2 className="abl-blog-title">{blog.heading}</h2>
+                <p className="abl-subtitle">{blog.subheading}</p>
+                <p className="abl-description">{blog.content}</p>
+                <div className="abl-actions">
+                  <button className="abl-edit-btn">
+                    <Link to={`/admin/edit-blog/${blog._id}`} className="abl-edit-btn">
+                      Edit
+                    </Link>
+                  </button>
+                  <button
+                    className="abl-delete-btn"
+                    onClick={() => handleDelete(blog._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
+            {index !== blogs.length - 1 && <hr className="abl-divider" />}
           </div>
-
-          {/* Divider */}
-          {index !== blogs.length - 1 && <hr className="abl-divider" />}
-        </div>
-      ))}
+        ))
+      )}
     </div>
   );
 }

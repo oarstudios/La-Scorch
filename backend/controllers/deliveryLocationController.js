@@ -1,4 +1,4 @@
-import DeliveryLocation from "../models/DeliveryLocation.js";
+import DeliveryLocation from "../models/DeliveryLocationModel.js";
 
 // Create location
 export const createLocation = async (req, res) => {

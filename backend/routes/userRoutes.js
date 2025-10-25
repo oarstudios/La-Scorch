@@ -5,6 +5,8 @@ const userController = require('../controllers/userController');
 // Auth
 router.post('/signup', userController.signup);
 router.post('/login', userController.login);
+router.post('/logout', userController.logout);
+router.get('/me', userController.getCurrentUser); // ✅ Added
 
 // Users
 router.get('/:id', userController.getUserById);
