@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { FaImage, FaTimes } from "react-icons/fa";
-import "./AddNewProduct.css";
+import {
+  fetchCategories,
+  createCategoryThunk,
+} from "../../features/Categories/CategorySlice";
 import { createProductAPI } from "../../features/Products/ProductAPI";
+import "./AddNewProduct.css";
 
 const AddNewProduct = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  // Redux categories
+  const { categories = [], loading: catLoading, error: catError } = useSelector(
+    (state) => state.category || {}
+  );
+
+  // Form state with bestseller added (default false)
   const [form, setForm] = useState({
     type: "Egg",
     category: "",
@@ -15,27 +27,42 @@ const AddNewProduct = () => {
     description: "",
     prepTime: "",
     storage: "",
+    bestseller: false,
     sizes: [
-      { label: "Grande", detail: "8 inches (8–9 serves)", price: "", checked: false },
-      { label: "Petit", detail: "6 inches (4–5 serves)", price: "", checked: false },
-      { label: "Individual", detail: "3 inches (1 serves)", price: "", checked: false },
+      {
+        label: "Grande",
+        detail: "8 inches (8–9 serves)",
+        price: "",
+        checked: false,
+      },
+      {
+        label: "Petit",
+        detail: "6 inches (4–5 serves)",
+        price: "",
+        checked: false,
+      },
+      {
+        label: "Individual",
+        detail: "3 inches (1 serves)",
+        price: "",
+        checked: false,
+      },
     ],
     images: [],
   });
 
-  const [cakeCategories, setCakeCategories] = useState([
-    { id: "64f7e6d2e8f1c6a1b2c3d4e5", name: "Birthday Cakes" },
-    { id: "64f7e6d2e8f1c6a1b2c3d4e6", name: "Wedding Cakes" },
-    { id: "64f7e6d2e8f1c6a1b2c3d4e7", name: "Cupcakes" },
-    { id: "64f7e6d2e8f1c6a1b2c3d4e8", name: "Cheesecakes" },
-    { id: "64f7e6d2e8f1c6a1b2c3d4e9", name: "Photo Cakes" },
-    { id: "64f7e6d2e8f1c6a1b2c3d4ea", name: "Customized Cakes" },
-  ]);
-
   const [showCategoryPopup, setShowCategoryPopup] = useState(false);
   const [newCategory, setNewCategory] = useState("");
 
-  // handle input fields
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (categories.length && !form.category)
+      setForm((prev) => ({ ...prev, category: categories[0]._id }));
+  }, [categories, form.category]);
+
   const handleInputs = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -54,12 +81,16 @@ const AddNewProduct = () => {
   };
 
   const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files || []).slice(0, 3 - form.images.length);
+    const files = Array.from(e.target.files || []).slice(
+      0,
+      3 - form.images.length
+    );
     const readers = files.map(
       (file) =>
         new Promise((resolve) => {
           const reader = new FileReader();
-          reader.onload = (event) => resolve({ file, url: event.target.result });
+          reader.onload = (event) =>
+            resolve({ file, url: event.target.result });
           reader.readAsDataURL(file);
         })
     );
@@ -70,68 +101,85 @@ const AddNewProduct = () => {
   };
 
   const removeImage = (file) => {
-    setForm((prev) => ({ ...prev, images: prev.images.filter((img) => img.file !== file) }));
+    setForm((prev) => ({
+      ...prev,
+      images: prev.images.filter((img) => img.file !== file),
+    }));
   };
 
-  const handleAddCategory = () => {
-    if (newCategory.trim() && !cakeCategories.some((c) => c.name === newCategory)) {
-      const id = Date.now().toString(); // temporary id, backend will assign real ID
-      setCakeCategories((prev) => [...prev, { id, name: newCategory }]);
-      setForm((prev) => ({ ...prev, category: id }));
+  const handleAddCategory = async () => {
+    const trimmed = newCategory.trim();
+    if (
+      !trimmed ||
+      categories.some((c) => c.name.toLowerCase() === trimmed.toLowerCase())
+    ) {
+      setNewCategory("");
+      setShowCategoryPopup(false);
+      return;
+    }
+    try {
+      const result = await dispatch(createCategoryThunk({ name: trimmed })).unwrap();
+      setForm((prev) => ({ ...prev, category: result._id }));
+    } catch (err) {
+      alert("Failed to add category: " + (err?.message || err));
     }
     setNewCategory("");
     setShowCategoryPopup(false);
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  // Toggle bestseller checkbox
+  const toggleBestseller = () => {
+    setForm((prev) => ({ ...prev, bestseller: !prev.bestseller }));
+  };
 
-  if (!form.category) {
-    alert("Please select a category");
-    return;
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const fd = new FormData();
-  fd.append("type", form.type);
-  fd.append("category", form.category); // dynamic category ID
-  fd.append("flavor", form.flavor);
-  fd.append("name", form.name);
-  fd.append("description", form.description);
-  fd.append("prepTime", form.prepTime);
-  fd.append("storage", form.storage);
+    if (!form.category) {
+      alert("Please select a category");
+      return;
+    }
 
-  // Convert sizes array to JSON string
-  const selectedSizes = form.sizes
-    .filter((size) => size.checked && size.price)
-    .map((size) => ({
-      name: size.label,
-      description: size.detail,
-      price: Number(size.price),
-    }));
+    const fd = new FormData();
+    fd.append("type", form.type);
+    fd.append("category", form.category);
+    fd.append("flavor", form.flavor);
+    fd.append("name", form.name);
+    fd.append("description", form.description);
+    fd.append("prepTime", form.prepTime);
+    fd.append("storage", form.storage);
+    fd.append("bestseller", form.bestseller ? "true" : "false"); // Add bestseller field
 
-  fd.append("sizes", JSON.stringify(selectedSizes));
+    const selectedSizes = form.sizes
+      .filter((size) => size.checked && size.price)
+      .map((size) => ({
+        name: size.label,
+        description: size.detail,
+        price: Number(size.price),
+      }));
 
-  // Append images
-  form.images.forEach((img) => fd.append("images", img.file));
+    fd.append("sizes", JSON.stringify(selectedSizes));
 
-  try {
-    await createProductAPI(fd);
-    alert("🎉 Product created successfully!");
-    navigate("/admin");
-  } catch (err) {
-    console.error("Error creating product:", err);
-    alert(
-      "❌ Failed to create product: " +
-        (err?.response?.data?.message || err.message)
-    );
-  }
-};
+    form.images.forEach((img) => fd.append("images", img.file));
 
-
+    try {
+      await createProductAPI(fd);
+      alert("🎉 Product created successfully!");
+      navigate("/admin");
+    } catch (err) {
+      console.error("Error creating product:", err);
+      alert(
+        "❌ Failed to create product: " +
+          (err?.response?.data?.message || err.message)
+      );
+    }
+  };
 
   return (
     <div className="anp-container">
-      <p className="anp-back-text" onClick={() => navigate(-1)}>← Back</p>
+      <p className="anp-back-text" onClick={() => navigate(-1)}>
+        ← Back
+      </p>
       <h2 className="anp-heading">Add New Product</h2>
 
       <form className="anp-form" onSubmit={handleSubmit}>
@@ -141,7 +189,11 @@ const handleSubmit = async (e) => {
             {form.images.length === 0 ? (
               <FaImage className="anp-img-icon" />
             ) : (
-              <img src={form.images[0].url} alt="Preview" className="anp-preview-image" />
+              <img
+                src={form.images[0].url}
+                alt="Preview"
+                className="anp-preview-image"
+              />
             )}
           </label>
           <input
@@ -155,20 +207,33 @@ const handleSubmit = async (e) => {
           <div className="anp-thumbnail-row">
             {form.images.map((img, index) => (
               <div className="anp-thumbnail" key={index}>
-                <img src={img.url} alt={`thumb-${index}`} className="anp-thumb-img" />
-                <FaTimes className="anp-remove-icon" onClick={() => removeImage(img.file)} />
+                <img
+                  src={img.url}
+                  alt={`thumb-${index}`}
+                  className="anp-thumb-img"
+                />
+                <FaTimes
+                  className="anp-remove-icon"
+                  onClick={() => removeImage(img.file)}
+                />
               </div>
             ))}
           </div>
         </div>
 
         {/* Input Fields */}
+
         <div className="anp-input-fields">
           <div className="anp-section">
             <p className="anp-label">Type of Cake</p>
             <div className="anp-radio-group">
               {["Egg", "Eggless"].map((type) => (
-                <label key={type} className={`anp-radio-option ${form.type === type ? "active" : ""}`}>
+                <label
+                  key={type}
+                  className={`anp-radio-option ${
+                    form.type === type ? "active" : ""
+                  }`}
+                >
                   <input
                     type="radio"
                     checked={form.type === type}
@@ -182,24 +247,44 @@ const handleSubmit = async (e) => {
 
           <div className="anp-section">
             <p className="anp-label">Cake Category</p>
-            <div className="anp-category-row">
-              <select
-                className="anp-input"
-                value={form.category}
-                onChange={(e) => setForm((prev) => ({ ...prev, category: e.target.value }))}
-              >
-                <option value="">-- Select Category --</option>
-                {cakeCategories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
-                ))}
-              </select>
-              <button
-                type="button"
-                className="anp-add-category-btn"
-                onClick={() => setShowCategoryPopup(true)}
-              >+ Add</button>
-            </div>
-
+            {categories.length > 0 && !catLoading && (
+              <div className="anp-category-row">
+                <select
+                  className="anp-input"
+                  value={form.category}
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, category: e.target.value }))
+                  }
+                  disabled={!categories.length || catLoading}
+                >
+                  <option value="">-- Select Category --</option>
+                  {categories.map((cat) => (
+                    <option key={cat._id} value={cat._id}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  className="anp-add-category-btn"
+                  onClick={() => setShowCategoryPopup(true)}
+                >
+                  + Add
+                </button>
+              </div>
+            )}
+            {!categories.length && !catLoading && (
+              <div className="anp-no-category">
+                <span>No categories found. Please add a category. </span>
+                <button
+                  type="button"
+                  className="anp-add-category-btn"
+                  onClick={() => setShowCategoryPopup(true)}
+                >
+                  + Add Category
+                </button>
+              </div>
+            )}
             {showCategoryPopup && (
               <div className="anp-popup">
                 <input
@@ -210,16 +295,60 @@ const handleSubmit = async (e) => {
                   onChange={(e) => setNewCategory(e.target.value)}
                 />
                 <div className="anp-popup-actions">
-                  <button type="button" className="anp-submit-btn" onClick={handleAddCategory}>Save</button>
-                  <button type="button" className="anp-cancel-btn" onClick={() => setShowCategoryPopup(false)}>Cancel</button>
+                  <button
+                    type="button"
+                    className="anp-submit-btn"
+                    onClick={handleAddCategory}
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    className="anp-cancel-btn"
+                    onClick={() => setShowCategoryPopup(false)}
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
             )}
           </div>
 
-          <input type="text" name="flavor" className="anp-input" placeholder="Flavor" value={form.flavor} onChange={handleInputs} />
-          <input type="text" name="name" className="anp-input" placeholder="Name Of The Product" value={form.name} onChange={handleInputs} />
-          <textarea name="description" className="anp-textarea" placeholder="Description" value={form.description} onChange={handleInputs} />
+          <input
+            type="text"
+            name="flavor"
+            className="anp-input"
+            placeholder="Flavor"
+            value={form.flavor}
+            onChange={handleInputs}
+          />
+          <input
+            type="text"
+            name="name"
+            className="anp-input"
+            placeholder="Name Of The Product"
+            value={form.name}
+            onChange={handleInputs}
+          />
+          <textarea
+            name="description"
+            className="anp-textarea"
+            placeholder="Description"
+            value={form.description}
+            onChange={handleInputs}
+          />
+
+          {/* Bestseller toggle button */}
+          <div className="anp-section">
+            <label className="anp-size-option" style={{display: "flex", alignItems: "center", "cursor": "pointer"}}>
+              <input
+                type="checkbox"
+                checked={form.bestseller}
+                onChange={toggleBestseller}
+              />
+                    <span className="anp-label">Mark as Bestseler</span>
+            </label>
+          </div>
 
           <p className="anp-label">Choose Size</p>
           <div className="anp-size-group">
@@ -229,7 +358,9 @@ const handleSubmit = async (e) => {
                   <input
                     type="checkbox"
                     checked={item.checked}
-                    onChange={(e) => handleSizeChange(index, "checked", e.target.checked)}
+                    onChange={(e) =>
+                      handleSizeChange(index, "checked", e.target.checked)
+                    }
                   />
                   <div className="anp-size-labels">
                     <span className="anp-size-name">{item.label}</span>
@@ -241,16 +372,33 @@ const handleSubmit = async (e) => {
                   placeholder="Enter Price"
                   className="anp-price-input"
                   value={item.price}
-                  onChange={(e) => handleSizeChange(index, "price", e.target.value)}
+                  onChange={(e) =>
+                    handleSizeChange(index, "price", e.target.value)
+                  }
                 />
               </div>
             ))}
           </div>
 
-          <input type="text" name="prepTime" className="anp-input" placeholder="Estimated Preparation Time" value={form.prepTime} onChange={handleInputs} />
-          <textarea name="storage" className="anp-textarea" placeholder="Storage And Care Instructions" value={form.storage} onChange={handleInputs} />
+          <input
+            type="text"
+            name="prepTime"
+            className="anp-input"
+            placeholder="Estimated Preparation Time"
+            value={form.prepTime}
+            onChange={handleInputs}
+          />
+          <textarea
+            name="storage"
+            className="anp-textarea"
+            placeholder="Storage And Care Instructions"
+            value={form.storage}
+            onChange={handleInputs}
+          />
 
-          <button className="anp-submit-btn" type="submit">Publish Product</button>
+          <button className="anp-submit-btn" type="submit">
+            Publish Product
+          </button>
         </div>
       </form>
     </div>

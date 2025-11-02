@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as productAPI from "../Products/ProductAPI";
 
 // Thunks
+
 export const getProducts = createAsyncThunk(
   "products/getAll",
   async (_, thunkAPI) => {
@@ -18,6 +19,30 @@ export const getProduct = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       return await productAPI.fetchProductById(id);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data?.error || err.message);
+    }
+  }
+);
+
+export const getProductsByCategory = createAsyncThunk(
+  "products/getByCategory",
+  async (categoryId, thunkAPI) => {
+    try {
+      return await productAPI.fetchProductsByCategory(categoryId);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.error || err.message
+      );
+    }
+  }
+);
+
+export const getBestsellerProducts = createAsyncThunk(
+  "products/getBestsellers",
+  async (_, thunkAPI) => {
+    try {
+      return await productAPI.fetchBestsellerProducts();
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data?.error || err.message);
     }
@@ -57,10 +82,12 @@ export const archiveProduct = createAsyncThunk(
   }
 );
 
+// Slice
 const productSlice = createSlice({
   name: "products",
   initialState: {
-    products: [],
+    allProducts: [],           // all or category products
+    bestsellerProducts: [],    // bestsellers
     currentProduct: null,
     loading: false,
     error: null,
@@ -68,21 +95,48 @@ const productSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Get all products
+      // Get all products (or category)
       .addCase(getProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
+        state.allProducts = action.payload;
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
 
-      // Get single product
+      .addCase(getProductsByCategory.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getProductsByCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        state.allProducts = action.payload;
+      })
+      .addCase(getProductsByCategory.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Get bestseller products
+      .addCase(getBestsellerProducts.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getBestsellerProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.bestsellerProducts = action.payload;
+      })
+      .addCase(getBestsellerProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Other product actions
       .addCase(getProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -96,21 +150,19 @@ const productSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Create product
       .addCase(createProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(createProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.products.push(action.payload.product);
+        state.allProducts.push(action.payload.product);
       })
       .addCase(createProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
 
-      // Update product
       .addCase(updateProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -118,30 +170,26 @@ const productSlice = createSlice({
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.loading = false;
         const updated = action.payload.product;
-        const index = state.products.findIndex((p) => p._id === updated._id);
-
+        const index = state.allProducts.findIndex((p) => p._id === updated._id);
         if (index !== -1) {
-          state.products[index] = updated;
+          state.allProducts[index] = updated;
         } else {
-          state.products.push(updated);
+          state.allProducts.push(updated);
         }
-
         state.currentProduct = updated;
       })
-
       .addCase(updateProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
 
-      // Archive product
       .addCase(archiveProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(archiveProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = state.products.filter(
+        state.allProducts = state.allProducts.filter(
           (p) => p._id !== action.payload.product._id
         );
       })

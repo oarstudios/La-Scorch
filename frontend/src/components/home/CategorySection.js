@@ -1,41 +1,95 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CategorySection.css';
-import sampleImage from '../../Images/slider1.jpg'; // replace with your image
-
-const allProducts = {
-  Chocolateries: [
-    { name: 'Dark Chocolate', price: 1299, img: sampleImage },
-    { name: 'Beery Passion Tart', price: 1299, img: sampleImage },
-    { name: 'Fudge Delight', price: 1399, img: sampleImage },
-    { name: 'Raspberry Rush', price: 1499, img: sampleImage },
-    { name: 'Truffle Bomb', price: 1599, img: sampleImage },
-  ],
-  Pastries: [
-    { name: 'Brun', price: 1099, img: sampleImage },
-    { name: 'Vanilla Cream Tart', price: 1199, img: sampleImage },
-    { name: 'Fruit Blast', price: 1299, img: sampleImage },
-    { name: 'Red Velvet', price: 1399, img: sampleImage },
-  ],
-  Staples: [
-    { name: 'Classic Butter Cake', price: 999, img: sampleImage },
-    { name: 'Mini Tarts Pack', price: 1199, img: sampleImage },
-    { name: 'Everyday Muffin', price: 899, img: sampleImage },
-  ],
-};
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchCategories } from "../../features/Categories/CategorySlice";
+import { getProductsByCategory } from "../../features/Products/ProductSlice";
+import { addToCart, updateCartQuantity } from "../../features/Users/UserSlice"; // add your update quantity thunk
+import "./CategorySection.css";
+import sampleImage from "../../Images/slider1.jpg";
 
 const CategorySection = () => {
-  const [activeCategory, setActiveCategory] = useState('Chocolateries');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const products = allProducts[activeCategory] || [];
+  const { categories = [] } = useSelector((state) => state.category || {});
+  const { allProducts = [] } = useSelector((state) => state.products || {});
+  const { user: currentUser, isAuthenticated, cart = [] } = useSelector(
+    (state) => state.auth
+  );
+  const { loading: userLoading } = useSelector((state) => state.user);
 
-  const handleCategoryChange = (category) => {
-    setActiveCategory(category);
+  const [activeCategoryId, setActiveCategoryId] = useState("");
+  const [addStatus, setAddStatus] = useState({});
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      setActiveCategoryId(categories[0]._id);
+      dispatch(getProductsByCategory(categories[0]._id));
+    }
+  }, [categories, dispatch]);
+
+  const handleCategoryChange = (categoryId) => {
+    setActiveCategoryId(categoryId);
+    dispatch(getProductsByCategory(categoryId));
+  };
+
+  const filteredProducts = allProducts.slice(0, 5);
+
+  // find quantity of product in cart or 0
+  const getProductQuantity = (productId) => {
+    if (!cart) return 0;
+    const cartItem = cart.find((item) => item.productId === productId);
+    return cartItem ? cartItem.quantity : 0;
+  };
+
+  const handleAddToCart = async (productId) => {
+    if (!isAuthenticated || !currentUser) {
+      alert("Please login to add items to cart");
+      return;
+    }
+    setAddStatus((prev) => ({ ...prev, [productId]: "loading" }));
+    try {
+      await dispatch(
+        addToCart({ userId: currentUser._id, productId, quantity: 1 })
+      ).unwrap();
+      setAddStatus((prev) => ({ ...prev, [productId]: "success" }));
+      setTimeout(() => {
+        setAddStatus((prev) => ({ ...prev, [productId]: null }));
+      }, 1500);
+    } catch (error) {
+      setAddStatus((prev) => ({ ...prev, [productId]: "error" }));
+    }
+  };
+
+  const handleQuantityChange = async (productId, type) => {
+    if (!currentUser) return;
+    const currentQuantity = getProductQuantity(productId);
+    let newQuantity = type === "increase" ? currentQuantity + 1 : currentQuantity - 1;
+    if (newQuantity < 1) newQuantity = 1;
+
+    setAddStatus((prev) => ({ ...prev, [productId]: "loading" }));
+    try {
+      await dispatch(
+        addToCart({ userId: currentUser._id, productId, quantity: newQuantity })
+      ).unwrap();
+      setAddStatus((prev) => ({ ...prev, [productId]: "success" }));
+      setTimeout(() => {
+        setAddStatus((prev) => ({ ...prev, [productId]: null }));
+      }, 1500);
+    } catch (error) {
+      setAddStatus((prev) => ({ ...prev, [productId]: "error" }));
+    }
   };
 
   const handleViewMore = () => {
-    navigate(`/category?type=${encodeURIComponent(activeCategory)}`);
+    const activeCat = categories.find((c) => c._id === activeCategoryId);
+    if (activeCat) {
+      navigate(`/category?type=${encodeURIComponent(activeCat.name)}`);
+    }
   };
 
   return (
@@ -44,28 +98,78 @@ const CategorySection = () => {
       <h2 className="title">Explore Other Categories</h2>
 
       <div className="tabs">
-        {Object.keys(allProducts).map((category) => (
+        {categories.map((cat) => (
           <button
-            key={category}
-            className={activeCategory === category ? 'tab active' : 'tab'}
-            onClick={() => handleCategoryChange(category)}
+            key={cat._id}
+            className={activeCategoryId === cat._id ? "tab active" : "tab"}
+            onClick={() => handleCategoryChange(cat._id)}
           >
-            {category}
+            {cat.name}
           </button>
         ))}
       </div>
 
       <div className="products-grid">
-        {products.slice(0, 4).map((product, index) => (
-          <div className="product-card" key={index}>
-            <img src={product.img} alt={product.name} className="product-img" />
-            <div className="product-info">
-              <h3>{product.name}</h3>
-              <p>Starting From {product.price}/-</p>
-              <button className="add-btn">Add</button>
+        {filteredProducts.map((product) => {
+          const quantity = getProductQuantity(product._id);
+          return (
+            <div className="product-card" key={product._id}>
+              <img
+                src={
+                  product.images?.[0]
+                    ? `http://localhost:4001${product.images[0]}`
+                    : sampleImage
+                }
+                alt={product.name}
+                className="product-img"
+              />
+              <div className="product-info">
+                <h3>{product.name}</h3>
+                <p>
+                  Starting From{" "}
+                  {product.size && product.size.length > 0
+                    ? product.size[0].price
+                    : "N/A"}
+                  /-
+                </p>
+                {quantity > 0 ? (
+                  <div className="quantity-controls">
+                    <button
+                      onClick={() => handleQuantityChange(product._id, "decrease")}
+                      disabled={userLoading}
+                    >
+                      -
+                    </button>
+                    <span>{quantity}</span>
+                    <button
+                      onClick={() => handleQuantityChange(product._id, "increase")}
+                      disabled={userLoading}
+                    >
+                      +
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className="add-btn"
+                    onClick={() => handleAddToCart(product._id)}
+                    disabled={
+                      addStatus[product._id] === "loading" || userLoading
+                    }
+                  >
+                    {addStatus[product._id] === "loading"
+                      ? "Adding..."
+                      : addStatus[product._id] === "success"
+                      ? "Added"
+                      : "Add"}
+                  </button>
+                )}
+                {addStatus[product._id] === "error" && (
+                  <p className="add-error">Failed to update cart</p>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="view-more-container">

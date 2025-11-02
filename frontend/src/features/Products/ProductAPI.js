@@ -21,12 +21,26 @@ export const createProductAPI = async (formData) => {
   return res.data;
 };
 
+// Fetch products by category ID
+export const fetchProductsByCategory = async (categoryId) => {
+  const res = await axiosInstance.get(`/products/category/${categoryId}`);
+  return res.data;
+};
+
+
 export const updateProductAPI = async (id, formData) => {
   const res = await axiosInstance.put(`/products/${id}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return res.data;
 };
+
+// Fetch Bestseller Products
+export const fetchBestsellerProducts = async () => {
+  const res = await axiosInstance.get("/products/bestsellers");
+  return res.data;
+};
+
 
 // Archive product
 export const archiveProductAPI = async (id) => {

@@ -10,7 +10,9 @@ import "./AdminProducts.css";
 
 const AdminProducts = () => {
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.products);
+  const { allProducts: products = [], loading, error } = useSelector(
+    (state) => state.products
+  );
 
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,19 +23,45 @@ const AdminProducts = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const handleSearch = (event) => setSearchQuery(event.target.value);
+  // Search handler resets to first page on change
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+    setCurrentPage(1);
+  };
 
-  if (loading) return <div className="p-6 text-center">Loading products...</div>;
-  if (error) return <div className="p-6 text-center text-red-500">Error: {error}</div>;
-
-  const filteredProducts =
-    products?.filter((product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    ) || [];
+  // Filter and search products
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
-  const displayedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
+  const displayedProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + productsPerPage
+  );
+
+  // Pagination controls
+  const goToPreviousPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const goToNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  if (loading) {
+    return <div className="p-6 text-center">Loading products...</div>;
+  }
+  if (error) {
+    return (
+      <div className="p-6 text-center text-red-500">Error: {error}</div>
+    );
+  }
 
   return (
     <div className="admin-prod-wrapper">
@@ -53,7 +81,10 @@ const AdminProducts = () => {
             <FaArchive />
             Archive
           </button>
-          <button className="admin-prod-btn filter-btn" onClick={() => setIsFilterOpen(true)}>
+          <button
+            className="admin-prod-btn filter-btn"
+            onClick={() => setIsFilterOpen(true)}
+          >
             <FiFilter />
             Filter
           </button>
@@ -88,6 +119,32 @@ const AdminProducts = () => {
           </div>
         ))}
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="pagination-controls">
+          <button onClick={goToPreviousPage} disabled={currentPage === 1}>
+            Previous
+          </button>
+
+          {[...Array(totalPages)].map((_, idx) => {
+            const pageNum = idx + 1;
+            return (
+              <button
+                key={pageNum}
+                onClick={() => goToPage(pageNum)}
+                className={pageNum === currentPage ? "active" : ""}
+              >
+                {pageNum}
+              </button>
+            );
+          })}
+
+          <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };

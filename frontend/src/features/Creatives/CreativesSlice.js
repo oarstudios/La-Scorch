@@ -68,7 +68,7 @@ const creativesSlice = createSlice({
       .addCase(fetchCreatives.fulfilled, (state, action) => {
         state.loading = false;
         // .data if your backend sends: {success, data}
-        state.creatives = action.payload.data ? action.payload.data : action.payload;
+        state.creatives = action.payload?.data ? action.payload?.data : action.payload;
       })
       .addCase(fetchCreatives.rejected, (state, action) => {
         state.loading = false;

@@ -97,9 +97,10 @@ const Navbar = () => {
         </div>
 
         <div className="nav-buttons">
-          <button className="icon-btn">
-            <img src={cartIcon} alt="Cart" className="nav-icon" />
-          </button>
+          <button className="icon-btn" onClick={() => navigate('/cart')}>
+  <img src={cartIcon} alt="Cart" className="nav-icon" />
+</button>
+
 
           <button className="icon-btn" ref={menuButtonRef} onClick={() => setShowDropdown(prev => !prev)}>
             <img src={menuIcon} alt="User/Cake" className="nav-icon" />

@@ -2,7 +2,8 @@ import { axiosInstance } from "../api/api";
 
 export const fetchCreativesAPI = async () => {
   const res = await axiosInstance.get("/creatives");
-  return res.data;
+  console.log("Fetched creatives:", res.data.data);
+  return res.data.data;
 };
 
 export const createCreativesAPI = async (formData) => {

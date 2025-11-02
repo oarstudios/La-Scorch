@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Creatives.css";
-import { IMG_BASE_URL } from "../../features/api/api";
-// import { useAuthContext } 
-// import useNotify from "../../hooks/useNotify";
 
 const Creatives = () => {
   const [images, setImages] = useState({ desktop: [], mobile: [] });
-  // const { user } = useAuthContext();
-  // const { notify } = useNotify();
 
   // Fetch existing images from backend
   const fetchImages = async () => {
@@ -40,7 +35,6 @@ const Creatives = () => {
 
   const handleImageChange = async (e, category) => {
     const file = e.target.files[0];
-    //console.log(file)
     if (!file) return;
 
     const formData = new FormData();
@@ -51,48 +45,39 @@ const Creatives = () => {
       const response = await fetch("http://localhost:4001/api/creatives/", {
         method: "POST",
         body: formData,
-        // headers: {
-        //   Authorization: `Bearer ${user?.token}`,
-        // },
       });
 
       const json = await response.json();
       if (response.ok) {
-        //console.log(json)
+        // Push full image object, not just image string
         setImages((prevImages) => ({
           ...prevImages,
-          [category]: [...prevImages[category], json.data.image].slice(0, 4),
+          [category]: [...prevImages[category], json.data].slice(0, 4),
         }));
+        // Refresh the full list from server to sync state
         fetchImages();
-        // notify("Creative added successfully", "success");
       }
     } catch (error) {
       console.error("Error uploading image:", error);
-      // notify("Error adding the creative", "error");
     }
   };
 
   const handleDeleteImage = async (e, creativeId) => {
-    e.preventDefault(); // Prevent form submission from reloading the page
+    e.preventDefault(); // Prevent form reload
 
     try {
       const response = await fetch(
         `http://localhost:4001/api/creatives/${creativeId}`,
         {
           method: "DELETE",
-          // headers: {
-          //   Authorization: `Bearer ${user?.token}`,
-          // },
         }
       );
 
       if (response.ok) {
         fetchImages();
-        // notify("Creative deleted successfully", "success");
       }
     } catch (error) {
       console.error("Error deleting image:", error);
-      // notify("Error deleting the creative", "error");
     }
   };
 
@@ -106,8 +91,7 @@ const Creatives = () => {
         {images?.desktop?.map((img, index) => (
           <div key={index} className="image-wrapper">
             <img
-              src={`http://localhost:4001/uploads/${img?.media}`}
-              // src={`${IMG_BASE_URL}${img?.media}`}
+              src={`http://localhost:4001/uploads/${img?.media}`} // Consistent path for desktop images
               alt={`Desktop ${index}`}
               className="creative-image"
             />
@@ -116,7 +100,6 @@ const Creatives = () => {
             </button>
           </div>
         ))}
-
         {images?.desktop?.length < 4 && (
           <label className="add-button" htmlFor="desktop-input">
             + Add Image
@@ -137,7 +120,7 @@ const Creatives = () => {
         {images?.mobile?.map((img, index) => (
           <div key={index} className="image-wrapper2">
             <img
-              src={`http://localhost:4001/${img?.media}`}
+              src={`http://localhost:4001/uploads/${img?.media}`} // Add /uploads/ to mobile images too
               alt={`Mobile ${index}`}
               className="creative-image mobile-image"
             />
@@ -146,7 +129,6 @@ const Creatives = () => {
             </button>
           </div>
         ))}
-
         {images.mobile.length < 4 && (
           <label className="add-button" htmlFor="mobile-input">
             + Add Image

@@ -12,6 +12,7 @@ import couponRoutes from "./routes/couponRoutes.js";
 import deliveryLocationRoutes from "./routes/deliveryLocationRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import feedbackRoutes from "./routes/feedbackRoutes.js";
 import cookieParser from "cookie-parser";
 
 import cors from "cors";
@@ -64,3 +65,4 @@ app.use("/api/coupons", couponRoutes);
 app.use("/api/delivery-locations", deliveryLocationRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/feedbacks", feedbackRoutes);

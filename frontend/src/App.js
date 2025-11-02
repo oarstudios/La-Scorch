@@ -54,23 +54,23 @@ const AppContent = () => {
   const { user, loading } = useSelector((state) => state.auth);
   console.log("User in AppContent:", user);
 
-  useEffect(() => {
-  // ✅ Wait until loading completes
-  if (loading) return;
+//   useEffect(() => {
+//   // ✅ Wait until loading completes
+//   if (loading) return;
 
   
 
-  // ✅ Only run this if we have an authenticated user
-  if (user) {
-    if (user.userType === USER_TYPES.ADMIN) {
-      console.log("It is an admin, Navigating to admin dashboard");
-      navigate('/admin');
-    } else {
-      console.log("It is a user, Navigating to home page");
-      navigate('/');
-    }
-  }
-}, [user, loading]);
+//   // ✅ Only run this if we have an authenticated user
+//   if (user) {
+//     if (user.userType === USER_TYPES.ADMIN) {
+//       console.log("It is an admin, Navigating to admin dashboard");
+//       navigate('/admin');
+//     } else {
+//       console.log("It is a user, Navigating to home page");
+//       navigate('/');
+//     }
+//   }
+// }, [user, loading]);
 
   
   

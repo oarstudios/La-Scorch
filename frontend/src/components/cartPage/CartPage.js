@@ -1,148 +1,150 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CartPage.css';
-import sampleImg from '../../Images/slider1.jpg'; // Replace with actual image
-import pencilIcon from '../../Images/pen.png';
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getUserById, addToCart } from "../../features/Users/UserSlice";
+import "./CartPage.css";
+import pencilIcon from "../../Images/pen.png";
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [deliveryDate, setDeliveryDate] = useState('');
-  const [showSizePopupIndex, setShowSizePopupIndex] = useState(null);
-  const sizePopupRef = useRef(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const mockItems = [
-      {
-        id: 1,
-        name: 'Beery Passion Tart',
-        category: 'Berry Rasp',
-        description:
-          'Savor The Marriage Of Intensified Raspberries And Tart Passion Fruit Coupled With A Buttery Vanilla Almond Crust In Our Latest Drop',
-        size: 'Petit (6 inches)',
-        price: 1399,
-        quantity: 1,
-        img: sampleImg,
-      },
-      {
-        id: 2,
-        name: 'Beery Passion Tart',
-        category: 'Berry Rasp',
-        description:
-          'Savor The Marriage Of Intensified Raspberries And Tart Passion Fruit Coupled With A Buttery Vanilla Almond Crust In Our Latest Drop',
-        size: 'Petit (6 inches)',
-        price: 1399,
-        quantity: 1,
-        img: sampleImg,
-      },
-      {
-        id: 3,
-        name: 'Beery Passion Tart',
-        category: 'Berry Rasp',
-        description:
-          'Savor The Marriage Of Intensified Raspberries And Tart Passion Fruit Coupled With A Buttery Vanilla Almond Crust In Our Latest Drop',
-        size: 'Petit (6 inches)',
-        price: 1399,
-        quantity: 1,
-        img: sampleImg,
-      },
-    ];
-    setCartItems(mockItems);
-  }, []);
+  // Auth and user data
+  const { user: authUser, isAuthenticated } = useSelector((state) => state.auth);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
 
-  // Close popup when clicking outside
+  const userId = authUser?._id;
+
+  const [showSizePopupIndex, setShowSizePopupIndex] = useState(null);
+  const [deliveryDate, setDeliveryDate] = useState("");
+  const sizePopupRef = useRef(null);
+
+  // fetch full user cart details based on auth user
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        sizePopupRef.current &&
-        !sizePopupRef.current.contains(event.target)
-      ) {
+    if (isAuthenticated && userId) {
+      dispatch(getUserById(userId));
+    }
+  }, [dispatch, isAuthenticated, userId]);
+
+  // Initialize selected sizes from cart data
+  const [selectedSizes, setSelectedSizes] = useState({});
+  useEffect(() => {
+    const sizes = {};
+    currentUser?.cart?.forEach((item) => {
+      if (item.size && item.size.length) sizes[item._id] = item.size[0].name;
+      else if (item.productId?.size && item.productId.size.length) sizes[item._id] = item.productId.size[0].name;
+      else sizes[item._id] = null;
+    });
+    setSelectedSizes(sizes);
+  }, [currentUser?.cart]);
+
+  // Handle outside click for size popup
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sizePopupRef.current && !sizePopupRef.current.contains(event.target)) {
         setShowSizePopupIndex(null);
       }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleQuantityChange = (index, type) => {
-    const updatedItems = [...cartItems];
-    if (type === 'increase') updatedItems[index].quantity += 1;
-    else if (type === 'decrease' && updatedItems[index].quantity > 1)
-      updatedItems[index].quantity -= 1;
-
-    setCartItems(updatedItems);
+  // Update quantity
+  const handleQuantityChange = (productId, currentQuantity, type) => {
+    let newQuantity = type === "increase" ? currentQuantity + 1 : currentQuantity - 1;
+    if (newQuantity < 1) newQuantity = 1;
+    dispatch(addToCart({ userId, productId, quantity: newQuantity }));
   };
 
-  const handleSizeChange = (index, newSize) => {
-    const updatedItems = [...cartItems];
-    updatedItems[index].size = newSize;
-    setCartItems(updatedItems);
-    setShowSizePopupIndex(null); // close popup
+  // Change size selection
+  const handleSizeChange = (itemId, sizeName) => {
+    setSelectedSizes((prev) => ({ ...prev, [itemId]: sizeName }));
   };
 
-  const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  // Calculate price based on selected size
+  const getPriceForItem = (item) => {
+    const sizeName = selectedSizes[item._id];
+    if (!sizeName || !item.productId?.size) return 0;
+    const sizeObj = item.productId.size.find((s) => s.name === sizeName);
+    return sizeObj ? sizeObj.price : 0;
+  };
+
+  // Calculate total sum
+  const getTotalPrice = () => {
+    return currentUser?.cart.reduce((sum, item) => {
+      const price = getPriceForItem(item);
+      return sum + price * item.quantity;
+    }, 0);
+  };
+
+  // Check if all sizes are selected
+  const canCheckout = currentUser?.cart?.every((item) => selectedSizes[item._id]) ?? false;
+
+  if (!isAuthenticated) {
+    return <div>Please login to view your cart.</div>;
+  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="cart-container">
+      {/* Cart Items */}
       <div className="cart-left">
         <h3 className="best-options">Best Options</h3>
         <h1 className="your-cart">Your Cart</h1>
-        {cartItems.map((item, index) => (
-          <div className="cart-item" key={item.id}>
-            <img src={item.img} alt={item.name} className="cart-image" />
-            <div className="cart-item-details">
-              <p className="cart-category">{item.category}</p>
-              <h2 className="cart-name">{item.name}</h2>
-              <p className="cart-description">{item.description}</p>
-
-            <div
-  className="cart-size"
-  onClick={() =>
-    setShowSizePopupIndex((prev) => (prev === index ? null : index))
-  }
->
-
-                Size : {item.size} <span className="edit-icon">
-  <img src={pencilIcon} alt="Edit" style={{ width: '15px', height: '15px' }} />
-</span>
-                {showSizePopupIndex === index && (
-                  <div className="size-popup" ref={sizePopupRef}>
-                    {['Petit (6 inches)', 'Petit (8 inches)', 'Petit (12 inches)'].map(
-                      (option) => (
+        {currentUser?.cart?.map((item, index) => {
+          const price = getPriceForItem(item);
+          return (
+            <div className="cart-item" key={item._id}>
+              <img
+                src={`http://localhost:4001${item.productId?.images?.[0]}`}
+                alt={item.productId?.name || "Product Image"}
+                className="cart-image"
+              />
+              <div className="cart-item-details">
+                <p className="cart-category">{item.productId?.category || "N/A"}</p>
+                <h2 className="cart-name">{item.productId?.name || "No Name"}</h2>
+                <p className="cart-description">{item.productId?.description || "No Description"}</p>
+                <div
+                  className="cart-size"
+                  onClick={() => setShowSizePopupIndex((prev) => (prev === index ? null : index))}
+                >
+                  Size: {selectedSizes[item._id] || "N/A"}{" "}
+                  <span className="edit-icon">
+                    <img src={pencilIcon} alt="Edit" style={{ width: "15px", height: "15px" }} />
+                  </span>
+                  {showSizePopupIndex === index && (
+                    <div className="size-popup" ref={sizePopupRef}>
+                      {item.productId?.size?.map((option) => (
                         <div
-                          key={option}
+                          key={option._id}
                           className="size-option"
                           onClick={(e) => {
-                            e.stopPropagation(); // prevent immediate close
-                            handleSizeChange(index, option);
+                            e.stopPropagation();
+                            handleSizeChange(item._id, option.name);
                           }}
                         >
-                          {option}
+                          {option.name}
                         </div>
-                      )
-                    )}
-                  </div>
-                )}
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="cart-item-controls">
+                <p className="cart-price">₹{getPriceForItem(item)}/-</p>
+                <div className="quantity-selector">
+                  <button onClick={() => handleQuantityChange(item.productId._id, item.quantity, "decrease")}>–</button>
+                  <span>{item.quantity}</span>
+                  <button onClick={() => handleQuantityChange(item.productId._id, item.quantity, "increase")}>+</button>
+                </div>
               </div>
             </div>
-            <div className="cart-item-controls">
-              <p className="cart-price">₹{item.price}/-</p>
-              <div className="quantity-selector">
-                <button onClick={() => handleQuantityChange(index, 'decrease')}>
-                  –
-                </button>
-                <span>{item.quantity}</span>
-                <button onClick={() => handleQuantityChange(index, 'increase')}>+</button>
-              </div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-
+      
+      {/* Summary and checkout */}
       <div className="cart-right">
         <h3>Choose Delivery Date</h3>
         <input
@@ -152,12 +154,22 @@ const CartPage = () => {
           onChange={(e) => setDeliveryDate(e.target.value)}
         />
         <div className="cart-subtotal">
-          <p>Subtotal ({cartItems.length} items)</p>
-          <h2>₹{subtotal.toLocaleString()}</h2>
+          <p>Subtotal ({currentUser?.cart?.length || 0} items)</p>
+          <h2>₹{getTotalPrice().toLocaleString()}</h2>
         </div>
-        <button className="checkout-btn" onClick={() => navigate('/checkout')}>
-  Proceed to checkout
-</button>
+        <button
+          className="checkout-btn"
+          disabled={!canCheckout}
+          onClick={() => {
+            if (canCheckout) {
+              navigate("/checkout");
+            } else {
+              alert("Please select size for all products before checkout");
+            }
+          }}
+        >
+          Proceed to checkout
+        </button>
       </div>
     </div>
   );

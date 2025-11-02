@@ -1,6 +1,6 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import SliderComponent from './SliderComponent';
 import CategorySection from './CategorySection';
@@ -12,9 +12,9 @@ import MenuSection from './MenuSection';
 import FeedbackSection from './FeedbackSection';
 import FeedbackView from './FeedbackView';
 
-
 const Home = () => {
-   const location = useLocation();
+  const location = useLocation();
+  const user = useSelector(state => state.auth.user);  // Get logged-in user from Redux
 
   useEffect(() => {
     if (location.state?.scrollTo === 'feedback') {
@@ -22,25 +22,22 @@ const Home = () => {
       if (section) {
         setTimeout(() => {
           section.scrollIntoView({ behavior: 'smooth' });
-        }, 100); // delay to ensure DOM is ready
+        }, 100); // delay to ensure DOM is mounted
       }
     }
   }, [location]);
+
   return (
     <>
-
-      <SliderComponent/>
-      <CategorySection/>
-      <AboutUs/>
-      <BestSellerSection/>
-      <CupcakeBoxSection/>
-      <MakingProcess/>
-      <MenuSection/>
-      <FeedbackView/>
-     <FeedbackSection id="feedback" />
-
-
-    
+      <SliderComponent />
+      <CategorySection />
+      <AboutUs />
+      <BestSellerSection />
+      <CupcakeBoxSection />
+      <MakingProcess />
+      <MenuSection />
+      <FeedbackView />
+      <FeedbackSection id="feedback" userId={user?._id} />  {/* Pass userId to feedback */}
     </>
   );
 };

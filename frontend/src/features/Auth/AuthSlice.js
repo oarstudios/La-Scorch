@@ -1,10 +1,9 @@
-// src/features/auth/authSlice.js
+// src/features/Auth/AuthSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as types from "./AuthTypes";
 import * as authAPI from "./AuthAPI";
 
-// Thunks
-export const signupUser = createAsyncThunk(types.SIGNUP_REQUEST, async (userData, thunkAPI) => {
+// User signup
+export const signupUser = createAsyncThunk("auth/signup", async (userData, thunkAPI) => {
   try {
     return await authAPI.signup(userData);
   } catch (err) {
@@ -12,7 +11,8 @@ export const signupUser = createAsyncThunk(types.SIGNUP_REQUEST, async (userData
   }
 });
 
-export const loginUser = createAsyncThunk(types.LOGIN_REQUEST, async (userData, thunkAPI) => {
+// User login
+export const loginUser = createAsyncThunk("auth/login", async (userData, thunkAPI) => {
   try {
     return await authAPI.login(userData);
   } catch (err) {
@@ -20,29 +20,31 @@ export const loginUser = createAsyncThunk(types.LOGIN_REQUEST, async (userData, 
   }
 });
 
-// src/features/auth/authSlice.js
-export const checkAuth = createAsyncThunk('auth/checkAuth', async (_, thunkAPI) => {
+// User logout
+export const logoutUser = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    const res = await fetch('http://localhost:4001/api/users/me', {
-      method: 'GET',
-      credentials: 'include', // send cookies
-    });
-
-    if (!res.ok) throw new Error('Not authenticated');
-
-    const data = await res.json();
-    return data.user; // assuming API returns { user: {...} }
+    return await authAPI.logout();
   } catch (err) {
     return thunkAPI.rejectWithValue(err.message);
   }
 });
 
-
-export const logoutUser = createAsyncThunk(types.LOGOUT, async (_, thunkAPI) => {
+// Get current user via API
+export const getCurrentUser = createAsyncThunk("auth/getCurrentUser", async (_, thunkAPI) => {
   try {
-    return await authAPI.logout();
+    return await authAPI.getCurrentUserAPI();
   } catch (err) {
     return thunkAPI.rejectWithValue(err.message);
+  }
+});
+
+// Check authentication status (used in App.js)
+export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, thunkAPI) => {
+  try {
+    const user = await authAPI.getCurrentUserAPI();
+    return user;
+  } catch (err) {
+    return thunkAPI.rejectWithValue("Not authenticated");
   }
 });
 
@@ -56,7 +58,6 @@ const authSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    // Signup
     builder
       .addCase(signupUser.pending, (state) => {
         state.loading = true;
@@ -70,10 +71,7 @@ const authSlice = createSlice({
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
-
-    // Login
-    builder
+      })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -86,25 +84,37 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
-
-    // Logout
-    builder
+      })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.isAuthenticated = false;
+      })
+      .addCase(getCurrentUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(getCurrentUser.rejected, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(checkAuth.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.isAuthenticated = false;
       });
-
-    // Check auth
-  builder
-    .addCase(checkAuth.fulfilled, (state, action) => {
-      state.user = action.payload;
-      state.isAuthenticated = true;
-    })
-    .addCase(checkAuth.rejected, (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-    });
   },
 });
 

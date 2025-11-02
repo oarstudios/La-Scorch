@@ -100,16 +100,10 @@ const updateProduct = async (req, res) => {
     }
 
     const sizes = req.body.sizes ? JSON.parse(req.body.sizes) : product.size;
-
-    // ✅ Remaining existing images
     const existingImages = req.body.existingImages
       ? JSON.parse(req.body.existingImages)
       : product.images;
-
-    // ✅ New uploaded images
     const newImages = req.files?.map(f => "/uploads/" + f.filename) || [];
-
-    // ✅ Final images array
     const finalImages = [...existingImages, ...newImages];
 
     const updatedProduct = await Product.findByIdAndUpdate(
@@ -124,6 +118,7 @@ const updateProduct = async (req, res) => {
         type: req.body.type,
         size: sizes,
         images: finalImages,
+        bestseller: req.body.bestseller === "true", // <-- add bestseller update here
       },
       { new: true }
     );
@@ -132,12 +127,12 @@ const updateProduct = async (req, res) => {
       message: "Product updated successfully",
       product: updatedProduct,
     });
-
   } catch (error) {
     console.error(error);
     res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
   }
 };
+
 
 
 
@@ -152,10 +147,37 @@ const archiveProduct = async (req, res) => {
   }
 };
 
+const getProductsByCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+
+    // Validate categoryId if needed (e.g. mongoose.Types.ObjectId.isValid(categoryId))
+    const products = await Product.find({ category: categoryId, isArchived: false });
+
+    res.status(StatusCodes.OK).json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
+  }
+};
+
+const getBestsellerProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ bestseller: true, isArchived: false });
+    res.status(StatusCodes.OK).json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
+  }
+};
+
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProductById,
   updateProduct,
   archiveProduct,
+  getProductsByCategory,
+  getBestsellerProducts
 };

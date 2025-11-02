@@ -7,6 +7,9 @@ import deliveryReducer from '../features/DeliveryPricing/DeliverySlice'
 import blogReducer from '../features/Blogs/BlogSlice'
 import customerReducer from '../features/Customers/CustomerSlice'
 import orderReducer from '../features/Orders/OrderSlice'
+import categorReducer from '../features/Categories/CategorySlice'
+import feedbackReducer from '../features/Feedback/feedbackSlice'
+import userReducer from '../features/Users/UserSlice'
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +21,8 @@ export const store = configureStore({
     blogs: blogReducer,
     customers: customerReducer,
     orders: orderReducer,
+    category: categorReducer,
+    feedback: feedbackReducer,
+    user: userReducer,
   },
 });

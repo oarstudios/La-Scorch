@@ -239,6 +239,29 @@ const logout = (req, res) => {
     }
   };
 
+  const getUserCart = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    // Populate cart with product details
+    const user = await User.findById(userId).populate({
+      path: 'cart.productId',
+      match: { isArchived: false, inStock: true }, // Optionally add product filters
+      select: 'name description price images' // select product fields to return
+    });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Filter out cart items with null productIds (due to match filtering)
+    const filteredCart = user.cart.filter(c => c.productId != null);
+
+    res.status(200).json({ cart: filteredCart });
+  } catch (error) {
+    console.error('Error fetching cart:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
   module.exports = {
     signup,
     login,
@@ -255,4 +278,5 @@ const logout = (req, res) => {
     addAddress,
     updateAddress,
     deleteAddress,
+    getUserCart
   };

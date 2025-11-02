@@ -19,6 +19,8 @@ router.post('/:id/cart', userController.addToCart);
 router.put('/:id/cart', userController.updateCart);
 router.delete('/:id/cart/:productId', userController.removeFromCart);
 router.delete('/:id/cart', userController.emptyCart);
+router.get('/:id/cart', userController.getUserCart);
+
 
 // Address
 router.post('/:id/address', userController.addAddress);
